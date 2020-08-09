@@ -69,4 +69,10 @@ const SAMPLE_DATA = {
 
     ]
 }
+
+export const BLANK_STEP = {
+    title: "",
+    markdown:"",
+    textToCopy:""
+}
 export default SAMPLE_DATA;
