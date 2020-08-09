@@ -3,6 +3,8 @@ import LabContext from "../lab.context";
 // import context from "react-bootstrap/esm/AccordionContext";
 import ReactMarkdown from 'react-markdown';
 
+import {BLANK_STEP} from '../sample-lab.data';
+
 class LabStep extends React.Component {
 
     constructor() {
@@ -32,6 +34,19 @@ class LabStep extends React.Component {
             this.context.currentLab.step = this.context.currentLab.step + 1;
         }
     }
+
+    handleNewStepAfter = () => {
+        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, BLANK_STEP); 
+        this.handleNext();       
+        this.forceUpdate();
+    }
+     handleDeleteStep = () => {
+         this.context.currentLab.steps.splice(this.context.currentStep,1);
+         if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
+            this.context.currentStep = this.context.currentLab.steps.length - 1;
+         }
+         this.forceUpdate();
+     }
 
   render() {
     var currentLab = this.context.currentLab;
@@ -72,7 +87,8 @@ class LabStep extends React.Component {
         <button onClick={this.toggleEdit}>Edit</button>
         {console.log("in Render: disableNext is",disableNext)}
         <button onClick={nextClicked} disabled={disableNext}>Next</button>
-        <button onClick={()=>{console.log("Context is:",this.context)}}>Show Context</button>
+        <button onClick={this.handleNewStepAfter}>New Step After</button>
+        <button onClick={this.handleDeleteStep}>Delete</button>
       </div>
     );
   }
