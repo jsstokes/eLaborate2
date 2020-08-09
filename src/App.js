@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SAMPLE_DATA from './sample-lab.data';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import LabContext from './lab.context';
+import LabStep from './components/lab-step.component';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currentLab: SAMPLE_DATA, 
+      currentStep: 0, 
+      editing: false,
+      toggleEdit: () => { console.log("toggleEdit");this.setState({"editing": !this.state.editing});},
+      previousEnabled: () => {console.log("previousenabled"); return(!this.state.currentStep > 0) },
+      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
+    }
+
+  }
+  render () {
+    return (
+      <div className="App">
+        <LabContext.Provider value={this.state}>
+          <LabContext.Consumer>
+          { context => (
+            <LabStep 
+              lab={context.currentLab} 
+              step={context.currentStep} 
+              editing={context.editing} 
+              toggleEdit={context.toggleEdit} 
+              previousEnabled={context.previousEnabled}
+              nextClicked={context.nextClicked}
+            />
+          )}
+          </LabContext.Consumer>
+        </LabContext.Provider>
+      </div>
+    )
+  }
 }
 
 export default App;
