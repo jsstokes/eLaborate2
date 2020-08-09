@@ -9,14 +9,29 @@ class LabStep extends React.Component {
 
     constructor() {
         super();
+        var newStep = {};
+        Object.assign(newStep,BLANK_STEP);
         this.state = {
             isEditing: false, 
+            tempEditStep: newStep,
         }
     }
 
     toggleEdit = () => {
-        var newState = { isEditing: !this.state.isEditing};
-        this.setState(newState);
+        let newStep = {};
+        Object.assign(newStep,this.context.currentLab.steps[this.context.currentStep]);
+        this.setState({
+            tempEditStep: newStep,
+            isEditing: !this.state.isEditing
+        });
+    }
+
+    handleKeyChange = (e) => {
+        console.log("ChangeEvent:", e);
+        let change = this.state.tempEditStep;
+        change[e.target.name] = e.target.value;
+        console.log(e.target.name,":", e.target.value);
+        this.setState(change);
     }
 
     handlePrevious = () => {
@@ -36,16 +51,26 @@ class LabStep extends React.Component {
     }
 
     handleNewStepAfter = () => {
-        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, BLANK_STEP); 
+        var newStep = {};
+        Object.assign(newStep,BLANK_STEP);
+        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
+        this.context.currentStep = this.context.currentStep + 1;
+        this.setState({isEditing: true});
         this.handleNext();       
         this.forceUpdate();
     }
+
      handleDeleteStep = () => {
          this.context.currentLab.steps.splice(this.context.currentStep,1);
          if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
             this.context.currentStep = this.context.currentLab.steps.length - 1;
          }
          this.forceUpdate();
+     }
+
+     handleSave = () => {
+         this.context.currentLab.steps[this.context.currentStep] = this.state.tempEditStep;
+         this.toggleEdit();
      }
 
   render() {
@@ -72,9 +97,9 @@ class LabStep extends React.Component {
     if (this.state.isEditing) {
         return(
             <div>
-                <h2>{currentLab.steps[step].title}</h2>
-                <textarea cols={80} rows={20} value={currentLab.steps[step].markdown}/>
-                <button onClick={() => {this.context.currentLab.steps[step].markdown="change"; this.toggleEdit()}}>Save</button>
+                <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
+                <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
+                <button onClick={this.handleSave}>Save</button>
             </div>
         )
     } 
