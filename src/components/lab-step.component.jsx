@@ -7,14 +7,14 @@ class LabStep extends React.Component {
   render() {
     var disableNext = false;
 
-    if ((this.props.step + 1) == this.props.lab.steps.length) {
+    if ((this.props.step + 1) === this.props.lab.steps.length) {
         console.log("Disabled to true");
         disableNext = true;
     } else {
         console.log("Disabled to false");
         disableNext = false;
     }
-    if (this.props.editing) {
+    if (this.props.isEditing) {
         return(
             <div>
                 <h2>{this.props.lab.steps[this.props.step].title}</h2>

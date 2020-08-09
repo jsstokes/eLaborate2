@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {
       currentLab: SAMPLE_DATA, 
       currentStep: 0, 
-      editing: false,
+      isEditing: false,
       toggleEdit: () => { console.log("toggleEdit");this.setState({"editing": !this.state.editing});},
       previousEnabled: () => {console.log("previousenabled"); return(!this.state.currentStep > 0) },
       nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
@@ -27,7 +27,7 @@ class App extends React.Component {
             <LabStep 
               lab={context.currentLab} 
               step={context.currentStep} 
-              editing={context.editing} 
+              isEditing={context.isEditing} 
               toggleEdit={context.toggleEdit} 
               previousEnabled={context.previousEnabled}
               nextClicked={context.nextClicked}
