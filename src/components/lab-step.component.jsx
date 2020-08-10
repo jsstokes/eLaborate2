@@ -152,7 +152,9 @@ class LabStep extends React.Component {
         if (this.state.isEditing) {
             return(
                 <div>
+                    <label>Title</label>
                     <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
+                    <label>Markdown</label>
                     <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
                     <this.SaveButton></this.SaveButton>
                 </div>
