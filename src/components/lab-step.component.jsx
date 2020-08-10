@@ -19,13 +19,12 @@ class LabStep extends React.Component {
         }
         console.log("This.state:",this.state);
         console.log("Props:", this.props);
-        // if (this.props.mode) {
-        //     this.state.mode = this.props.mode;
-        // }
     }
 
+    //----------------------------------------------------------------------
     // Toggle the edit state and make a temp copy of the step being edited
     //    to allow the edit to be cancelled
+    //----------------------------------------------------------------------
     toggleEdit = () => {
         let newStep = {};
         Object.assign(newStep,this.context.currentLab.steps[this.context.currentStep]);
@@ -98,18 +97,16 @@ class LabStep extends React.Component {
         );
      }
 
-     EditButton = (props) => {
+    EditButton = (props) => {
         if (this.state.allowEditing) {
             return(
                 <button onClick={this.toggleEdit}>Edit</button>
             );
         }
-
         return(null);
+    }
 
-     }
-
-     NextButton = (props) => {
+    NextButton = (props) => {
         var disableNext = false;
         var lastStep = this.context.currentLab.steps.length - 1;
 
@@ -121,57 +118,63 @@ class LabStep extends React.Component {
         return(
             <button onClick={this.handleNext} disabled={disableNext}>Next</button>
         );
-     }
+    }
 
-     SaveButton = (props) => {
+    SaveButton = (props) => {
          return (
              <Fragment>
                 <button onClick={this.handleSave}>Save</button>
                 <button onClick={this.toggleEdit}>Cancel</button>
             </Fragment>
          );
-     }
-     AddStepButton = (props) => {
+    }
+
+    AddStepButton = (props) => {
         if (this.state.allowEditing) {
             return(<button onClick={this.handleNewStepAfter}>New Step After</button>);
         }
         return(null);
-     }
+    }
 
-     DeleteButton = (props) => {
+    DeleteButton = (props) => {
         if (this.state.allowEditing) {
             return(
                 <button onClick={this.handleDeleteStep}>Delete</button>
             );
         }
-
         return(null);
-     }
+    }
      
-  render() {
-      console.log("Render props:",this.props);
-    if (this.state.isEditing) {
-        return(
-            <div>
-                <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
-                <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
-                <this.SaveButton></this.SaveButton>
-            </div>
-        )
-    } 
+    render() {
+        //-------------------------------------
+        // If we are editing, render this way
+        //-------------------------------------
+        if (this.state.isEditing) {
+            return(
+                <div>
+                    <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
+                    <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
+                    <this.SaveButton></this.SaveButton>
+                </div>
+            )
+        } 
 
-    return (
-      <div>
-        <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
-        <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
-        <this.PreviousButton/>
-        <this.EditButton/>
-        <this.AddStepButton/>
-        <this.DeleteButton/>
-        <this.NextButton/>
-      </div>
-    );
-  }
+        //------------------------------------
+        // Default render when not editing
+        //------------------------------------
+        return (
+            <div>
+                <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
+                <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
+                <this.PreviousButton/>
+                <this.EditButton/>
+                <this.AddStepButton/>
+                <this.DeleteButton/>
+                <this.NextButton/>
+            </div>
+        );
+    }  // End of render()
 }
+
 LabStep.contextType = LabContext;
 export default LabStep;
