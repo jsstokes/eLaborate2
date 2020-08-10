@@ -11,21 +11,11 @@ class CodeBlock extends React.Component {
     }
 
     render() {
-        console.log("value in Code =Block:", this.props.value);
-        return (
-            <SyntaxHighlighter language="javascript" style={style}>
-              {this.props.value}
-            </SyntaxHighlighter>
-          );
-        
-        // return(
-        //     <div className='CodeBlock'>
-        //         <pre>
-        //             {this.props.value}
-        //         </pre>
-        //     </div>
-        // );
-
+      return (
+          <SyntaxHighlighter language="javascript" style={style}>
+            {this.props.value}
+          </SyntaxHighlighter>
+        );
     }
 }
 
