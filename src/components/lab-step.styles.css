@@ -23,5 +23,9 @@
     border: black;
     border-style: solid;
     border-radius: 7px;
-    background-color: blanchedalmond;
+    border-width: 1px;;
 }
+/* .StepPage button {
+    margin: 10px;
+    border-radius: 10px;
+} */

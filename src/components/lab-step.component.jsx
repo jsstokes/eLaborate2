@@ -66,10 +66,6 @@ class LabStep extends React.Component {
         this.context.currentStep = this.context.currentStep + 1;
 
         this.toggleEdit();
-        // this.setState({isEditing: true});
-        
-        // this.handleNext();       
-
         this.forceUpdate();
     }
 
@@ -96,7 +92,7 @@ class LabStep extends React.Component {
 
         return(
             <Fragment>
-            <button disabled={disablePrevious} onClick={this.handlePrevious}>Previous</button>
+            <button disabled={disablePrevious} onClick={this.handlePrevious} className={props.className}>Previous</button>
             </Fragment>
         );
      }
@@ -104,7 +100,7 @@ class LabStep extends React.Component {
     EditButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <button onClick={this.toggleEdit}>Edit</button>
+                <button onClick={this.toggleEdit}  className={props.className}>Edit</button>
             );
         }
         return(null);
@@ -120,22 +116,22 @@ class LabStep extends React.Component {
             disableNext = false;
         }
         return(
-            <button onClick={this.handleNext} disabled={disableNext}>Next</button>
+            <button onClick={this.handleNext} disabled={disableNext} className={props.className}>Next</button>
         );
     }
 
     SaveButton = (props) => {
          return (
              <Fragment>
-                <button onClick={this.handleSave}>Save</button>
-                <button onClick={this.toggleEdit}>Cancel</button>
+                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Save</button>
+                <button onClick={this.toggleEdit} className={props.className + " btn-secondary"}>Cancel</button>
             </Fragment>
          );
     }
 
     AddStepButton = (props) => {
         if (this.state.allowEditing) {
-            return(<button onClick={this.handleNewStepAfter}>New Step After</button>);
+            return(<button onClick={this.handleNewStepAfter} className={props.className}>+</button>);
         }
         return(null);
     }
@@ -143,10 +139,22 @@ class LabStep extends React.Component {
     DeleteButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <button onClick={this.handleDeleteStep}>Delete</button>
+                <button onClick={this.handleDeleteStep} className={props.className}>Delete</button>
             );
         }
         return(null);
+    }
+
+    StepNavBar = (props) => {
+        return(
+            <div className="StepNavBar">
+                <this.PreviousButton className="btn btn-primary"/>
+                <this.EditButton className="btn btn-info"/>
+                <this.AddStepButton className="btn btn-warning"/>
+                <this.DeleteButton className="btn btn-danger"/>
+                <this.NextButton className="btn btn-primary"/>
+            </div>
+        );
     }
      
     render() {
@@ -168,7 +176,7 @@ class LabStep extends React.Component {
                         <textarea className="form-control formControls" cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
                         </Col>
                     </Form.Group>
-                    <this.SaveButton></this.SaveButton>
+                    <this.SaveButton className="btn"></this.SaveButton>
                 </div>
             )
         } 
@@ -180,11 +188,7 @@ class LabStep extends React.Component {
             <div className="StepPage">
                 <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
                 <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
-                <this.PreviousButton/>
-                <this.EditButton/>
-                <this.AddStepButton/>
-                <this.DeleteButton/>
-                <this.NextButton/>
+                <this.StepNavBar/>
             </div>
         );
     }  // End of render()
