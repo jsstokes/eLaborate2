@@ -177,6 +177,12 @@ class LabStep extends React.Component {
                         <textarea className="form-control formControls" cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
                         </Col>
                     </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1">Text to Copy</Form.Label>
+                        <Col>
+                        <textarea className="form-control formControls" cols={80} rows={3} name="textToCopy" onChange={this.handleKeyChange} value={this.state.tempEditStep.textToCopy}/>
+                        </Col>
+                    </Form.Group>
                     <this.SaveButton className="btn"></this.SaveButton>
                 </div>
             )
@@ -189,7 +195,7 @@ class LabStep extends React.Component {
         this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
         return (
             <div className="StepPage">
-                <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
+                <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
                 <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}

@@ -32,10 +32,7 @@ const SAMPLE_DATA = {
                 "* Ensure MongoDB version 3.6+ is installed on your laptop in order to access the MongoDB command line tools (a MongoDB Atlas cluster will be used to actually host the data)  \n" +
                 "* [Download](https://www.mongodb.com/download-center/compass) and install Compass on your laptop  \n" +
                 "* Ensure Node (version 6+) and NPM are installed your laptop  \n" +
-                "* Download and install the [mgeneratejs](https://www.npmjs.com/package/mgeneratejs) JSON generator tool on your laptop  \n" +
-                  "```bash  \n" +
-                  "npm install -g mgeneratejs  \n" +
-                  "```  \n",
+                "* Download and install the [mgeneratejs](https://www.npmjs.com/package/mgeneratejs) JSON generator tool on your laptop  \n",
             "textToCopy": "db.collection.find({name: 'Alejandro'})"
         },
         {
@@ -59,9 +56,6 @@ const SAMPLE_DATA = {
                 "group-bys) against the cluster, indefinitely, ensuring you provide the full application " +
                 "SRV connection string you copied during the setup for this proof, for example (ensure " +
                 "you change the password to the value you provided):  \n" +
-                "```bash  \n" +
-                "./query_docs.py mongodb+srv://main_user:MyPassword@testcluster-abcde.mongodb.net/test?retryWrites=true  \n" +
-                "```  \n" +
                 "  \n" +
                 "&nbsp;This query workload uses a __read preference tag__ targeting the 2 secondary nodes that are marked for __analytics__  \n",
             "textToCopy": "db.collection.find()"
