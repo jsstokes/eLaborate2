@@ -9,6 +9,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      authorized: true,
       currentLab: SAMPLE_DATA, 
       currentStep: 0, 
       nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
@@ -19,7 +20,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <LabContext.Provider value={this.state}>
-            <LabStep />
+            <LabStep  allowEditing={this.state.authorized}/>
         </LabContext.Provider>
       </div>
     )

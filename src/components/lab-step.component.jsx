@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import LabContext from "../lab.context";
 // import context from "react-bootstrap/esm/AccordionContext";
 import ReactMarkdown from 'react-markdown';
@@ -7,16 +7,25 @@ import {BLANK_STEP} from '../sample-lab.data';
 
 class LabStep extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         var newStep = {};
         Object.assign(newStep,BLANK_STEP);
         this.state = {
             isEditing: false, 
+            allowEditing: props.allowEditing,
             tempEditStep: newStep,
+            mode: this.props.mode ? props.mode : "STEPS"
         }
+        console.log("This.state:",this.state);
+        console.log("Props:", this.props);
+        // if (this.props.mode) {
+        //     this.state.mode = this.props.mode;
+        // }
     }
 
+    // Toggle the edit state and make a temp copy of the step being edited
+    //    to allow the edit to be cancelled
     toggleEdit = () => {
         let newStep = {};
         Object.assign(newStep,this.context.currentLab.steps[this.context.currentStep]);
@@ -45,8 +54,9 @@ class LabStep extends React.Component {
 
     handleNext = () => {
         const MAX_STEP = this.context.currentLab.steps.length - 1;
-        if (this.context.currentLab.step < MAX_STEP) {
-            this.context.currentLab.step = this.context.currentLab.step + 1;
+        if (this.context.currentStep < MAX_STEP) {
+            this.context.currentStep = this.context.currentStep + 1;
+            this.forceUpdate();
         }
     }
 
@@ -73,47 +83,92 @@ class LabStep extends React.Component {
          this.toggleEdit();
      }
 
+     PreviousButton = (props) => {
+        var disablePrevious = false;
+        if (this.context.currentStep > 0) {
+            disablePrevious = false;
+        } else {
+            disablePrevious = true;
+        }
+
+        return(
+            <Fragment>
+            <button disabled={disablePrevious} onClick={this.handlePrevious}>Previous</button>
+            </Fragment>
+        );
+     }
+
+     EditButton = (props) => {
+        if (this.state.allowEditing) {
+            return(
+                <button onClick={this.toggleEdit}>Edit</button>
+            );
+        }
+
+        return(null);
+
+     }
+
+     NextButton = (props) => {
+        var disableNext = false;
+        var lastStep = this.context.currentLab.steps.length - 1;
+
+        if ((this.context.currentStep) === lastStep) {
+            disableNext = true;
+        } else {
+            disableNext = false;
+        }
+        return(
+            <button onClick={this.handleNext} disabled={disableNext}>Next</button>
+        );
+     }
+
+     SaveButton = (props) => {
+         return (
+             <Fragment>
+                <button onClick={this.handleSave}>Save</button>
+                <button onClick={this.toggleEdit}>Cancel</button>
+            </Fragment>
+         );
+     }
+     AddStepButton = (props) => {
+        if (this.state.allowEditing) {
+            return(<button onClick={this.handleNewStepAfter}>New Step After</button>);
+        }
+        return(null);
+     }
+
+     DeleteButton = (props) => {
+        if (this.state.allowEditing) {
+            return(
+                <button onClick={this.handleDeleteStep}>Delete</button>
+            );
+        }
+
+        return(null);
+     }
+     
   render() {
-    var currentLab = this.context.currentLab;
-    var step = this.context.currentStep;
-    var nextClicked = this.context.nextClicked;
-
-    var disableNext = false;
-    if ((step + 1) === currentLab.steps.length) {
-        console.log("Disabled to true");
-        disableNext = true;
-    } else {
-        console.log("Disabled to false");
-        disableNext = false;
-    }
-
-    var disablePrevious = false;
-    if (step > 0) {
-        disablePrevious = false;
-    } else {
-        disablePrevious = true;
-    }
-
+      console.log("Render props:",this.props);
     if (this.state.isEditing) {
         return(
             <div>
                 <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
                 <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
-                <button onClick={this.handleSave}>Save</button>
+                <this.SaveButton></this.SaveButton>
             </div>
         )
     } 
 
     return (
       <div>
-        <h2>{currentLab.steps[step].title}</h2>
-        <ReactMarkdown source={currentLab.steps[step].markdown} />
-        <button disabled={disablePrevious} onClick={this.handlePrevious}>Previous</button>
-        <button onClick={this.toggleEdit}>Edit</button>
-        {console.log("in Render: disableNext is",disableNext)}
-        <button onClick={nextClicked} disabled={disableNext}>Next</button>
-        <button onClick={this.handleNewStepAfter}>New Step After</button>
-        <button onClick={this.handleDeleteStep}>Delete</button>
+        <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
+        <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
+        <this.PreviousButton/>
+        <this.EditButton/>
+        <this.AddStepButton/>
+        <this.DeleteButton/>
+        <this.NextButton/>
       </div>
     );
   }
