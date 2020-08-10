@@ -20,8 +20,6 @@ class LabStep extends React.Component {
             tempEditStep: newStep,
             mode: this.props.mode ? props.mode : "STEPS"
         }
-        console.log("This.state:",this.state);
-        console.log("Props:", this.props);
     }
 
     //----------------------------------------------------------------------
@@ -37,17 +35,13 @@ class LabStep extends React.Component {
     }
 
     handleKeyChange = (e) => {
-        console.log("ChangeEvent:", e);
         let change = this.state.tempEditStep;
         change[e.target.name] = e.target.value;
-        console.log(e.target.name,":", e.target.value);
         this.setState(change);
     }
 
     handlePrevious = () => {
-        console.log("Handle Previous from:", this.context.step);
         if (this.context.currentStep > 0) {
-            console.log("Moving to prebious step, value: ", this.context.currentStep - 1);
             this.context.currentStep = this.context.currentStep - 1;
             this.forceUpdate();
         }
@@ -171,6 +165,7 @@ class LabStep extends React.Component {
                             <Form.Control plaintext  name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} className="formControls"/>
                         </Col>
                     </Form.Group>
+                    <a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener noreferrer">Open Markdown Reference</a>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Markdown</Form.Label>
                         <Col>
@@ -193,7 +188,6 @@ class LabStep extends React.Component {
         //------------------------------------
         var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
         this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
-        console.log("Final MD:",finalMarkDown);
         return (
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
