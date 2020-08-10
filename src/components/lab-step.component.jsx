@@ -159,6 +159,7 @@ class LabStep extends React.Component {
         if (this.state.isEditing) {
             return(
                 <div className="Form StepPage">
+                    Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}
                     <Form.Group as={Row}>
                         <Form.Label column sm="1"  >Title</Form.Label>
                         <Col sm="11">
