@@ -36,7 +36,7 @@ const SAMPLE_DATA = {
                   "```bash  \n" +
                   "npm install -g mgeneratejs  \n" +
                   "```  \n",
-            "textToCopy": "db.collection.find()"
+            "textToCopy": "db.collection.find({name: 'Alejandro'})"
         },
         {
             "title": "WORKLOAD-ISOLATION",

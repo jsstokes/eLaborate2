@@ -4,6 +4,7 @@ import LabContext from "../lab.context";
 import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './lab-step.styles.css'
+import CodeBlock from './CodeBlock/code-block.component';
 
 import {BLANK_STEP} from '../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
@@ -184,10 +185,21 @@ class LabStep extends React.Component {
         //------------------------------------
         // Default render when not editing
         //------------------------------------
+        var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '```  \n' +
+        this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
         return (
             <div className="StepPage">
                 <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
-                <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
+                <ReactMarkdown 
+                    source={finalMarkDown} 
+                    renderers={{code: CodeBlock}}
+                    />
+                <button 
+                    className='btn btn-success' 
+                    onClick={() => {navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
+                    >Copy Text
+                </button>
+                <hr/>
                 <this.StepNavBar/>
             </div>
         );

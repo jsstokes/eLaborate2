@@ -1,0 +1,19 @@
+.CodeBlock {
+    background-color: rgb(228, 231, 233);
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: black;
+    margin: auto;
+    width: max-content;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding: 25px;
+}
+pre {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+.junk {
+    width: 75%;
+}
