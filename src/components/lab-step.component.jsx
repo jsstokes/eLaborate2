@@ -2,15 +2,17 @@ import React, { Fragment } from "react";
 import LabContext from "../lab.context";
 // import context from "react-bootstrap/esm/AccordionContext";
 import ReactMarkdown from 'react-markdown';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './lab-step.styles.css'
 
 import {BLANK_STEP} from '../sample-lab.data';
+import { Col, Row, Form } from "react-bootstrap";
 
 class LabStep extends React.Component {
 
     constructor(props) {
         super(props);
-        var newStep = {};
-        Object.assign(newStep,BLANK_STEP);
+        var newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.state = {
             isEditing: false, 
             allowEditing: props.allowEditing,
@@ -26,8 +28,7 @@ class LabStep extends React.Component {
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
     toggleEdit = () => {
-        let newStep = {};
-        Object.assign(newStep,this.context.currentLab.steps[this.context.currentStep]);
+        let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[this.context.currentStep]));
         this.setState({
             tempEditStep: newStep,
             isEditing: !this.state.isEditing
@@ -60,12 +61,15 @@ class LabStep extends React.Component {
     }
 
     handleNewStepAfter = () => {
-        var newStep = {};
-        Object.assign(newStep,BLANK_STEP);
+        let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
         this.context.currentStep = this.context.currentStep + 1;
-        this.setState({isEditing: true});
-        this.handleNext();       
+
+        this.toggleEdit();
+        // this.setState({isEditing: true});
+        
+        // this.handleNext();       
+
         this.forceUpdate();
     }
 
@@ -151,11 +155,19 @@ class LabStep extends React.Component {
         //-------------------------------------
         if (this.state.isEditing) {
             return(
-                <div>
-                    <label>Title</label>
-                    <input type="text" name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} />
-                    <label>Markdown</label>
-                    <textarea cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
+                <div className="Form StepPage">
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1"  >Title</Form.Label>
+                        <Col sm="11">
+                            <Form.Control plaintext  name="title" onChange={this.handleKeyChange} value={this.state.tempEditStep.title} className="formControls"/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1">Markdown</Form.Label>
+                        <Col>
+                        <textarea className="form-control formControls" cols={80} rows={20} name="markdown" onChange={this.handleKeyChange} value={this.state.tempEditStep.markdown}/>
+                        </Col>
+                    </Form.Group>
                     <this.SaveButton></this.SaveButton>
                 </div>
             )
@@ -165,7 +177,7 @@ class LabStep extends React.Component {
         // Default render when not editing
         //------------------------------------
         return (
-            <div>
+            <div className="StepPage">
                 <h2>{this.context.currentLab.steps[this.context.currentStep].title}</h2>
                 <ReactMarkdown source={this.context.currentLab.steps[this.context.currentStep].markdown} />
                 <this.PreviousButton/>

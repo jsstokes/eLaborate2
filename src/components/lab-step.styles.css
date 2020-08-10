@@ -1,0 +1,27 @@
+.StepPage {
+    background-color: rgb(224, 236, 247);
+    margin: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    border: black;
+    border-style: solid;
+    border-radius: 7px;
+    border-width: 2px;
+    text-align: left;
+}
+
+.formControls{
+    background-color: rgb(237, 237, 237);
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.StepNavBar {
+    border: black;
+    border-style: solid;
+    border-radius: 7px;
+    background-color: blanchedalmond;
+}
