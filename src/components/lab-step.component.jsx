@@ -192,6 +192,7 @@ class LabStep extends React.Component {
         return (
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
+                Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}
                 <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
