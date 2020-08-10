@@ -159,7 +159,7 @@ class LabStep extends React.Component {
         if (this.state.isEditing) {
             return(
                 <div className="Form StepPage">
-                    Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}
+                    <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1"  >Title</Form.Label>
                         <Col sm="11">
@@ -192,7 +192,7 @@ class LabStep extends React.Component {
         return (
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
-                Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}
+                <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
                 <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
