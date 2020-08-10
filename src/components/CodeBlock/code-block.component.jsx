@@ -16,6 +16,14 @@ class CodeBlock extends React.Component {
             {this.props.value}
           </SyntaxHighlighter>
         );
+
+      // return(
+      //     <div className='CodeBlock'>
+      //         <pre>
+      //             {this.props.value}
+      //         </pre>
+      //     </div>
+      // );
     }
 }
 

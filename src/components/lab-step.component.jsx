@@ -191,8 +191,9 @@ class LabStep extends React.Component {
         //------------------------------------
         // Default render when not editing
         //------------------------------------
-        var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '```  \n' +
+        var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
         this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
+        console.log("Final MD:",finalMarkDown);
         return (
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
