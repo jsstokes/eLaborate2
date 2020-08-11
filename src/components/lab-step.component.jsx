@@ -141,7 +141,7 @@ class LabStep extends React.Component {
     AddStepButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <span onClick={this.toggleEdit}  className={props.className}>
+                <span onClick={this.handleNewStepAfter}  className={props.className}>
                 <FontAwesomeIcon icon={faPlus} />&nbsp;Add
             </span>
 
