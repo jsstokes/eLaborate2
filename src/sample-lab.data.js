@@ -1,6 +1,30 @@
 const SAMPLE_DATA = {
-    "name": "Sample Lab 1",
-    "description": "This is merely a sample lab for initial testing",
+    "name": "Welcome to the MongoDB Single View Workshop",
+    "description": "At the end of this workshop, you should be able to:  \n" +
+    "- Connect to a running Atlas Cluster  \n"+
+    "- Use the provided **MongoDB** Console to execute **MongoDB** commands  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "---  \n"+
+    "### Additional Resources  \n"+
+    "In case you want to follow along with the presentation materials, or would  \n"+
+    "like additional documentation, etc,  \n" +
+    "***PLEASE REFER TO THE FOLLOWING LINKS***  \n"+
+    "  \n"+
+    "MongoDB Documentation can he found here: [MongoDB Docs](http://docsmongodb.com) \n"+
+    "  \n"+
+    "A PDF of the lab materials are available here: [PDF](https://drive.google.com/file/d/1lanMnkNITnxZBVWujdGNRTOboiOXWX4O/view?usp=sharing)  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"+
+    "  \n"
+    ,
     "steps":[
         {
             "title": "This is the first Step",
