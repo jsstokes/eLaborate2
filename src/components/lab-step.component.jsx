@@ -7,6 +7,8 @@ import './lab-step.styles.css'
 import CodeBlock from './CodeBlock/code-block.component';
 import axios from 'axios';
 
+import Button from 'react-bootstrap/Button';
+
 // FontAwesome for buttons
 import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -90,15 +92,10 @@ class LabStep extends React.Component {
             disablePrevious = true;
         }
         return(
-            <span onClick={this.toggleEdit}  className={props.className}>
+            <Button onClick={this.handlePrevious} disabled={disablePrevious}  className={props.className}>
                 <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Previous
-            </span>
+            </Button>
         );
-        // return(
-        //     <Fragment>
-        //     <button disabled={disablePrevious} onClick={this.handlePrevious} className={props.className}>Previous</button>
-        //     </Fragment>
-        // );
      }
 
      AuthButton = () => {
@@ -108,13 +105,10 @@ class LabStep extends React.Component {
     EditButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <span onClick={this.toggleEdit}  className={props.className}>
+                <Button onClick={this.toggleEdit}  className={props.className}>
                     <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
-                </span>
+                </Button>
             );
-            // return(
-            //     <button onClick={this.toggleEdit}  className={props.className}>Edit</button>
-            // );
         }
         return(null);
     }
@@ -129,14 +123,10 @@ class LabStep extends React.Component {
             disableNext = false;
         }
         return(
-            <span onClick={this.toggleEdit}  className={props.className} >
+            <Button onClick={this.handleNext} disabled={disableNext}   className={props.className} >
                 Next&nbsp;<FontAwesomeIcon icon={faChevronRight} />
-            </span>
+            </Button>
         );
-
-        // return(
-        //     <button onClick={this.handleNext} disabled={disableNext} className={props.className}>Next</button>
-        // );
     }
 
     SaveButton = (props) => {
@@ -168,9 +158,6 @@ class LabStep extends React.Component {
                     <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
                 </span>
             );
-            // return(
-            //     <button onClick={this.handleDeleteStep} className={props.className}>Delete</button>
-            // );
         }
         return(null);
     }
