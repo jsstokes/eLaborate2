@@ -47,14 +47,11 @@ class LabPage extends React.Component {
 
     rerender = () => {
         this.forceUpdate();
-        console.log("Updating Parent:", this.context);
     }
       
     render() {
         // return(<div>Lab Page goes here</div>);
-        console.log("LabPage.render");
         if (this.context.labsStarted) {
-            console.log("LabPage.render - labsHaveStarted:", this.context);
             return (
                 <div>
                     <div className="Auth-div">
@@ -66,7 +63,6 @@ class LabPage extends React.Component {
                 </div>
             );
         } 
-        console.log("LabPage.render - LABS NOT STARTED:", this.context);
         return (
             <div>
                 <div className="Auth-div">
