@@ -7,6 +7,10 @@ import './lab-step.styles.css'
 import CodeBlock from './CodeBlock/code-block.component';
 import axios from 'axios';
 
+// FontAwesome for buttons
+import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {BLANK_STEP} from '../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
 
@@ -85,19 +89,32 @@ class LabStep extends React.Component {
         } else {
             disablePrevious = true;
         }
-
         return(
-            <Fragment>
-            <button disabled={disablePrevious} onClick={this.handlePrevious} className={props.className}>Previous</button>
-            </Fragment>
+            <span onClick={this.toggleEdit}  className={props.className}>
+                <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Previous
+            </span>
         );
+        // return(
+        //     <Fragment>
+        //     <button disabled={disablePrevious} onClick={this.handlePrevious} className={props.className}>Previous</button>
+        //     </Fragment>
+        // );
+     }
+
+     AuthButton = () => {
+
      }
 
     EditButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <button onClick={this.toggleEdit}  className={props.className}>Edit</button>
+                <span onClick={this.toggleEdit}  className={props.className}>
+                    <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
+                </span>
             );
+            // return(
+            //     <button onClick={this.toggleEdit}  className={props.className}>Edit</button>
+            // );
         }
         return(null);
     }
@@ -112,8 +129,14 @@ class LabStep extends React.Component {
             disableNext = false;
         }
         return(
-            <button onClick={this.handleNext} disabled={disableNext} className={props.className}>Next</button>
+            <span onClick={this.toggleEdit}  className={props.className} >
+                Next&nbsp;<FontAwesomeIcon icon={faChevronRight} />
+            </span>
         );
+
+        // return(
+        //     <button onClick={this.handleNext} disabled={disableNext} className={props.className}>Next</button>
+        // );
     }
 
     SaveButton = (props) => {
@@ -127,16 +150,27 @@ class LabStep extends React.Component {
 
     AddStepButton = (props) => {
         if (this.state.allowEditing) {
-            return(<button onClick={this.handleNewStepAfter} className={props.className}>+</button>);
+            return(
+                <span onClick={this.toggleEdit}  className={props.className}>
+                <FontAwesomeIcon icon={faPlus} />&nbsp;Add
+            </span>
+
+            );
+            // return(<button onClick={this.handleNewStepAfter} className={props.className}>+</button>);
         }
         return(null);
     }
 
     DeleteButton = (props) => {
         if (this.state.allowEditing) {
-            return(
-                <button onClick={this.handleDeleteStep} className={props.className}>Delete</button>
+            return (
+                <span className={props.className} onClick={this.handleSaveLab}>
+                    <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
+                </span>
             );
+            // return(
+            //     <button onClick={this.handleDeleteStep} className={props.className}>Delete</button>
+            // );
         }
         return(null);
     }
@@ -158,17 +192,27 @@ class LabStep extends React.Component {
     }
 
     StepNavBar = (props) => {
+        if (this.context.authorized) {
+            return(
+                <div className="StepNavBar">
+                    <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
+                    <this.EditButton className="btn btn-info"/>&nbsp;&nbsp;
+                    <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
+                    <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
+                    <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
+                    <this.SaveLabButton className='btn'/>
+                </div>
+            );
+        }
+
         return(
             <div className="StepNavBar">
-                <this.PreviousButton className="btn btn-primary"/>
-                <this.EditButton className="btn btn-info"/>
-                <this.AddStepButton className="btn btn-warning"/>
-                <this.DeleteButton className="btn btn-danger"/>
-                <this.NextButton className="btn btn-primary"/>
-                <this.SaveLabButton className='btn'/>
+                <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
+                <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
             </div>
         );
-    }
+
+}
      
     render() {
         //-------------------------------------
