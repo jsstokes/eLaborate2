@@ -2,15 +2,22 @@ import React, {Fragment} from 'react';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Row, Col} from 'react-bootstrap';
+
+// FontAwesome for buttons
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from 'react-bootstrap/Button';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class LabDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isEditing: false,
-            allowEditing: props.allowEditing,
+            allowEditing: false,
             tempLab: null
         }
     }
@@ -68,15 +75,32 @@ class LabDetails extends React.Component {
     }
 
 
-   EditButton = (props) => {
-    if (this.state.allowEditing) {
+    EditButton = (props) => {
+        if (this.context.authorized) {
+            return(
+                <Fragment>
+                    <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
+                </Fragment>
+            );
+        }
+        return(null);
+    }
+
+    StartLabButton = () => {
         return(
-            <button onClick={this.toggleEdit}  className={props.className}>Edit</button>
+          <Button onClick={this.handleStartButton} >
+            <FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab
+          </Button>  
         );
     }
-    return(null);
-}
 
+    handleStartButton = () => {
+        console.log("Starting the labs...");
+        this.context.labsStarted = true;
+        console.log("LabDetails.handleStartButton context:", this.context);
+        this.forceUpdate();
+        this.props.updateParent();
+    }
 
 
     render() {
@@ -120,6 +144,7 @@ class LabDetails extends React.Component {
                     renderers={{code: CodeBlock}}
                 />
                 <this.EditButton className='btn btn-primary'/>
+                <this.StartLabButton/>
             </div>
         );
     }  // End of render()

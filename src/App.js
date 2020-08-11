@@ -12,17 +12,20 @@ class App extends React.Component {
       authorized: false,
       currentLab: SAMPLE_DATA, 
       currentStep: 0, 
+      labsStarted: false,
       nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
     }
-
   }
-
 
   render () {
     return (
       <div>
         <LabContext.Provider value={this.state}>
-          <LabPage />
+          <LabContext.Consumer>
+          {({context}) => (
+            <LabPage /> 
+          )}
+          </LabContext.Consumer>
         </LabContext.Provider>
       </div>
     )

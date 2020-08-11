@@ -30,45 +30,54 @@ class LabPage extends React.Component {
         this.setState(newState);
     }
 
-        authButton = (props) => {
+    authButton = (props) => {
         if (this.state.authorized) {
             return(
             <span onClick={this.handleAuthButton}  className={props.className}>
                 <FontAwesomeIcon icon={faLockOpen} />
             </span>
             );
-            return(
+        }
+        return(
             <span onClick={this.handleAuthButton}  className={props.className}>
                 <FontAwesomeIcon icon={faLock} />
             </span>
-            );
-        }
-    
-        return(
-            <span onClick={this.handleAuthButton}  className={props.className}>
-              <FontAwesomeIcon icon={faLock} />
-            </span>
-          ); 
-        }
+        );
+    }
+
+    rerender = () => {
+        this.forceUpdate();
+        console.log("Updating Parent:", this.context);
+    }
       
     render() {
         // return(<div>Lab Page goes here</div>);
+        console.log("LabPage.render");
+        if (this.context.labsStarted) {
+            console.log("LabPage.render - labsHaveStarted:", this.context);
+            return (
+                <div>
+                    <div className="Auth-div">
+                    <this.authButton className="Auth-button" />
+                    </div>
+                    <div className="App">
+                        <LabStep allowEditing={true}  updateParent={this.rerender}/>
+                    </div>
+                </div>
+            );
+        } 
+        console.log("LabPage.render - LABS NOT STARTED:", this.context);
         return (
-        <div>
-            <div className="Auth-div">
-            <this.authButton className="Auth-button" />
+            <div>
+                <div className="Auth-div">
+                <this.authButton className="Auth-button" />
+                </div>
+                <div className="App">
+                        <LabDetails allowEditing={true} updateParent={this.rerender}/>
+                </div>
             </div>
-            <div className="App">
-            <LabContext.Provider value={this.state}>
-                {/* 
-                <LabDetails allowEditing={true}/>
-            */}
-                <LabStep allowEditing={true} />
-            </LabContext.Provider>
-            </div>
-        </div>
         );
-  }
+    }
 }
 
 LabPage.contextType = LabContext;
