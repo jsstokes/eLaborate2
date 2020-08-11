@@ -4,6 +4,7 @@ import SAMPLE_DATA from './sample-lab.data';
 
 import LabContext from './lab.context';
 import LabStep from './components/lab-step.component';
+import LabDetails from './components/lab-details/lab-details.component';
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +21,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <LabContext.Provider value={this.state}>
-            <LabStep  allowEditing={this.state.authorized}/>
+          { /* 
+            <LabStep allowEditing={true}/> 
+          */}
+          <LabDetails allowEditing={true}/>
         </LabContext.Provider>
       </div>
     )
