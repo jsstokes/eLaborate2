@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './lab-step.styles.css'
 import CodeBlock from './CodeBlock/code-block.component';
+import axios from 'axios';
 
 import {BLANK_STEP} from '../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
@@ -139,6 +140,22 @@ class LabStep extends React.Component {
         }
         return(null);
     }
+    handleSaveLab = () => {
+        // const URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab";
+
+        axios.post(
+            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
+            this.context.currentLab
+        )
+        .then(response => {
+            console.log(response);
+            alert("Save Lab returned: " + JSON.stringify(response,0,2));
+        });
+    }
+
+    SaveLabButton = (props) => {
+        return (<button onClick={this.handleSaveLab} className={props.className}>Save Lab</button>)
+    }
 
     StepNavBar = (props) => {
         return(
@@ -148,6 +165,7 @@ class LabStep extends React.Component {
                 <this.AddStepButton className="btn btn-warning"/>
                 <this.DeleteButton className="btn btn-danger"/>
                 <this.NextButton className="btn btn-primary"/>
+                <this.SaveLabButton className='btn'/>
             </div>
         );
     }
