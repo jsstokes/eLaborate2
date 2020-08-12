@@ -236,6 +236,8 @@ class LabStep extends React.Component {
         //------------------------------------
         // Default render when not editing
         //------------------------------------
+
+        // Put the copyText as the last CodeBlock element of the Mardown
         var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
         this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
         return (

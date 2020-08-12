@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from 'react-bootstrap/Button';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './lab-details.styles.css';
 
 class LabDetails extends React.Component {
     constructor(props) {
@@ -137,7 +137,7 @@ class LabDetails extends React.Component {
         }  // end of if(isEditing)
 
         return(
-            <div>
+            <div className="DetailsPage">
                 <h1>{this.context.currentLab.name}</h1>
                 <ReactMarkdown
                     source={this.context.currentLab.description}
