@@ -3,7 +3,7 @@ import './App.css';
 import SAMPLE_DATA from './sample-lab.data';
 
 import LabContext from './lab.context';
-import LabPage from './lab-page.component';
+import LabPage from './pages/lab-page/lab-page.component';
 
 class App extends React.Component {
   constructor() {

@@ -1,19 +1,19 @@
 import React, { Fragment } from "react";
-import LabContext from "../lab.context";
+import LabContext from "../../lab.context";
 // import context from "react-bootstrap/esm/AccordionContext";
 import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './lab-step.styles.css'
-import CodeBlock from './CodeBlock/code-block.component';
+import CodeBlock from '../CodeBlock/code-block.component';
 import axios from 'axios';
 
 import Button from 'react-bootstrap/Button';
 
-// FontAwesome for buttons
+// FontAwesome for buttons 
 import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {BLANK_STEP} from '../sample-lab.data';
+import {BLANK_STEP} from '../../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
 
 class LabStep extends React.Component {

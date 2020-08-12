@@ -1,13 +1,13 @@
 import React from "react";
 
-import LabContext from "./lab.context";
-import LabStep from './components/lab-step.component';
-import LabDetails from './components/lab-details/lab-details.component';
+import LabContext from "../../lab.context";
+import LabStep from '../../components/lab-step/lab-step.component';
+import LabDetails from '../../components/lab-details/lab-details.component';
 // FontAwesome for buttons
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SAMPLE_DATA from './sample-lab.data';
+import SAMPLE_DATA from '../../sample-lab.data';
 
 import "./lab-page.styles.css";
 
