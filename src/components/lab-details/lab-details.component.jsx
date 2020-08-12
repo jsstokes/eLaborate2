@@ -106,7 +106,7 @@ class LabDetails extends React.Component {
     render() {
         if (this.state.isEditing && (this.state.tempLab != null)) {
             return(
-                <div className="Form DetailsPage">
+                <div className="Form TopLevelDiv">
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Name</Form.Label>
                             <Col sm="11">

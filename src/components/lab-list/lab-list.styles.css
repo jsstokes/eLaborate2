@@ -1,0 +1,9 @@
+.LabListItem {
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 7px;
+    background-color: blanchedalmond;
+    margin-bottom: 10px;
+    padding: 10px;
+}

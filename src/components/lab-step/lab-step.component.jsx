@@ -167,10 +167,9 @@ class LabStep extends React.Component {
         axios.post(
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
             this.context.currentLab
-        )
-        .then(response => {
-            console.log(response);
-            alert("Save Lab returned: " + JSON.stringify(response,0,2));
+        ).then(response => {
+            console.log(response.data);
+            alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
         });
     }
 
