@@ -64,3 +64,9 @@
   border-width: 2px;
   text-align: left;
 }
+
+.TopLevelDiv button {
+  margin-top: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
