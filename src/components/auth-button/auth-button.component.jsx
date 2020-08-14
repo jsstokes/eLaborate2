@@ -18,32 +18,26 @@ class AuthButton extends React.Component {
     }
 
     handleAuthButton = () => {
-        console.log("handlAuth - authorized begin: ",this.context.authorized);
+        // console.log("handlAuth - authorized begin: ",this.context.authorized);
         var newState = {
             authorized: !this.state.authorized,
             show: !this.state.show
         }
-        //
-        // Only need to change authorized on the login or logout buttons
-        //
-        // this.context.toggleAuthorized();
-        // this.context.authorized = !this.state.authorized;
-        console.log("handlAuth - authorized end: ",this.context.authorized);
+        // console.log("handlAuth - authorized end: ",this.context.authorized);
         this.setState(newState);
-        // this.forceUpdate();
     }
 
     handleLoginOrLogOut = () => {
-        console.log("******* handleLoginOrLogOut begin *************");
-        console.log("handleLoginOrLogOut().context:", this.context);
-        console.log("******* handleLoginOrLogOut end *************");
+        // console.log("******* handleLoginOrLogOut begin *************");
+        // console.log("handleLoginOrLogOut().context:", this.context);
+        // console.log("******* handleLoginOrLogOut end *************");
         this.context.toggleAuthorized();
         let newState = { show: !this.state.show };
         this.setState(newState);
     }
 
     handleClose = () => {
-        console.log("AuthButton.handleClose() called");
+        // console.log("AuthButton.handleClose() called");
         let newState = { show: !this.state.show };
         this.setState(newState);
     }
@@ -113,8 +107,8 @@ class AuthButton extends React.Component {
     }
 
     AuthModalWindow = (props) => {
-        console.log("AuthModal state.show:", this.state.show);
-        console.log("AuthModal context.authorized:", this.context.authorized);
+        // console.log("AuthModal state.show:", this.state.show);
+        // console.log("AuthModal context.authorized:", this.context.authorized);
 
         return(
             <div>

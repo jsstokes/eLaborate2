@@ -33,8 +33,10 @@ class LabStep extends React.Component {
     // Toggle the edit state and make a temp copy of the step being edited
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
-    toggleEdit = () => {
-        let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[this.context.currentStep]));
+    toggleEdit = (index) => {
+        console.log("toggleEdit: index is:", index);
+        let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
+        console.log("toggleEdit: tempStep is:", newStep);
         this.setState({
             tempEditStep: newStep,
             isEditing: !this.state.isEditing
@@ -49,7 +51,7 @@ class LabStep extends React.Component {
 
     handlePrevious = () => {
         if (this.context.currentStep > 0) {
-            this.context.currentStep = this.context.currentStep - 1;
+            this.context.setCurrentStep(this.context.currentStep - 1);
             this.forceUpdate();
         }
     }
@@ -57,31 +59,36 @@ class LabStep extends React.Component {
     handleNext = () => {
         const MAX_STEP = this.context.currentLab.steps.length - 1;
         if (this.context.currentStep < MAX_STEP) {
-            this.context.currentStep = this.context.currentStep + 1;
+            this.context.setCurrentStep(this.context.currentStep + 1);
             this.forceUpdate();
         }
     }
 
     handleNewStepAfter = () => {
+        console.log("handleNewStepAfter - currentStepIndex",this.context.currentStep );
         let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
+        console.log("handleNewStepAfter newStep Contents:", newStep);
         this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-        this.context.currentStep = this.context.currentStep + 1;
+        console.log("handleNewStepAfter - about to move to step index:", this.context.currentStep + 1);
+        this.context.setCurrentStep(this.context.currentStep + 1);
 
-        this.toggleEdit();
+        this.toggleEdit(this.context.currentStep + 1);
         this.forceUpdate();
+        console.log("handleNewStepAfter");
     }
 
      handleDeleteStep = () => {
          this.context.currentLab.steps.splice(this.context.currentStep,1);
          if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
-            this.context.currentStep = this.context.currentLab.steps.length - 1;
+            this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
          }
          this.forceUpdate();
      }
 
      handleSave = () => {
-         this.context.currentLab.steps[this.context.currentStep] = this.state.tempEditStep;
-         this.toggleEdit();
+         this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
+        //  this.context.currentLab.steps[this.context.currentStep] = this.state.tempEditStep;
+         this.toggleEdit(this.context.currentStep);
      }
 
      PreviousButton = (props) => {
@@ -98,14 +105,14 @@ class LabStep extends React.Component {
         );
      }
 
-     AuthButton = () => {
+    //  AuthButton = () => {
 
-     }
+    //  }
 
     EditButton = (props) => {
         if (this.state.allowEditing) {
             return(
-                <Button onClick={this.toggleEdit}  className={props.className}>
+                <Button onClick={props.onClick}  className={props.className}>
                     <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
                 </Button>
             );
@@ -133,7 +140,7 @@ class LabStep extends React.Component {
          return (
              <Fragment>
                 <button onClick={this.handleSave} className={props.className + " btn-primary"}>Save</button>
-                <button onClick={this.toggleEdit} className={props.className + " btn-secondary"}>Cancel</button>
+                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Cancel</button>
             </Fragment>
          );
     }
@@ -182,7 +189,7 @@ class LabStep extends React.Component {
             return(
                 <div className="StepNavBar">
                     <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
-                    <this.EditButton className="btn btn-info"/>&nbsp;&nbsp;
+                    <this.EditButton  onClick={() => {this.toggleEdit(this.context.currentStep)}} className="btn btn-info"/>&nbsp;&nbsp;
                     <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
                     <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
                     <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;

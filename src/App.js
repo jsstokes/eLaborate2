@@ -11,15 +11,28 @@ class App extends React.Component {
     super();
     this.state = {
       authorized: false,
+      toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
+      
       currentLab: SAMPLE_DATA, 
+      setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
+      
       currentStep: 0, 
-      labsStarted: false,
-      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
-      toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})
+      setCurrentStep: (step) => {this.setState({"currentStep": step})},
+      replaceStep: (index, step) => {
+        let newLab = this.state.currentLab;
+        newLab.steps[index] = step;
+        this.state.setCurrentLab(newLab);
+      } ,
 
-      }
+      labsStarted: false,
+
+      labList: null,
+      setLabList: (list) => {this.setState({"labList": list})},
+
+      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
+      
     }
-  }
+  };
 
   render () {
     return (

@@ -31,7 +31,7 @@ class LabDetails extends React.Component {
     componentDidMount () {
         console.log("Component Did Mount");
         if (this.state.tempLab == null) {
-            console.log("creating new tempLab in state");
+            // console.log("creating new tempLab in state");
             let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
             this.setState({tempLab: tempLab});
         }
@@ -46,7 +46,7 @@ class LabDetails extends React.Component {
         );
     }
     handleSave = () => {
-        this.context.currentLab = this.state.tempLab0;
+        this.context.setCurrentLab(this.state.tempLab);
         this.toggleEdit();
     }
 
@@ -76,16 +76,16 @@ class LabDetails extends React.Component {
 
 
     EditButton = (props) => {
-        console.log("LabDetails.EditButton: this.context.authroized -", this.context.authorized);
+        // console.log("LabDetails.EditButton: this.context.authroized -", this.context.authorized);
         if (this.context.authorized) {
-            console.log("LabDetails.EditButton: creating the EditButton");
+            // console.log("LabDetails.EditButton: creating the EditButton");
             return(
                     <Fragment>
                         <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
                     </Fragment>
                 );
         }
-        console.log("LabDetails.EditButton: Not Edit Button rendered");
+        // console.log("LabDetails.EditButton: Not Edit Button rendered");
         return(null);
     }
 
@@ -98,16 +98,16 @@ class LabDetails extends React.Component {
     }
 
     handleStartButton = () => {
-        console.log("Starting the labs...");
+        // console.log("Starting the labs...");
         this.context.labsStarted = true;
-        console.log("LabDetails.handleStartButton context:", this.context);
+        // console.log("LabDetails.handleStartButton context:", this.context);
         this.forceUpdate();
         this.props.updateParent();
     }
 
 
     render() {
-        console.log("LabDetails.render: context.authorized", this.context.authorized);
+        // console.log("LabDetails.render: context.authorized", this.context.authorized);
         if (this.state.isEditing && (this.state.tempLab != null)) {
             return(
                 <div className="Form TopLevelDiv">
