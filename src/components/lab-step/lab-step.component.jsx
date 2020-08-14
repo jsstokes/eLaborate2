@@ -87,27 +87,23 @@ class LabStep extends React.Component {
 
      handleSave = () => {
          this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
-        //  this.context.currentLab.steps[this.context.currentStep] = this.state.tempEditStep;
          this.toggleEdit(this.context.currentStep);
      }
 
      PreviousButton = (props) => {
-        var disablePrevious = false;
-        if (this.context.currentStep > 0) {
-            disablePrevious = false;
-        } else {
-            disablePrevious = true;
+        if (this.context.currentStep == 0) {
+            return(
+                <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
+                    <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
+                </Button>
+            );
         }
         return(
-            <Button onClick={this.handlePrevious} disabled={disablePrevious}  className={props.className}>
+            <Button onClick={this.handlePrevious} className={props.className}>
                 <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Previous
             </Button>
         );
      }
-
-    //  AuthButton = () => {
-
-    //  }
 
     EditButton = (props) => {
         if (this.state.allowEditing) {
@@ -205,7 +201,7 @@ class LabStep extends React.Component {
             </div>
         );
 
-}
+    }
      
     render() {
         //-------------------------------------
