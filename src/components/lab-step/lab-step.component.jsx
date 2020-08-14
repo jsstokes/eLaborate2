@@ -139,7 +139,6 @@ class LabStep extends React.Component {
             </span>
 
             );
-            // return(<button onClick={this.handleNewStepAfter} className={props.className}>+</button>);
         }
         return(null);
     }

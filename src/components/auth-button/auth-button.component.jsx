@@ -13,7 +13,6 @@ class AuthButton extends React.Component {
         super(props);
         this.state = {
             show: false,
-            
         };
     }
 
@@ -63,40 +62,36 @@ class AuthButton extends React.Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-
             );
         }
         return(
-            <Modal
-            show={this.state.show}
-        >
-            <Modal.Header closeButton> 
-                <Modal.Title>eLaborate Login</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <Form.Control 
-                type='text' 
-                name='userid' 
-                value={this.state.userid}
-                placeholder='Enter you user name'
-            />
-            <Form.Control 
-                type='password' 
-                name='password' 
-                value={this.state.password}
-                placeholder='Enter you user password'
-            />
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={this.handleLoginOrLogOut}>
-                    {buttonText}
-                </Button>
-            </Modal.Footer>
-        </Modal>
-
+            <Modal show={this.state.show}>
+                <Modal.Header closeButton> 
+                    <Modal.Title>eLaborate Login</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form.Control 
+                    type='text' 
+                    name='userid' 
+                    value={this.state.userid}
+                    placeholder='Enter you user name'
+                />
+                <Form.Control 
+                    type='password' 
+                    name='password' 
+                    value={this.state.password}
+                    placeholder='Enter you user password'
+                />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={this.handleLoginOrLogOut}>
+                        {buttonText}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         );
     }
 
