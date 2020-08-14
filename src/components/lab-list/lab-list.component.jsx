@@ -11,7 +11,6 @@ class LabList extends React.Component {
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLabs")
             .then( response => {
                 this.context.setLabList(response.data);
-                this.forceUpdate();
             })
     }
 
