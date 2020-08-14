@@ -25,7 +25,8 @@ class App extends React.Component {
         this.state.setCurrentLab(newLab);
       } ,
 
-      labsStarted: false,
+      labView: "Details",
+      setLabView: (view) => { this.setState({"labView": view})},
 
       labList: null,
       setLabList: (list) => {this.setState({"labList": list})},

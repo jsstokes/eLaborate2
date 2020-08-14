@@ -52,7 +52,7 @@ class LabPage extends React.Component {
     }
       
     render() {
-        if (this.context.labsStarted) {
+        if (this.context.labView === "Steps") {
             return (
                 <div>
                     {/* <AuthButton /> */}

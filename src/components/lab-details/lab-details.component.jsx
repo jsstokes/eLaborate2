@@ -99,9 +99,10 @@ class LabDetails extends React.Component {
 
     handleStartButton = () => {
         // console.log("Starting the labs...");
-        this.context.labsStarted = true;
+        // this.context.labsStarted = true;
+        this.context.setLabView("Steps");
         // console.log("LabDetails.handleStartButton context:", this.context);
-        this.forceUpdate();
+        // this.forceUpdate();
         this.props.updateParent();
     }
 
