@@ -15,7 +15,7 @@ class LabSelectPage extends React.Component {
         }
         return(
             <div>
-                <AuthButton/>
+                {/* <AuthButton/> */}
                 <LabList/>
             </div>
         );

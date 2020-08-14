@@ -55,7 +55,7 @@ class LabPage extends React.Component {
         if (this.context.labsStarted) {
             return (
                 <div>
-                    <AuthButton />
+                    {/* <AuthButton /> */}
                     <div className="App">
                         <LabStep allowEditing={true}  updateParent={this.rerender}/>
                     </div>
@@ -64,7 +64,7 @@ class LabPage extends React.Component {
         } 
         return (
             <div>
-                <AuthButton />
+                {/* <AuthButton /> */}
                 <div className="App">
                         <LabDetails allowEditing={true} updateParent={this.rerender}/>
                 </div>

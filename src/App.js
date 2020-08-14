@@ -5,6 +5,7 @@ import SAMPLE_DATA from './sample-lab.data';
 import LabContext from './lab.context';
 import LabPage from './pages/lab-page/lab-page.component';
 import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
+import AuthButton from './components/auth-button/auth-button.component';
 
 class App extends React.Component {
   constructor() {
@@ -41,6 +42,7 @@ class App extends React.Component {
           <LabContext.Consumer>
           {({context}) => (
             <div>
+            <AuthButton/>
               <LabSelectPage />
               <LabPage /> 
             </div>
