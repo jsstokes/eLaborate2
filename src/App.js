@@ -14,7 +14,10 @@ class App extends React.Component {
       currentLab: SAMPLE_DATA, 
       currentStep: 0, 
       labsStarted: false,
-      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
+      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
+      toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})
+
+      }
     }
   }
 
@@ -24,8 +27,8 @@ class App extends React.Component {
         <LabContext.Provider value={this.state}>
           <LabContext.Consumer>
           {({context}) => (
-            // <LabPage /> 
-            <LabSelectPage />
+            <LabPage /> 
+            // <LabSelectPage />
           )}
           </LabContext.Consumer>
         </LabContext.Provider>

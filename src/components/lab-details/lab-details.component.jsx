@@ -76,13 +76,16 @@ class LabDetails extends React.Component {
 
 
     EditButton = (props) => {
+        console.log("LabDetails.EditButton: this.context.authroized -", this.context.authorized);
         if (this.context.authorized) {
+            console.log("LabDetails.EditButton: creating the EditButton");
             return(
-                <Fragment>
-                    <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
-                </Fragment>
-            );
+                    <Fragment>
+                        <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
+                    </Fragment>
+                );
         }
+        console.log("LabDetails.EditButton: Not Edit Button rendered");
         return(null);
     }
 
@@ -104,6 +107,7 @@ class LabDetails extends React.Component {
 
 
     render() {
+        console.log("LabDetails.render: context.authorized", this.context.authorized);
         if (this.state.isEditing && (this.state.tempLab != null)) {
             return(
                 <div className="Form TopLevelDiv">
@@ -137,7 +141,7 @@ class LabDetails extends React.Component {
         }  // end of if(isEditing)
 
         return(
-            <div className="DetailsPage">
+            <div className="TopLevelDiv"> 
                 <h1>{this.context.currentLab.name}</h1>
                 <ReactMarkdown
                     source={this.context.currentLab.description}

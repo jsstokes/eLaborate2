@@ -3,6 +3,8 @@ import React from "react";
 import LabContext from "../../lab.context";
 import LabStep from '../../components/lab-step/lab-step.component';
 import LabDetails from '../../components/lab-details/lab-details.component';
+import AuthButton from '../../components/auth-button/auth-button.component';
+
 // FontAwesome for buttons
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,14 +26,14 @@ class LabPage extends React.Component {
 
     handleAuthButton = () => {
         console.log("handlAuth - authorized begin: ",this.context.authorized);
-        var newState = {authorized: !this.state.authorized}
-        this.context.authorized = !this.state.authorized;
+        // var newState = {authorized: !this.state.authorized}
+        this.context.authorized = !this.context.authorized;
         console.log("handlAuth - authorized end: ",this.context.authorized);
-        this.setState(newState);
+        // this.setState(newState);
     }
 
     authButton = (props) => {
-        if (this.state.authorized) {
+        if (this.context.authorized) {
             return(
             <span onClick={this.handleAuthButton}  className={props.className}>
                 <FontAwesomeIcon icon={faLockOpen} />
@@ -54,9 +56,10 @@ class LabPage extends React.Component {
         if (this.context.labsStarted) {
             return (
                 <div>
-                    <div className="Auth-div">
+                    {/* <div className="Auth-div">
                     <this.authButton className="Auth-button" />
-                    </div>
+                    </div> */}
+                    <AuthButton />
                     <div className="App">
                         <LabStep allowEditing={true}  updateParent={this.rerender}/>
                     </div>
@@ -65,9 +68,10 @@ class LabPage extends React.Component {
         } 
         return (
             <div>
-                <div className="Auth-div">
+                {/* <div className="Auth-div">
                 <this.authButton className="Auth-button" />
-                </div>
+                </div> */}
+                <AuthButton />
                 <div className="App">
                         <LabDetails allowEditing={true} updateParent={this.rerender}/>
                 </div>

@@ -36,16 +36,6 @@
     transform: rotate(360deg);
   }
 }
-.Auth-button {
-  border: black;
-  background-color: lightgray;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  
-}
 .Auth-div {
   margin-top: 20px;
 }
