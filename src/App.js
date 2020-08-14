@@ -43,7 +43,7 @@ class App extends React.Component {
           <LabContext.Consumer>
           {({context}) => (
             <div>
-            <AuthButton/>
+              <AuthButton/>
               <LabSelectPage />
               <LabPage /> 
             </div>

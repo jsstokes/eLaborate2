@@ -8,7 +8,6 @@ import LabDetails from '../../components/lab-details/lab-details.component';
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SAMPLE_DATA from '../../sample-lab.data';
 
 import "./lab-page.styles.css";
 
@@ -17,7 +16,6 @@ class LabPage extends React.Component {
         super();
         this.state = {
           authorized: false,
-          currentLab: SAMPLE_DATA, 
           currentStep: 0, 
           nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
         }
@@ -54,19 +52,17 @@ class LabPage extends React.Component {
         if (this.context.labView === "Steps") {
             return (
                 <div>
-                    {/* <AuthButton /> */}
-                    <div className="App">
-                        <LabStep allowEditing={true}  updateParent={this.rerender}/>
-                    </div>
+                    {/* <div className="App"> */}
+                    <LabStep allowEditing={true}  updateParent={this.rerender}/>
+                    {/* </div> */}
                 </div>
             );
         } 
         return (
             <div>
-                {/* <AuthButton /> */}
-                <div className="App">
-                        <LabDetails allowEditing={true} updateParent={this.rerender}/>
-                </div>
+                {/* <div className="App"> */}
+                    <LabDetails allowEditing={true} updateParent={this.rerender}/>
+                {/* </div> */}
             </div>
         );
     }
