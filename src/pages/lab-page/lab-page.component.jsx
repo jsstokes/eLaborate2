@@ -49,17 +49,13 @@ class LabPage extends React.Component {
         if (this.context.labView === "Steps") {
             return (
                 <div>
-                    {/* <div className="App"> */}
                     <LabStep allowEditing={true}  updateParent={this.rerender}/>
-                    {/* </div> */}
                 </div>
             );
         } 
         return (
             <div>
-                {/* <div className="App"> */}
                     <LabDetails allowEditing={true} updateParent={this.rerender}/>
-                {/* </div> */}
             </div>
         );
     }
