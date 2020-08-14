@@ -5,7 +5,6 @@ import "./lab-select-page.styles.css";
 import LabContext from '../../lab.context';
 import '../../components/lab-list/lab-list.component';
 import LabList from '../../components/lab-list/lab-list.component';
-import AuthButton from '../../components/auth-button/auth-button.component';
 
 class LabSelectPage extends React.Component {
 

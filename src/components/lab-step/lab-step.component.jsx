@@ -91,7 +91,7 @@ class LabStep extends React.Component {
      }
 
      PreviousButton = (props) => {
-        if (this.context.currentStep == 0) {
+        if (this.context.currentStep === 0) {
             return(
                 <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
                     <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview

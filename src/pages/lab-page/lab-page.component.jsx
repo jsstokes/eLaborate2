@@ -3,7 +3,6 @@ import React from "react";
 import LabContext from "../../lab.context";
 import LabStep from '../../components/lab-step/lab-step.component';
 import LabDetails from '../../components/lab-details/lab-details.component';
-import AuthButton from '../../components/auth-button/auth-button.component';
 
 // FontAwesome for buttons
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";

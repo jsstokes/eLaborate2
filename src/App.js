@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SAMPLE_DATA from './sample-lab.data';
+// import SAMPLE_DATA from './sample-lab.data';
 
 import LabContext from './lab.context';
 import LabPage from './pages/lab-page/lab-page.component';
