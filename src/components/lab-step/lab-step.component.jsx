@@ -52,7 +52,7 @@ class LabStep extends React.Component {
     handlePrevious = () => {
         if (this.context.currentStep > 0) {
             this.context.setCurrentStep(this.context.currentStep - 1);
-            this.forceUpdate();
+            // this.forceUpdate();
         }
     }
 
@@ -60,7 +60,7 @@ class LabStep extends React.Component {
         const MAX_STEP = this.context.currentLab.steps.length - 1;
         if (this.context.currentStep < MAX_STEP) {
             this.context.setCurrentStep(this.context.currentStep + 1);
-            this.forceUpdate();
+            // this.forceUpdate();
         }
     }
 
@@ -73,7 +73,7 @@ class LabStep extends React.Component {
         this.context.setCurrentStep(this.context.currentStep + 1);
 
         this.toggleEdit(this.context.currentStep + 1);
-        this.forceUpdate();
+        // this.forceUpdate();
         console.log("handleNewStepAfter");
     }
 
@@ -82,7 +82,7 @@ class LabStep extends React.Component {
          if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
             this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
          }
-         this.forceUpdate();
+        //  this.forceUpdate();
      }
 
      handleSave = () => {
