@@ -15,7 +15,6 @@ class LabPage extends React.Component {
     constructor() {
         super();
         this.state = {
-          authorized: false,
           currentStep: 0, 
           nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
         }
@@ -23,10 +22,8 @@ class LabPage extends React.Component {
 
     handleAuthButton = () => {
         console.log("handlAuth - authorized begin: ",this.context.authorized);
-        // var newState = {authorized: !this.state.authorized}
         this.context.toggleAuthorized();
         console.log("handlAuth - authorized end: ",this.context.authorized);
-        // this.setState(newState);
     }
 
     authButton = (props) => {
