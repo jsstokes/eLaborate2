@@ -139,19 +139,22 @@ class LabDetails extends React.Component {
                 </div>
             );
         }  // end of if(isEditing)
+        if (this.context.currentLab){
+            return(
+                <div className="TopLevelDiv"> 
+                    <h1>{this.context.currentLab.name}</h1>
+                    <ReactMarkdown
+                        source={this.context.currentLab.description}
+                        renderers={{code: CodeBlock}}
+                    />
+                    <this.EditButton className='btn btn-primary'/>
+                    <this.StartLabButton/>
+                </div>
+            );
+        }
 
-        return(
-            <div className="TopLevelDiv"> 
-                <h1>{this.context.currentLab.name}</h1>
-                <ReactMarkdown
-                    source={this.context.currentLab.description}
-                    renderers={{code: CodeBlock}}
-                />
-                <this.EditButton className='btn btn-primary'/>
-                <this.StartLabButton/>
-            </div>
-        );
-    }  // End of render()
+        return(null);
+}  // End of render()
 }
 
 LabDetails.contextType = LabContext;

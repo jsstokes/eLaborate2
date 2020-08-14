@@ -8,6 +8,7 @@ import "./lab-list.styles.css";
 class LabList extends React.Component {
 
     componentDidMount() {
+        console.log("LabList.componentDidMount() entered");
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLabs")
             .then( response => {
                 // console.log("LabList: ", response);
@@ -46,8 +47,10 @@ class LabList extends React.Component {
             }
         )
         .then(response => {
-            // console.log("Item found:",response.data);
-            alert("Found this lab: " + JSON.stringify(response.data,0,2));
+            console.log("Item found:",response.data);
+            // alert("Found this lab: " + JSON.stringify(response.data,0,2));
+            this.context.setCurrentLab(response.data);
+            console.log("After setting lab, context:", this.context);
         });
     }
 

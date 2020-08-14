@@ -10,6 +10,9 @@ import AuthButton from '../../components/auth-button/auth-button.component';
 class LabSelectPage extends React.Component {
 
     render() {
+        if (this.context.currentLab) {
+            return null;
+        }
         return(
             <div>
                 <AuthButton/>

@@ -13,7 +13,7 @@ class App extends React.Component {
       authorized: false,
       toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
       
-      currentLab: SAMPLE_DATA, 
+      currentLab: null, 
       setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
       
       currentStep: 0, 
@@ -40,8 +40,10 @@ class App extends React.Component {
         <LabContext.Provider value={this.state}>
           <LabContext.Consumer>
           {({context}) => (
-            <LabPage /> 
-            // <LabSelectPage />
+            <div>
+              <LabSelectPage />
+              <LabPage /> 
+            </div>
           )}
           </LabContext.Consumer>
         </LabContext.Provider>
