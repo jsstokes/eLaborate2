@@ -21,9 +21,7 @@ class LabPage extends React.Component {
       }
 
     handleAuthButton = () => {
-        console.log("handlAuth - authorized begin: ",this.context.authorized);
         this.context.toggleAuthorized();
-        console.log("handlAuth - authorized end: ",this.context.authorized);
     }
 
     authButton = (props) => {

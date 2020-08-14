@@ -34,9 +34,7 @@ class LabStep extends React.Component {
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
     toggleEdit = (index) => {
-        console.log("toggleEdit: index is:", index);
         let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
-        console.log("toggleEdit: tempStep is:", newStep);
         this.setState({
             tempEditStep: newStep,
             isEditing: !this.state.isEditing
@@ -52,7 +50,6 @@ class LabStep extends React.Component {
     handlePrevious = () => {
         if (this.context.currentStep > 0) {
             this.context.setCurrentStep(this.context.currentStep - 1);
-            // this.forceUpdate();
         }
     }
 
@@ -60,21 +57,15 @@ class LabStep extends React.Component {
         const MAX_STEP = this.context.currentLab.steps.length - 1;
         if (this.context.currentStep < MAX_STEP) {
             this.context.setCurrentStep(this.context.currentStep + 1);
-            // this.forceUpdate();
         }
     }
 
     handleNewStepAfter = () => {
-        console.log("handleNewStepAfter - currentStepIndex",this.context.currentStep );
         let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-        console.log("handleNewStepAfter newStep Contents:", newStep);
         this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-        console.log("handleNewStepAfter - about to move to step index:", this.context.currentStep + 1);
         this.context.setCurrentStep(this.context.currentStep + 1);
 
         this.toggleEdit(this.context.currentStep + 1);
-        // this.forceUpdate();
-        console.log("handleNewStepAfter");
     }
 
      handleDeleteStep = () => {
@@ -82,7 +73,6 @@ class LabStep extends React.Component {
          if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
             this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
          }
-        //  this.forceUpdate();
      }
 
      handleSave = () => {
@@ -165,13 +155,10 @@ class LabStep extends React.Component {
         return(null);
     }
     handleSaveLab = () => {
-        // const URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab";
-
         axios.post(
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
             this.context.currentLab
         ).then(response => {
-            console.log(response.data);
             alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
         });
     }

@@ -8,18 +8,14 @@ import "./lab-list.styles.css";
 class LabList extends React.Component {
 
     componentDidMount() {
-        console.log("LabList.componentDidMount() entered");
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLabs")
             .then( response => {
-                // console.log("LabList: ", response);
                 this.context.setLabList(response.data);
-                // console.log("Context:", this.context);
                 this.forceUpdate();
             })
     }
 
     LabListItem = (props) => {
-        // console.log("LabItem lab:", props.lab);
         return(
             <div className="LabListItem">
                 <div>Name: {props.lab.name}</div>
@@ -37,7 +33,6 @@ class LabList extends React.Component {
     }
 
     handleSelectClick = (oid) => {
-        // console.log("About to find:", oid);
         Axios.get(
             `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
             { 
@@ -47,16 +42,12 @@ class LabList extends React.Component {
             }
         )
         .then(response => {
-            console.log("Item found:",response.data);
-            // alert("Found this lab: " + JSON.stringify(response.data,0,2));
             this.context.setCurrentLab(response.data);
-            console.log("After setting lab, context:", this.context);
         });
     }
 
     render() {
         if (this.context.labList != null) {
-            // console.log("labList size is", this.context.labList.length);
             return(
                 <div className="TopLevelDiv">
                     <h1>Available Labs ({this.context.labList.length}) </h1>
