@@ -146,7 +146,7 @@ class LabStep extends React.Component {
     DeleteButton = (props) => {
         if (this.state.allowEditing) {
             return (
-                <span className={props.className} onClick={this.handleSaveLab}>
+                <span className={props.className} onClick={this.handleDeleteStep}>
                     <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
                 </span>
             );
