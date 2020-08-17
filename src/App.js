@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      authorized: false,
+      authorized: true, 
       toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
       
       currentLab: null, 
@@ -36,6 +36,9 @@ class App extends React.Component {
     }
   };
 
+  //-----------------------------------------------------
+  // Original function - uncomment to restore AuthButton
+  // ----------------------------------------------------
   render () {
     return (
       <div>
