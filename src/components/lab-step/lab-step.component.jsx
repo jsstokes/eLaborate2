@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
 import LabContext from "../../lab.context";
 // import context from "react-bootstrap/esm/AccordionContext";
+// eslint-disable-next-line
 import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// eslint-disable-next-line
 import './lab-step.styles.css'
+// eslint-disable-next-line
 import CodeBlock from '../CodeBlock/code-block.component';
 import axios from 'axios';
 
@@ -240,16 +243,17 @@ class LabStep extends React.Component {
         //------------------------------------
 
         // Put the copyText as the last CodeBlock element of the Mardown
+        // eslint-disable-next-line
         var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
         this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
         return (
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
                 <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
-                <ReactMarkdown 
+                {/* <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
-                    />
+                    /> */}
                 <button 
                     className='btn btn-success' 
                     onClick={() => {navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
