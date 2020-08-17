@@ -10,7 +10,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
 // FontAwesome for buttons 
-import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight,faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {BLANK_STEP} from '../../sample-lab.data';
@@ -159,11 +159,25 @@ class LabStep extends React.Component {
             this.context.currentLab
         ).then(response => {
             alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
+            //
+            // if we get insertedd back - save it in current lab, it's a new lab
+            //
+            if (! ("_id" in response.data)){
+                let updatedLab = JSON.parse(JSON.stringify(this.context.currentLab));
+                updatedLab._id = response.data.insertedId;
+                this.context.setCurrentLab(updatedLab);
+                console.log("New Lab after save: ", updatedLab);
+            } else {console.log("-id FOUND")}
+
         });
     }
 
     SaveLabButton = (props) => {
-        return (<button onClick={this.handleSaveLab} className={props.className}>Save Lab</button>)
+        return (
+            <Button onClick={this.handleSaveLab} className={props.className}>
+                <FontAwesomeIcon icon={faSave}/>
+                &nbsp;Save Lab
+            </Button>)
     }
 
     StepNavBar = (props) => {

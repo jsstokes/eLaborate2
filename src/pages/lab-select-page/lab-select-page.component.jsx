@@ -14,7 +14,7 @@ class LabSelectPage extends React.Component {
         }
         return(
             <div>
-                <LabList/>
+                <LabList/>      
             </div>
         );
     }

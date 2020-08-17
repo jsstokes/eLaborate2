@@ -1,5 +1,10 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Axios from "axios";
+import Button from 'react-bootstrap/Button';
+
+// FontAwesome for buttons 
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LabContext from "../../lab.context";
 
@@ -13,6 +18,33 @@ class LabList extends React.Component {
                 this.context.setLabList(response.data);
             })
     }
+
+    NewLabButton = () => {
+        return(
+            <Fragment>
+                <Button onClick={this.handleNewLab} variant="warning">
+                <FontAwesomeIcon icon={faPlus} />&nbsp;New Lab
+                </Button>
+            </Fragment>
+        );
+    }
+    handleNewLab = () => {
+        console.log("New Lab Button Clicked");
+        let newLab = {
+            "name": "",
+            "description": "",
+            "steps": [
+                {
+                    "title":"",
+                    "markdown":"",
+                    "textToCopy":""
+                }
+            ]
+        };
+
+        this.context.setCurrentLab(newLab);
+    }
+
 
     LabListItem = (props) => {
         return(
@@ -60,6 +92,7 @@ class LabList extends React.Component {
                             />
                         ))
                     }
+                    <this.NewLabButton/>
                 </div>
             );
         }  // End of if labList
