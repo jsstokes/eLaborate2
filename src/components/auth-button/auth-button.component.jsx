@@ -3,6 +3,7 @@ import './auth-button.styles.css';
 import { Modal, Form } from 'react-bootstrap';
 import LabContext from '../../lab.context';
 import Button from 'react-bootstrap/Button';
+// eslint-disable-next-line
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -107,14 +108,17 @@ class AuthButton extends React.Component {
     }
     
     render() {
-        if (this.context.authorized) {
-            return(
-                <this.AuthModalWindow icon={faLockOpen} className="Auth-button"/>
-            );
-        }
-        return(
-            <this.AuthModalWindow icon={faLock} className="Auth-button"/>
-            );
+        return(null);
+
+        // Bug in Bootstrap Modal - so commente out below
+        // if (this.context.authorized) {
+        //     return(
+        //         <this.AuthModalWindow icon={faLockOpen} className="Auth-button"/>
+        //     );
+        // }
+        // return(
+        //     <this.AuthModalWindow icon={faLock} className="Auth-button"/>
+        //     );
     }
 }
 
