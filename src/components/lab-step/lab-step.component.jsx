@@ -5,12 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './lab-step.styles.css'
 import CodeBlock from '../CodeBlock/code-block.component';
 import MyNavBar from '../navbar/nav-bar-component';
-import axios from 'axios';
-
-import Button from 'react-bootstrap/Button';
 
 // FontAwesome for buttons 
-import { faPlus, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {BLANK_STEP} from '../../sample-lab.data';
@@ -48,34 +45,6 @@ class LabStep extends React.Component {
         this.setState(change);
     }
 
-    handlePrevious = () => {
-        if (this.context.currentStep > 0) {
-            this.context.setCurrentStep(this.context.currentStep - 1);
-        }
-    }
-
-    // handleNext = () => {
-    //     const MAX_STEP = this.context.currentLab.steps.length - 1;
-    //     if (this.context.currentStep < MAX_STEP) {
-    //         this.context.setCurrentStep(this.context.currentStep + 1);
-    //     }
-    // }
-
-    // handleNewStepAfter = () => {
-    //     let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-    //     this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-    //     this.context.setCurrentStep(this.context.currentStep + 1);
-
-    //     this.toggleEdit(this.context.currentStep + 1);
-    // }
-
-     handleDeleteStep = () => {
-         this.context.currentLab.steps.splice(this.context.currentStep,1);
-         if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
-            this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
-         }
-     }
-
      handleSave = () => {
          this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
          this.toggleEdit(this.context.currentStep);
@@ -83,49 +52,6 @@ class LabStep extends React.Component {
 
     KillMeNowButton = () => {
         return(<button>test button</button>);
-    }
-
-    // PreviousButton = (props) => {
-    //     return(<div>Mock Previous Button</div>);
-        // if (this.context.currentStep === 0) {
-        //     return(
-        //         <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
-        //             <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
-        //         </Button>
-        //     );
-        // }
-        // return(
-        //     <Button onClick={this.handlePrevious} className={props.className}>
-        //         <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Previous
-        //     </Button>
-        // );
-    //  }
-
-    // EditButton = (props) => {
-    //     if (this.state.allowEditing) {
-    //         return(
-    //             <Button onClick={props.onClick}  className={props.className}>
-    //                 <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
-    //             </Button>
-    //         );
-    //     }
-    //     return(null);
-    // }
-
-    NextButton = (props) => {
-        var disableNext = false;
-        var lastStep = this.context.currentLab.steps.length - 1;
-
-        if ((this.context.currentStep) === lastStep) {
-            disableNext = true;
-        } else {
-            disableNext = false;
-        }
-        return(
-            <Button onClick={this.handleNext} disabled={disableNext}   className={props.className} >
-                Next&nbsp;<FontAwesomeIcon icon={faChevronRight} />
-            </Button>
-        );
     }
 
     SaveButton = (props) => {
@@ -149,60 +75,6 @@ class LabStep extends React.Component {
         return(null);
     }
 
-    // DeleteButton = (props) => {
-    //     if (this.state.allowEditing) {
-    //         return (
-    //             <span className={props.className} onClick={this.handleDeleteStep}>
-    //                 <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
-    //             </span>
-    //         );
-    //     }
-    //     return(null);
-    // }
-
-    handleSaveLab = () => {
-        axios.post(
-            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
-            this.context.currentLab
-        ).then(response => {
-            alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
-        });
-    }
-
-    // SaveLabButton = (props) => {
-    //     return (<button onClick={this.handleSaveLab} className={props.className}>Save Lab</button>)
-    // }
-
-    StepNavBar = () => {
-        return (
-            <div>
-                Heres the new NAVBAR v3
-                <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
-            </div>
-            );
-        // if (this.context.authorized) {
-        //     return(
-                // <div className="StepNavBar">Working?
-                //     <this.PreviousButton className="btn btn-primary"/>
-
-                    // <this.EditButton  onClick={() => {this.toggleEdit(this.context.currentStep)}} className="btn btn-info"/>&nbsp;&nbsp;
-                //     <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
-                //     <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
-                //     <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
-                //     <this.SaveLabButton className='btn'/>
-                // </div>
-        //     );
-        // }
-
-        // return(
-        //     <div className="StepNavBar">
-        //         <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
-        //         <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
-        //     </div>
-        // );
-
-    }
-     
     render() {
         //-------------------------------------
         // If we are editing, render this way
@@ -257,7 +129,6 @@ class LabStep extends React.Component {
                 </button>
                 <hr/>
                 <MyNavBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleSaveLab={this.handleSaveLab}/>
-                {/* <this.StepNavBar/> */}
             </div>
         );
     }  // End of render()

@@ -117,6 +117,15 @@ class MyNavBar extends React.Component {
         return(null);
     }
 
+    handleDeleteStep = () => {
+        this.context.currentLab.steps.splice(this.context.currentStep,1);
+        if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
+           this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
+        } else {
+            this.context.setCurrentStep(this.context.currentStep);  // Force page refresh :D
+        }
+    }
+
     DeleteButton = (props) => {
         if (this.context.authorized) {
             return (
