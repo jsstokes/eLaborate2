@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
 
 // FontAwesome for buttons 
-import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash, faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import {BLANK_STEP} from '../../sample-lab.data';
@@ -20,17 +20,6 @@ class MyNavBar extends React.Component {
             mode: this.props.mode ? props.mode : "STEPS"
         }
     }
-
-    // toggleEdit = (index) => {
-    //     console.log("ToggleEdit called");
-    //     let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
-    //     this.context.setTempEditStep(newStep);
-    //     this.context.toggleIsEditing();
-    //     // this.setState({
-    //     //     tempEditStep: newStep,
-    //     //     isEditing: !this.state.isEditing
-    //     // });
-    // }
 
     handlePrevious = () => {
         if (this.context.currentStep > 0) {
@@ -84,16 +73,8 @@ class MyNavBar extends React.Component {
                 Next&nbsp;<FontAwesomeIcon icon={faChevronRight} />
             </Button>
         );
-    }
+    }   // end of NextButton
 
-    SaveButton = (props) => {
-         return (
-             <Fragment>
-                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Save</button>
-                <button onClick={() =>{this.props.editToggle(this.context.currentStep)}} className={props.className + " btn-secondary"}>Cancel</button>
-            </Fragment>
-         );
-    }
     handleNewStepAfter = () => {
         let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
@@ -136,6 +117,8 @@ class MyNavBar extends React.Component {
         }
         return(null);
     }
+
+
     handleSaveLab = () => {
         axios.post(
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
@@ -143,11 +126,19 @@ class MyNavBar extends React.Component {
         ).then(response => {
             alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
         });
-    }
+    }   // end of handleSaveLab
 
     SaveLabButton = (props) => {
-        return (<button onClick={this.handleSaveLab} className={props.className}>Save Lab</button>)
-    }
+        return (
+            <button 
+                onClick={this.handleSaveLab} 
+                className={props.className}
+                disabled={!this.context.labHasChanged}
+                >
+                <FontAwesomeIcon icon={faSave} />
+                &nbsp;Save Lab
+            </button>)
+    }   // end of SaveLabButton
 
     render(props) {
         return(
@@ -157,7 +148,7 @@ class MyNavBar extends React.Component {
                 <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
                 <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
                 <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
-                <this.SaveLabButton className='btn'/>
+                <this.SaveLabButton className='btn btn-secondary'/>
             </div>
         );
     }

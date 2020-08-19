@@ -37,9 +37,10 @@ class App extends React.Component {
       setTempEditStep: (target) => {this.setState({"tempEditStep": target})},
 
       isEditing: false,
-      toggleIsEditing: ()=> {this.setState({"isEditing": !this.state.isEditing})}
+      toggleIsEditing: ()=> {this.setState({"isEditing": !this.state.isEditing})},
 
-      
+      labHasChanged: false,
+      setLabHasChanged: (value) => {this.setState({"labHasChanged": value})}
     }
   };
 

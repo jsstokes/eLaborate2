@@ -48,6 +48,7 @@ class LabStep extends React.Component {
      handleSave = () => {
          this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
          this.toggleEdit(this.context.currentStep);
+         this.context.setLabHasChanged(true);
      }
 
     KillMeNowButton = () => {
@@ -57,8 +58,8 @@ class LabStep extends React.Component {
     SaveButton = (props) => {
          return (
              <Fragment>
-                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Save</button>
-                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Cancel</button>
+                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Update</button>&nbsp;
+                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Discard</button>
             </Fragment>
          );
     }
