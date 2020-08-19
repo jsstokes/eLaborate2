@@ -63,6 +63,13 @@ class MyNavBar extends React.Component {
         return(null);
     }
 
+    handleNext = () => {
+        const MAX_STEP = this.context.currentLab.steps.length - 1;
+        if (this.context.currentStep < MAX_STEP) {
+            this.context.setCurrentStep(this.context.currentStep + 1);
+        }
+    }
+
     NextButton = (props) => {
         var disableNext = false;
         var lastStep = this.context.currentLab.steps.length - 1;
@@ -86,6 +93,16 @@ class MyNavBar extends React.Component {
                 <button onClick={() =>{this.props.editToggle(this.context.currentStep)}} className={props.className + " btn-secondary"}>Cancel</button>
             </Fragment>
          );
+    }
+    handleNewStepAfter = () => {
+        let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
+        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
+        this.context.setCurrentStep(this.context.currentStep + 1);
+
+        // Changed
+        // this.toggleEdit(this.context.currentStep + 1);
+        // to this...
+        this.props.editToggle(this.context.currentStep + 1);
     }
 
     AddStepButton = (props) => {

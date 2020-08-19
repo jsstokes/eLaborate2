@@ -54,20 +54,20 @@ class LabStep extends React.Component {
         }
     }
 
-    handleNext = () => {
-        const MAX_STEP = this.context.currentLab.steps.length - 1;
-        if (this.context.currentStep < MAX_STEP) {
-            this.context.setCurrentStep(this.context.currentStep + 1);
-        }
-    }
+    // handleNext = () => {
+    //     const MAX_STEP = this.context.currentLab.steps.length - 1;
+    //     if (this.context.currentStep < MAX_STEP) {
+    //         this.context.setCurrentStep(this.context.currentStep + 1);
+    //     }
+    // }
 
-    handleNewStepAfter = () => {
-        let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-        this.context.setCurrentStep(this.context.currentStep + 1);
+    // handleNewStepAfter = () => {
+    //     let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
+    //     this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
+    //     this.context.setCurrentStep(this.context.currentStep + 1);
 
-        this.toggleEdit(this.context.currentStep + 1);
-    }
+    //     this.toggleEdit(this.context.currentStep + 1);
+    // }
 
      handleDeleteStep = () => {
          this.context.currentLab.steps.splice(this.context.currentStep,1);
