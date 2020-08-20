@@ -33,6 +33,7 @@ class LabDetails extends React.Component {
             let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
             this.setState({tempLab: tempLab});
         }
+        this.setState({"isEditing": this.context.isEditing});
     }
 
     SaveButton = (props) => {

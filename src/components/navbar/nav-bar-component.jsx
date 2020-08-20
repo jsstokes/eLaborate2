@@ -124,7 +124,15 @@ class MyNavBar extends React.Component {
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
             this.context.currentLab
         ).then(response => {
-            alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
+            if (response.data.hasOwnProperty("insertedId")) {
+                // alert("A new lab was inserted, updating _id: " + JSON.stringify(response.data,0,2));
+                let newLab = this.context.currentLab;
+                newLab._id = response.data.insertedId;
+                this.context.setCurrentLab(newLab);
+            } else {
+                // alert("Lab Updated", JSON.stringify(response.data,0,2));
+            }
+            this.context.setLabHasChanged(false);
         });
     }   // end of handleSaveLab
 

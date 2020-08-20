@@ -93,4 +93,13 @@ export const BLANK_STEP = {
     markdown:"",
     textToCopy:""
 }
+
+export const BLANK_LAB = {
+    "name": "",
+    "description": "",
+    "steps" : [
+        BLANK_STEP
+    ]
+
+}
 export default SAMPLE_DATA;

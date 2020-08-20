@@ -3,7 +3,10 @@ import Axios from "axios";
 
 import LabContext from "../../lab.context";
 
+import {BLANK_LAB} from '../../sample-lab.data';
+
 import "./lab-list.styles.css";
+import { Button } from 'react-bootstrap';
 
 class LabList extends React.Component {
 
@@ -45,6 +48,20 @@ class LabList extends React.Component {
         });
     }
 
+    handleNewLabClick = () => {
+        console.log("New Lab Button Clicked: ", "should come in editing");
+        let newLab = JSON.parse(JSON.stringify(BLANK_LAB));
+        this.context.setCurrentLab(newLab);
+        this.context.setLabHasChanged(false);
+        this.context.toggleIsEditing();
+    }
+
+    NewLabButton = () => {
+        return(
+            <Button variant='success' onClick={this.handleNewLabClick}>New Lab</Button>
+        );
+    }
+
     render() {
         if (this.context.labList != null) {
             return(
@@ -60,6 +77,7 @@ class LabList extends React.Component {
                             />
                         ))
                     }
+                    <this.NewLabButton/>
                 </div>
             );
         }  // End of if labList
