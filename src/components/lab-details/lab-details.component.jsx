@@ -33,6 +33,7 @@ class LabDetails extends React.Component {
             let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
             this.setState({tempLab: tempLab});
         }
+        this.setState({"isEditing": this.context.isEditing});
     }
 
     SaveButton = (props) => {
@@ -85,6 +86,23 @@ class LabDetails extends React.Component {
     }
 
     StartLabButton = () => {
+        // ----------------------------------------------------------------------------
+        // If we're in an iFrame, we need to open in a seperate window
+        // for the copy text function to work properly (due to security restrictions)
+        // ----------------------------------------------------------------------------
+        if (window.location !== window.parent.location) {
+            console.log("Inside of an iFrame");
+            return(
+                <a  href={window.location.href} 
+                    target="_blank"
+                    className="btn btn-primary LinkButton"
+                    ><FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab
+                </a>
+            );
+        }
+        // --------------------------
+        //  Not inside of an iFrame
+        // --------------------------
         return(
           <Button onClick={this.handleStartButton} >
             <FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab

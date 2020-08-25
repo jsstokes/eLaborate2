@@ -32,8 +32,16 @@ class App extends React.Component {
       labList: null,
       setLabList: (list) => {this.setState({"labList": list})},
 
-      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
-      
+      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
+
+      tempEditStep: null,
+      setTempEditStep: (target) => {this.setState({"tempEditStep": target})},
+
+      isEditing: false,
+      toggleIsEditing: ()=> {this.setState({"isEditing": !this.state.isEditing})},
+
+      labHasChanged: false,
+      setLabHasChanged: (value) => {this.setState({"labHasChanged": value})}
     }
   };
 

@@ -1,19 +1,15 @@
 import React, { Fragment } from "react";
 import LabContext from "../../lab.context";
-// import context from "react-bootstrap/esm/AccordionContext";
-// eslint-disable-next-line
 import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // eslint-disable-next-line
 import './lab-step.styles.css'
 // eslint-disable-next-line
 import CodeBlock from '../CodeBlock/code-block.component';
-import axios from 'axios';
-
-import Button from 'react-bootstrap/Button';
+import MyNavBar from '../navbar/nav-bar-component';
 
 // FontAwesome for buttons 
-import { faTrash,faUserEdit, faPlus, faChevronLeft, faChevronRight,faSave } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {BLANK_STEP} from '../../sample-lab.data';
@@ -37,6 +33,7 @@ class LabStep extends React.Component {
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
     toggleEdit = (index) => {
+        console.log("Inside of ToggleEdit lab step");
         let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
         this.setState({
             tempEditStep: newStep,
@@ -50,86 +47,21 @@ class LabStep extends React.Component {
         this.setState(change);
     }
 
-    handlePrevious = () => {
-        if (this.context.currentStep > 0) {
-            this.context.setCurrentStep(this.context.currentStep - 1);
-        }
-    }
-
-    handleNext = () => {
-        const MAX_STEP = this.context.currentLab.steps.length - 1;
-        if (this.context.currentStep < MAX_STEP) {
-            this.context.setCurrentStep(this.context.currentStep + 1);
-        }
-    }
-
-    handleNewStepAfter = () => {
-        let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-        this.context.setCurrentStep(this.context.currentStep + 1);
-
-        this.toggleEdit(this.context.currentStep + 1);
-    }
-
-     handleDeleteStep = () => {
-         this.context.currentLab.steps.splice(this.context.currentStep,1);
-         if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
-            this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
-         }
-     }
-
      handleSave = () => {
          this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
          this.toggleEdit(this.context.currentStep);
+         this.context.setLabHasChanged(true);
      }
 
-     PreviousButton = (props) => {
-        if (this.context.currentStep === 0) {
-            return(
-                <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
-                    <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
-                </Button>
-            );
-        }
-        return(
-            <Button onClick={this.handlePrevious} className={props.className}>
-                <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Previous
-            </Button>
-        );
-     }
-
-    EditButton = (props) => {
-        if (this.state.allowEditing) {
-            return(
-                <Button onClick={props.onClick}  className={props.className}>
-                    <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
-                </Button>
-            );
-        }
-        return(null);
-    }
-
-    NextButton = (props) => {
-        var disableNext = false;
-        var lastStep = this.context.currentLab.steps.length - 1;
-
-        if ((this.context.currentStep) === lastStep) {
-            disableNext = true;
-        } else {
-            disableNext = false;
-        }
-        return(
-            <Button onClick={this.handleNext} disabled={disableNext}   className={props.className} >
-                Next&nbsp;<FontAwesomeIcon icon={faChevronRight} />
-            </Button>
-        );
+    KillMeNowButton = () => {
+        return(<button>test button</button>);
     }
 
     SaveButton = (props) => {
          return (
              <Fragment>
-                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Save</button>
-                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Cancel</button>
+                <button onClick={this.handleSave} className={props.className + " btn-primary"}>Update</button>&nbsp;
+                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Discard</button>
             </Fragment>
          );
     }
@@ -146,66 +78,6 @@ class LabStep extends React.Component {
         return(null);
     }
 
-    DeleteButton = (props) => {
-        if (this.state.allowEditing) {
-            return (
-                <span className={props.className} onClick={this.handleDeleteStep}>
-                    <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
-                </span>
-            );
-        }
-        return(null);
-    }
-    handleSaveLab = () => {
-        axios.post(
-            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
-            this.context.currentLab
-        ).then(response => {
-            alert("Save Lab returned: " + JSON.stringify(response.data,0,2));
-            //
-            // if we get insertedd back - save it in current lab, it's a new lab
-            //
-            if (! ("_id" in response.data)){
-                let updatedLab = JSON.parse(JSON.stringify(this.context.currentLab));
-                updatedLab._id = response.data.insertedId;
-                this.context.setCurrentLab(updatedLab);
-                console.log("New Lab after save: ", updatedLab);
-            } else {console.log("-id FOUND")}
-
-        });
-    }
-
-    SaveLabButton = (props) => {
-        return (
-            <Button onClick={this.handleSaveLab} className={props.className}>
-                <FontAwesomeIcon icon={faSave}/>
-                &nbsp;Save Lab
-            </Button>)
-    }
-
-    StepNavBar = (props) => {
-        if (this.context.authorized) {
-            return(
-                <div className="StepNavBar">
-                    <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
-                    <this.EditButton  onClick={() => {this.toggleEdit(this.context.currentStep)}} className="btn btn-info"/>&nbsp;&nbsp;
-                    <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
-                    <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
-                    <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
-                    <this.SaveLabButton className='btn'/>
-                </div>
-            );
-        }
-
-        return(
-            <div className="StepNavBar">
-                <this.PreviousButton className="btn btn-primary"/>&nbsp;&nbsp;
-                <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
-            </div>
-        );
-
-    }
-     
     render() {
         //-------------------------------------
         // If we are editing, render this way
@@ -256,11 +128,11 @@ class LabStep extends React.Component {
                     /> */}
                 <button 
                     className='btn btn-success' 
-                    onClick={() => {navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
+                    onClick={() => {window.top.navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
                     >Copy Text
                 </button>
                 <hr/>
-                <this.StepNavBar/>
+                <MyNavBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleSaveLab={this.handleSaveLab}/>
             </div>
         );
     }  // End of render()
