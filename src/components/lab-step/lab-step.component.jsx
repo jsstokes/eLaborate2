@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import LabContext from "../../lab.context";
-// import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // eslint-disable-next-line
 import './lab-step.styles.css'
@@ -122,10 +122,10 @@ class LabStep extends React.Component {
             <div className="StepPage">
                 <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
                 <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
-                {/* <ReactMarkdown 
+                <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
-                    /> */}
+                    /> 
                 <button 
                     className='btn btn-success' 
                     onClick={() => {window.top.navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
