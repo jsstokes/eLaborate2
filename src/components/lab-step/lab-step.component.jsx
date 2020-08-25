@@ -125,7 +125,7 @@ class LabStep extends React.Component {
                     />
                 <button 
                     className='btn btn-success' 
-                    onClick={() => {navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
+                    onClick={() => {window.top.navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
                     >Copy Text
                 </button>
                 <hr/>
