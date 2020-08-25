@@ -11,7 +11,7 @@ import LabContext from "../../lab.context";
 import {BLANK_LAB} from '../../sample-lab.data';
 
 import "./lab-list.styles.css";
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 
 class LabList extends React.Component {
 

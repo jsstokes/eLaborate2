@@ -95,6 +95,7 @@ class LabDetails extends React.Component {
             return(
                 <a  href={window.location.href} 
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-primary LinkButton"
                     ><FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab
                 </a>

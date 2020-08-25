@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import LabContext from "../../lab.context";
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // eslint-disable-next-line
 import './lab-step.styles.css'
