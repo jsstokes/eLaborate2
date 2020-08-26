@@ -77,17 +77,17 @@ class LabList extends React.Component {
     handleSelectClick = (oid) => {
         console.log("LabList.handleSelectClick - setting currentLabID to", oid);
         this.context.setCurrentLabID(oid);
-        // Axios.get(
-        //     `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
-        //     { 
-        //         params: {
-        //             id: oid 
-        //         }
-        //     }
-        // )
-        // .then(response => {
-        //     this.context.setCurrentLab(response.data);
-        // });
+        Axios.get(
+            `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+            { 
+                params: {
+                    id: oid 
+                }
+            }
+        )
+        .then(response => {
+            this.context.setCurrentLab(response.data);
+        });
     }
 
     handleNewLabClick = () => {
