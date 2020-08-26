@@ -71,7 +71,7 @@ class App extends React.Component {
                     </div>
                   </Route>
                   <Route path="/student/:workshop_id/:student_id?">
-                    <div className="TopLevelDiv">
+                    <div>
                     <StudentPage>
                       <LabPage /> 
                     </StudentPage>
