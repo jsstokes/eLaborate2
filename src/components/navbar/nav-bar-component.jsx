@@ -137,15 +137,19 @@ class MyNavBar extends React.Component {
     }   // end of handleSaveLab
 
     SaveLabButton = (props) => {
-        return (
-            <button 
+        if (this.context.authorized) {
+            return (
+                <button 
                 onClick={this.handleSaveLab} 
                 className={props.className}
                 disabled={!this.context.labHasChanged}
                 >
                 <FontAwesomeIcon icon={faSave} />
                 &nbsp;Save Lab
-            </button>)
+                </button>
+            )
+        }
+        return(null);
     }   // end of SaveLabButton
 
     render(props) {

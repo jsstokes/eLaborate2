@@ -14,7 +14,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      authorized: true, 
+      authorized: false, 
       toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
       
       currentLab: null, 
