@@ -9,12 +9,13 @@ import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
 import AuthButton from './components/auth-button/auth-button.component';
 import StudentPage from './pages/student-page/student-page-page';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginPage from './pages/login-page/login-page.page';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      authorized: false, 
+      authorized: true, 
       toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
       
       currentLab: null, 
@@ -76,6 +77,9 @@ class App extends React.Component {
                       <LabPage /> 
                     </StudentPage>
                     </div>
+                  </Route>
+                  <Route path="/login">
+                    <LoginPage/>
                   </Route>
                   <Route>
                     <div className="TopLevelDiv"><h1>Page not found</h1></div>
