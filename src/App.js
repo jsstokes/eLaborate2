@@ -19,6 +19,10 @@ class App extends React.Component {
       currentLab: null, 
       setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
       
+      // Current Lab ID is set either from the LabList or from the URL parm
+      currentLabID: null,
+      setCurrentLabID: (lab_id) => {this.setState({"currentLabID": lab_id})},
+      
       currentStep: 0, 
       setCurrentStep: (step) => {this.setState({"currentStep": step})},
       replaceStep: (index, step) => {
@@ -82,7 +86,8 @@ class App extends React.Component {
                   </Route>
                   <Route path="/student/:workshop_id/:student_id?">
                     <div className="TopLevelDiv">
-                      <this.StudentPageWithRouter/>
+                    <this.StudentPageWithRouter/>
+                    <LabPage /> 
                     </div>
                   </Route>
                   <Route>

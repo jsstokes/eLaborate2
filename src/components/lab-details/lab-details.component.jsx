@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
+import Axios from "axios";
 import {Form, Row, Col} from 'react-bootstrap';
 
 // FontAwesome for buttons
@@ -29,11 +30,29 @@ class LabDetails extends React.Component {
     }
 
     componentDidMount () {
+        console.log("Inside of LabDetails.componentDidMount");
+        console.log("LabDetails.componentDidMount - currentLab is ", this.context.currentLab);
         if (this.state.tempLab == null) {
             let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
             this.setState({tempLab: tempLab});
         }
         this.setState({"isEditing": this.context.isEditing});
+        if ((this.context.currentLabID) && (!this.context.currentLab)) {
+            console.log("=== Makeing AXIOS call to get lab");
+            Axios.get(
+                `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+                { 
+                    params: {
+                        id: this.context.currentLabID 
+                    }
+                }
+            )
+            .then(response => {
+                console.log("AXIOS Response:", response.data);
+                this.context.setCurrentLab(response.data);
+            });
+        }
+
     }
 
     SaveButton = (props) => {
@@ -117,6 +136,9 @@ class LabDetails extends React.Component {
 
 
     render() {
+        if (this.state.tempLab === null) {
+            console.log("in LabDetails.render - tempLab is null");
+        }
         if (this.state.isEditing && (this.state.tempLab != null)) {
             return(
                 <div className="Form TopLevelDiv">

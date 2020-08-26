@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import Axios from "axios";
 import Button from 'react-bootstrap/Button';
+import { withRouter } from 'react-router-dom';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -62,22 +63,31 @@ class LabList extends React.Component {
                     >
                     Select
                 </button>
+                <button 
+                    className='btn btn-primary'
+                    onClick={ () => {props.onTestClick(props.lab._id.$oid)}  }
+                    >
+                    Test Route
+                </button>
+
             </div>
         );
     }
 
     handleSelectClick = (oid) => {
-        Axios.get(
-            `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
-            { 
-                params: {
-                    id: oid 
-                }
-            }
-        )
-        .then(response => {
-            this.context.setCurrentLab(response.data);
-        });
+        console.log("LabList.handleSelectClick - setting currentLabID to", oid);
+        this.context.setCurrentLabID(oid);
+        // Axios.get(
+        //     `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+        //     { 
+        //         params: {
+        //             id: oid 
+        //         }
+        //     }
+        // )
+        // .then(response => {
+        //     this.context.setCurrentLab(response.data);
+        // });
     }
 
     handleNewLabClick = () => {
@@ -94,6 +104,18 @@ class LabList extends React.Component {
         );
     }
 
+    handleTestClick = (oid) => {
+        console.log(`Handle Test Clicked Redirecting to: /student/${oid}`);
+        console.log("TestClick Button Props for routing:", this.props);
+        let newPath = `/student/${oid}`;
+        console.log("[ushing to history", newPath);
+        console.log("LabList.handleTestClick - setting currentLabID to", oid);
+        this.context.setCurrentLabID(oid);
+        this.props.history.push(newPath);
+        // return(<Redirect push to="/student/sdfgdfsg" />);
+        
+    }
+
     render() {
         if (this.context.labList != null) {
             return(
@@ -106,6 +128,7 @@ class LabList extends React.Component {
                                 key={index} 
                                 index={index}
                                 onClick={this.handleSelectClick}
+                                onTestClick={this.handleTestClick}
                             />
                         ))
                     }
@@ -119,4 +142,4 @@ class LabList extends React.Component {
 }
 
 LabList.contextType = LabContext;
-export default LabList;
+export default withRouter(LabList);

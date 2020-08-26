@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import LabContext from "../../lab.context";
 import ReactMarkdown from 'react-markdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from "axios";
 // eslint-disable-next-line
 import './lab-step.styles.css'
 // eslint-disable-next-line
@@ -40,7 +41,25 @@ class LabStep extends React.Component {
             isEditing: !this.state.isEditing
         });
     }
-
+    
+    componentDidMount = () => {
+        console.log("Inside of LabStep.componentDidMount()");
+        if ((this.context.currentLabID) && (!this.context.currentLab)) {
+            console.log("=== Makeing AXIOS call to get lab");
+            Axios.get(
+                `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+                { 
+                    params: {
+                        id: this.context.currentLabID 
+                    }
+                }
+            )
+            .then(response => {
+                console.log("AXIOS Response:", response.data);
+                this.context.setCurrentLab(response.data);
+            });
+        }
+    }
     handleKeyChange = (e) => {
         let change = this.state.tempEditStep;
         change[e.target.name] = e.target.value;
