@@ -7,7 +7,8 @@ import LabContext from './lab.context';
 import LabPage from './pages/lab-page/lab-page.component';
 import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
 import AuthButton from './components/auth-button/auth-button.component';
-import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import StudentPage from './pages/student-page/student-page-page';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -50,21 +51,6 @@ class App extends React.Component {
     }
   };
 
-  StudentPage = (props) => {
-    console.log(props);
-    if (!props.match.params.student_id) {
-      props.match.params.student_id = "no student id";
-    }
-    return(
-      <div>
-        <h1>Student Page here</h1>
-        <h2>Workshop ID is {props.match.params.workshop_id}</h2>
-        <h2>Student ID is {props.match.params.student_id}</h2>
-      </div>
-    );
-  }
-
-  StudentPageWithRouter = withRouter(this.StudentPage);
 
   //-----------------------------------------------------
   // Original function - uncomment to restore AuthButton
@@ -86,8 +72,9 @@ class App extends React.Component {
                   </Route>
                   <Route path="/student/:workshop_id/:student_id?">
                     <div className="TopLevelDiv">
-                    <this.StudentPageWithRouter/>
-                    <LabPage /> 
+                    <StudentPage>
+                      <LabPage /> 
+                    </StudentPage>
                     </div>
                   </Route>
                   <Route>
