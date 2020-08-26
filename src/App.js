@@ -7,6 +7,7 @@ import LabContext from './lab.context';
 import LabPage from './pages/lab-page/lab-page.component';
 import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
 import AuthButton from './components/auth-button/auth-button.component';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -45,24 +46,54 @@ class App extends React.Component {
     }
   };
 
+  StudentPage = (props) => {
+    console.log(props);
+    if (!props.match.params.student_id) {
+      props.match.params.student_id = "no student id";
+    }
+    return(
+      <div>
+        <h1>Student Page here</h1>
+        <h2>Workshop ID is {props.match.params.workshop_id}</h2>
+        <h2>Student ID is {props.match.params.student_id}</h2>
+      </div>
+    );
+  }
+
+  StudentPageWithRouter = withRouter(this.StudentPage);
+
   //-----------------------------------------------------
   // Original function - uncomment to restore AuthButton
   // ----------------------------------------------------
   render () {
     return (
-      <div>
-        <LabContext.Provider value={this.state}>
-          <LabContext.Consumer>
-          {({context}) => (
-            <div>
-              <AuthButton/>
-              <LabSelectPage />
-              <LabPage /> 
-            </div>
-          )}
-          </LabContext.Consumer>
-        </LabContext.Provider>
-      </div>
+      <Router>
+        <div>
+          <LabContext.Provider value={this.state}>
+            <LabContext.Consumer>
+              {({context}) => (
+                <Switch>
+                  <Route path="/" exact>
+                    <div>
+                      <AuthButton/>
+                      <LabSelectPage />
+                      <LabPage /> 
+                    </div>
+                  </Route>
+                  <Route path="/student/:workshop_id/:student_id?">
+                    <div className="TopLevelDiv">
+                      <this.StudentPageWithRouter/>
+                    </div>
+                  </Route>
+                  <Route>
+                    <div className="TopLevelDiv"><h1>Page not found</h1></div>
+                  </Route>
+                </Switch>
+              )}
+            </LabContext.Consumer>
+          </LabContext.Provider>
+        </div>
+      </Router>
     )
   }
 }
