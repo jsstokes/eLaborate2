@@ -15,7 +15,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      authorized: true, 
+      authorized: false, 
       toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
       
       currentLab: null, 
@@ -79,7 +79,7 @@ class App extends React.Component {
                     </div>
                   </Route>
                   <Route path="/login">
-                    <LoginPage/>
+                    <LoginPage redirectTarget="/"/>
                   </Route>
                   <Route>
                     <div className="TopLevelDiv"><h1>Page not found</h1></div>

@@ -15,14 +15,25 @@ class LoginPage extends React.Component {
         };
     }
 
+    componentDidMount = () => {
+        console.log("Entering LoginWindow.componentDidMount");
+    }
     handleKeyChange = (e) => {
         let change = {[e.target.name]: e.target.value};
         this.setState(change);
     }
 
+    handleSaveButton = () => {
+        this.context.toggleAuthorized();
+        console.log(this.props); 
+        if (this.props.redirectTarget) {
+            this.props.history.push(this.props.redirectTarget);
+        }
+    }
+
     SaveButton = () => {
         return(
-            <Button>Login</Button>
+            <Button className="btn btn-primary " onClick={this.handleSaveButton}>Login</Button>
         );
     }
     render() {
@@ -41,7 +52,7 @@ class LoginPage extends React.Component {
                     <Form.Control type="password" className="form-control formControls" name="password" onChange={this.handleKeyChange} value={this.state.password}/>
                     </Col>
                 </Form.Group>
-                <this.SaveButton className="btn"></this.SaveButton>
+                <this.SaveButton ></this.SaveButton>
             </div>
             </div>
         );
