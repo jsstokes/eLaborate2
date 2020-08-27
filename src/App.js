@@ -8,15 +8,31 @@ import LabPage from './pages/lab-page/lab-page.component';
 import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
 import AuthButton from './components/auth-button/auth-button.component';
 import StudentPage from './pages/student-page/student-page-page';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login-page/login-page.page';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      authorized: false, 
-      toggleAuthorized: () => { this.setState({"authorized": !this.state.authorized})},
+      auth: {
+        userid: "",
+        role: "",
+        authorized: false, 
+      },
+      setAuthorized: (authorized, userid="", role="") => 
+      { 
+        let newAuth = { "userid": userid,"role": role,"authorized":  authorized};
+        this.setState(newAuth);
+      },
+      isAuthorized: () => { return (this.state.auth.authorized)},
+      isInRole: (role) => { 
+        if (role === this.state.auth.role) {
+          return true
+        } else {
+          return false
+        }
+      },
       
       currentLab: null, 
       setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
@@ -52,7 +68,6 @@ class App extends React.Component {
     }
   };
 
-
   //-----------------------------------------------------
   // Original function - uncomment to restore AuthButton
   // ----------------------------------------------------
@@ -78,9 +93,15 @@ class App extends React.Component {
                     </StudentPage>
                     </div>
                   </Route>
-                  <Route path="/junk">
-                    <AuthButton redirectTarget="/"/>
-                  </Route>
+                  {
+                    // Route for testing stuff
+                  }
+                  <Route path="/junk"
+                    render={props => (
+                      this.state.auth.userid === "" 
+                      ? <LoginPage handleSaveButton={this.handleSaveButton}/>
+                      : <StudentPage/>
+                      )}/>
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>
@@ -96,5 +117,32 @@ class App extends React.Component {
     )
   }
 }
+
+  // -----------------------------------------------------------------------
+  //  Allows a route to require a level of authentication before rendering
+  // -----------------------------------------------------------------------
+  // class PrivateRoute extends Route {
+
+  // } = (children, mylink, ...rest) => {
+  //   console.log("PrivateRoute context: ", context);
+  //   return(
+  //     <Route
+  //       {...rest}
+  //       render={ ( {location} ) => 
+  //         this.context.isAuthorized ? (
+  //           children
+  //         ) : (
+  //           <Redirect
+  //             to={{
+  //               pathname: "/login", 
+  //               state:{from: location}
+  //             }}
+  //           />
+  //         )
+  //       }
+  //     />
+  //   );
+  // }
+
 
 export default App;

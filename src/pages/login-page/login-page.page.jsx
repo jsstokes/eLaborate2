@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 // eslint-disable-next-line
 import { Col, Row, Form, Button } from "react-bootstrap";
 
@@ -25,19 +25,28 @@ class LoginPage extends React.Component {
         this.setState(change);
     }
 
-    handleSaveButton = () => {
-        // this.context.toggleAuthorized();
-        this.context.setAuthorized(true, this.state.userid, this.state.role);
-        console.log(this.props); 
-        // this.props.history.pop();
-        if (this.props.redirectTarget) {
-            this.props.history.push(this.props.redirectTarget);
-        }
-    }
-
+    // handleSaveButton = () => {
+    //     // this.context.toggleAuthorized();
+    //     this.context.setAuthorized(true, this.state.userid, this.state.role);
+    //     console.log(this.props); 
+    //     // this.props.history.pop();
+    //     if (this.props.redirectTarget) {
+    //         this.props.history.push(this.props.redirectTarget);
+    //     }
+    // }
+    handleSaveButton = (parms) => {
+        console.log("Handle Save:", parms);
+        this.context.setAuthorized(true, parms.userid,"");
+        this.props.history.push(`/student/5f35b6b724f7a22dde49e082`); ///${parms.userid}`);
+        return(
+          <Redirect to="/student/5f35b6b724f7a22dde49e082"/>
+        );
+      }
+    
+    
     SaveButton = () => {
         return(
-            <Button className="btn btn-primary " onClick={() => {this.props.handleSaveButton(this.state)}}>Login</Button>
+            <Button className="btn btn-primary " onClick={() => {this.handleSaveButton(this.state)}}>Login</Button>
         );
     }
 
