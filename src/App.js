@@ -78,6 +78,9 @@ class App extends React.Component {
                     </StudentPage>
                     </div>
                   </Route>
+                  <Route path="/junk">
+                    <AuthButton redirectTarget="/"/>
+                  </Route>
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>

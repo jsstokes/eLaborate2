@@ -1,5 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+// eslint-disable-next-line
 import { Col, Row, Form, Button } from "react-bootstrap";
 
 import LabContext from '../../lab.context';
@@ -26,6 +27,7 @@ class LoginPage extends React.Component {
     handleSaveButton = () => {
         this.context.toggleAuthorized();
         console.log(this.props); 
+        // this.props.history.pop();
         if (this.props.redirectTarget) {
             this.props.history.push(this.props.redirectTarget);
         }

@@ -19,7 +19,7 @@ class AuthButton extends React.Component {
 
     handleAuthButton = () => {
         var newState = {
-            authorized: !this.state.authorized,
+            authorized: this.context.authorized,
             show: !this.state.show
         }
         this.setState(newState);
