@@ -12,7 +12,8 @@ class LoginPage extends React.Component {
         super(props)
         this.state = {
             userid: "",
-            password: ""
+            password: "",
+            role: this.props.role
         };
     }
 
@@ -25,7 +26,8 @@ class LoginPage extends React.Component {
     }
 
     handleSaveButton = () => {
-        this.context.toggleAuthorized();
+        // this.context.toggleAuthorized();
+        this.context.setAuthorized(true, this.state.userid, this.state.role);
         console.log(this.props); 
         // this.props.history.pop();
         if (this.props.redirectTarget) {
@@ -35,28 +37,51 @@ class LoginPage extends React.Component {
 
     SaveButton = () => {
         return(
-            <Button className="btn btn-primary " onClick={this.handleSaveButton}>Login</Button>
+            <Button className="btn btn-primary " onClick={() => {this.props.handleSaveButton(this.state)}}>Login</Button>
         );
     }
+
     render() {
         return (
-            <div className='center'>
-            <div className="Form LoginPage ">
-                <Form.Group as={Row}>
-                    <Form.Label column sm="1"  >User ID</Form.Label>
-                    <Col sm="11">
-                        <Form.Control plaintext  name="userid" onChange={this.handleKeyChange} value={this.state.userid} className="formControls"/>
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row}>
-                    <Form.Label column sm="1">Password</Form.Label>
-                    <Col>
-                    <Form.Control type="password" className="form-control formControls" name="password" onChange={this.handleKeyChange} value={this.state.password}/>
-                    </Col>
-                </Form.Group>
-                <this.SaveButton ></this.SaveButton>
+            <div id="myModal" className="modal">
+
+                <div className="modal-content">
+                    <h2>{this.props.prompt}</h2>
+                    <div className="Form">
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1"  >User ID</Form.Label>
+                            <Col sm="11">
+                                <Form.Control plaintext  name="userid" onChange={this.handleKeyChange} value={this.state.userid} className="formControls"/>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Password</Form.Label>
+                            <Col>
+                            <Form.Control type="password" className="form-control formControls" name="password" onChange={this.handleKeyChange} value={this.state.password}/>
+                            </Col>
+                        </Form.Group>
+                        <this.SaveButton ></this.SaveButton>
+                    </div>
+                </div>
+
             </div>
-            </div>
+            // <div className='center'>
+            // <div className="Form LoginPage ">
+            //     <Form.Group as={Row}>
+            //         <Form.Label column sm="1"  >User ID</Form.Label>
+            //         <Col sm="11">
+            //             <Form.Control plaintext  name="userid" onChange={this.handleKeyChange} value={this.state.userid} className="formControls"/>
+            //         </Col>
+            //     </Form.Group>
+            //     <Form.Group as={Row}>
+            //         <Form.Label column sm="1">Password</Form.Label>
+            //         <Col>
+            //         <Form.Control type="password" className="form-control formControls" name="password" onChange={this.handleKeyChange} value={this.state.password}/>
+            //         </Col>
+            //     </Form.Group>
+            //     <this.SaveButton ></this.SaveButton>
+            // </div>
+            // </div>
         );
     }
 }
