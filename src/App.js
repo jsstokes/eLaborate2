@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LabContext from './lab.context';
 import LabPage from './pages/lab-page/lab-page.component';
 import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
-import AuthButton from './components/auth-button/auth-button.component';
 import StudentPage from './pages/student-page/student-page-page';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login-page/login-page.page';
@@ -81,7 +80,6 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/" exact>
                     <div>
-                      <AuthButton/>
                       <LabSelectPage />
                       <LabPage /> 
                     </div>
