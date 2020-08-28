@@ -91,11 +91,12 @@ class LabDetails extends React.Component {
         // for the copy text function to work properly (due to security restrictions)
         // ----------------------------------------------------------------------------
             console.log("=============================");
-            console.log("An IFrame would link to: ", window.location.href);
+            console.log("  Context is:", this.context.userid);
+            console.log("An IFrame would link to: ", `${window.location.href}/${this.context.userid}`);
             if (window.location !== window.parent.location) {
-            console.log("Inside of an iFrame: linking to", window.location.href);
+            console.log("Inside of an iFrame: linking to", `${window.location.href}/${this.context.userid}`);
             return(
-                <a  href={window.location.href} 
+                <a  href={`${window.location.href}/${this.context.userid}`} 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary LinkButton"
