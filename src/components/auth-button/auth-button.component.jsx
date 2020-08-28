@@ -19,7 +19,7 @@ class AuthButton extends React.Component {
 
     handleAuthButton = () => {
         var newState = {
-            authorized: this.context.authorized,
+            authorized: this.context.isAuthorized,
             show: !this.state.show
         }
         this.setState(newState);
@@ -38,12 +38,12 @@ class AuthButton extends React.Component {
 
     AuthModalBody = () => {
         let buttonText = "";
-        if (this.context.authorized) {
+        if (this.context.isAuthorized) {
             buttonText = "Logout";
         } else {
             buttonText = "Login";
         }
-        if (this.context.authorized) {
+        if (this.context.isAuthorized) {
             return(
                 <Modal
                     show={this.state.show}
@@ -111,7 +111,7 @@ class AuthButton extends React.Component {
         return(null);
 
         // Bug in Bootstrap Modal - so commente out below
-        // if (this.context.authorized) {
+        // if (this.context.isAuthorized) {
         //     return(
         //         <this.AuthModalWindow icon={faLockOpen} className="Auth-button"/>
         //     );
