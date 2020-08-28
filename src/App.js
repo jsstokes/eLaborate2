@@ -4,11 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import SAMPLE_DATA from './sample-lab.data';
 
 import LabContext from './lab.context';
-import LabPage from './pages/lab-page/lab-page.component';
-import LabSelectPage from './pages/lab-select-page/lab-select-page.component';
 import StudentPage from './pages/student-page/student-page-page';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login-page/login-page.page';
+import MainPage from './pages/main-page/main-page.page';
 
 class App extends React.Component {
   constructor() {
@@ -78,19 +77,8 @@ class App extends React.Component {
             <LabContext.Consumer>
               {({context}) => (
                 <Switch>
-                  <Route path="/" exact>
-                    <div>
-                      <LabSelectPage />
-                      <LabPage /> 
-                    </div>
-                  </Route>
-                  <Route path="/student/:workshop_id/:student_id?">
-                    <div>
-                    <StudentPage>
-                      <LabPage /> 
-                    </StudentPage>
-                    </div>
-                  </Route>
+                  <Route path="/" exact component={MainPage} />
+                  <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
                   {
                     // Route for testing stuff
                   }

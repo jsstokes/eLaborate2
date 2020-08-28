@@ -6,6 +6,7 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import LabContext from '../../lab.context';
 
 import './student-page.styles.css';
+import LabPage from '../lab-page/lab-page.component';
 
 class StudentPage extends React.Component {
 
@@ -89,7 +90,7 @@ class StudentPage extends React.Component {
         console.log("-------------  NOT Rendering the user form ----------------");
         return(
             <div>
-                {this.props.children}
+                <LabPage />
             </div>
         );
     }
