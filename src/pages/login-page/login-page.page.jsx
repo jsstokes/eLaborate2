@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
 
     handleSaveButton = (parms) => {
         console.log("Handle Save:", parms);
-        this.context.setAuthorized(false, parms.userid,"");
+        this.context.setAuthorized(true, parms.userid,"");
         // this.props.history.push(`/student/5f35b6b724f7a22dde49e082`); ///${parms.userid}`);
         this.props.history.push(`/`); ///${parms.userid}`);
         return(
