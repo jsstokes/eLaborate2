@@ -20,20 +20,12 @@ class LoginPage extends React.Component {
     componentDidMount = () => {
         console.log("Entering LoginWindow.componentDidMount");
     }
+    
     handleKeyChange = (e) => {
         let change = {[e.target.name]: e.target.value};
         this.setState(change);
     }
 
-    // handleSaveButton = () => {
-    //     // this.context.toggleAuthorized();
-    //     this.context.setAuthorized(true, this.state.userid, this.state.role);
-    //     console.log(this.props); 
-    //     // this.props.history.pop();
-    //     if (this.props.redirectTarget) {
-    //         this.props.history.push(this.props.redirectTarget);
-    //     }
-    // }
     handleSaveButton = (parms) => {
         console.log("Handle Save:", parms);
         this.context.setAuthorized(true, parms.userid,"");
@@ -41,8 +33,7 @@ class LoginPage extends React.Component {
         return(
           <Redirect to="/student/5f35b6b724f7a22dde49e082"/>
         );
-      }
-    
+    }
     
     SaveButton = () => {
         return(
@@ -74,23 +65,6 @@ class LoginPage extends React.Component {
                 </div>
 
             </div>
-            // <div className='center'>
-            // <div className="Form LoginPage ">
-            //     <Form.Group as={Row}>
-            //         <Form.Label column sm="1"  >User ID</Form.Label>
-            //         <Col sm="11">
-            //             <Form.Control plaintext  name="userid" onChange={this.handleKeyChange} value={this.state.userid} className="formControls"/>
-            //         </Col>
-            //     </Form.Group>
-            //     <Form.Group as={Row}>
-            //         <Form.Label column sm="1">Password</Form.Label>
-            //         <Col>
-            //         <Form.Control type="password" className="form-control formControls" name="password" onChange={this.handleKeyChange} value={this.state.password}/>
-            //         </Col>
-            //     </Form.Group>
-            //     <this.SaveButton ></this.SaveButton>
-            // </div>
-            // </div>
         );
     }
 }

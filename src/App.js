@@ -118,31 +118,4 @@ class App extends React.Component {
   }
 }
 
-  // -----------------------------------------------------------------------
-  //  Allows a route to require a level of authentication before rendering
-  // -----------------------------------------------------------------------
-  // class PrivateRoute extends Route {
-
-  // } = (children, mylink, ...rest) => {
-  //   console.log("PrivateRoute context: ", context);
-  //   return(
-  //     <Route
-  //       {...rest}
-  //       render={ ( {location} ) => 
-  //         this.context.isAuthorized ? (
-  //           children
-  //         ) : (
-  //           <Redirect
-  //             to={{
-  //               pathname: "/login", 
-  //               state:{from: location}
-  //             }}
-  //           />
-  //         )
-  //       }
-  //     />
-  //   );
-  // }
-
-
 export default App;
