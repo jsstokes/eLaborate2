@@ -27,7 +27,7 @@ class StudentPage extends React.Component {
         console.log("  props: ", this.props);
         console.log("  state: ", this.state);
         console.log("-------------------------------------------------");
-        this.context.setAuthorized(true, this.state.tempuser);
+        this.context.setAuthorized(false, this.state.tempuser);
         this.setState({"userid": this.state.tempuser});
         this.forceUpdate();
         if (!this.context.currentLab) {
