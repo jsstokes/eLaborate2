@@ -67,7 +67,7 @@ class LabList extends React.Component {
                     className='btn btn-primary'
                     onClick={ () => {props.onTestClick(props.lab._id.$oid)}  }
                     >
-                    Test Route
+                    Open as Student
                 </button>
 
             </div>
