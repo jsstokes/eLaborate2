@@ -33,7 +33,6 @@ class LabStep extends React.Component {
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
     toggleEdit = (index) => {
-        console.log("Inside of ToggleEdit lab step");
         let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
         this.setState({
             tempEditStep: newStep,

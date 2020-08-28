@@ -14,9 +14,8 @@ class LabPage extends React.Component {
           nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })}
         }
       }
+
       componentDidMount() {
-          console.log("Inside of LabPage.componentDidMount");
-          console.log("Context values are:", this.context);
       }
      
     render() {

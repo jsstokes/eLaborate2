@@ -12,7 +12,11 @@ class StudentPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {tempuser: ""};
+        if (props.match.params.student_id) {
+            this.state = {tempuser: props.match.params.student_id};
+        } else {
+            this.state = {tempuser: ""};
+        }
     }
 
     handleKeyChange = (e) => {
@@ -21,13 +25,7 @@ class StudentPage extends React.Component {
     }
 
     handleSaveButton = () => {
-        console.log("About to Save userid:", this.state.tempuser);
-        console.log("-------------------------------------------------");
-        console.log("  context: ", this.context);
-        console.log("  props: ", this.props);
-        console.log("  state: ", this.state);
-        console.log("-------------------------------------------------");
-        this.context.setAuthorized(false, this.state.tempuser);
+        this.context.setAuthorized(false, this.state.tempuser); 
         this.setState({"userid": this.state.tempuser});
         this.forceUpdate();
         if (!this.context.currentLab) {
@@ -36,8 +34,6 @@ class StudentPage extends React.Component {
     }
 
     getLab() {
-        console.log(" prior to REST call props are:", this.props);
-        console.log("=== Makeing AXIOS call to get lab - ID: ", this.props.match.params.workshop_id);
         Axios.get(
             `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
             { 
@@ -47,7 +43,6 @@ class StudentPage extends React.Component {
             }
         )
         .then(response => {
-            console.log("AXIOS Response:", response.data);
             this.context.setCurrentLab(response.data);
         });
     }
@@ -63,7 +58,7 @@ class StudentPage extends React.Component {
                                     <Form.Control plaintext  name="userid" onChange={this.handleKeyChange} value={this.state.tempuser} className="formControls"/>
                                 </Col>
                         </Form.Group>
-                        <Button onClick={this.handleSaveButton}>Save</Button>
+                        <Button onClick={this.handleSaveButton}>Continue...</Button>
                     </div>
                 </div>
             </div>
@@ -71,9 +66,6 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Context Props",this.props.match.workshop_id);
-        console.log("Entering StudentPage.componentDidMount - context is:", this.context);
-        console.log("Entering StudentPage.componentDidMount - state is:", this.state);
         this.setState({"userid": this.context.auth.userid});
         if ((this.props.match.workshop_id) && (!this.context.currentLab)) {
             this.getLab();
@@ -84,10 +76,9 @@ class StudentPage extends React.Component {
     render() {
         console.log("Entering StudentPage.render - state is:", this.state);
         if (this.state.userid === "") {
-            console.log("-------------  Rendering the user form ----------------");
+        // if (this.state.tempuser === "") {
             return(<this.emailForm/>);
         }
-        console.log("-------------  NOT Rendering the user form ----------------");
         return(
             <div>
                 <LabPage />

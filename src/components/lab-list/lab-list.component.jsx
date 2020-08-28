@@ -33,7 +33,6 @@ class LabList extends React.Component {
         );
     }
     handleNewLab = () => {
-        console.log("New Lab Button Clicked");
         let newLab = {
             "name": "",
             "description": "",
@@ -75,7 +74,6 @@ class LabList extends React.Component {
     }
 
     handleSelectClick = (oid) => {
-        console.log("LabList.handleSelectClick - setting currentLabID to", oid);
         this.context.setCurrentLabID(oid);
         Axios.get(
             `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
@@ -91,7 +89,6 @@ class LabList extends React.Component {
     }
 
     handleNewLabClick = () => {
-        console.log("New Lab Button Clicked: ", "should come in editing");
         let newLab = JSON.parse(JSON.stringify(BLANK_LAB));
         this.context.setCurrentLab(newLab);
         this.context.setLabHasChanged(false);
@@ -105,11 +102,7 @@ class LabList extends React.Component {
     }
 
     handleTestClick = (oid) => {
-        console.log(`Handle Test Clicked Redirecting to: /student/${oid}`);
-        console.log("TestClick Button Props for routing:", this.props);
         let newPath = `/student/${oid}`;
-        console.log("[ushing to history", newPath);
-        console.log("LabList.handleTestClick - setting currentLabID to", oid);
         this.context.setCurrentLabID(oid);
         this.props.history.push(newPath);
         // return(<Redirect push to="/student/sdfgdfsg" />);

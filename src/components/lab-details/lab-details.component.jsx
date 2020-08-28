@@ -29,8 +29,6 @@ class LabDetails extends React.Component {
     }
 
     componentDidMount () {
-        console.log("Inside of LabDetails.componentDidMount");
-        console.log("LabDetails.componentDidMount - currentLab is ", this.context.currentLab);
         if (this.state.tempLab == null) {
             let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
             this.setState({tempLab: tempLab});
@@ -92,8 +90,10 @@ class LabDetails extends React.Component {
         // If we're in an iFrame, we need to open in a seperate window
         // for the copy text function to work properly (due to security restrictions)
         // ----------------------------------------------------------------------------
-        if (window.location !== window.parent.location) {
-            console.log("Inside of an iFrame");
+            console.log("=============================");
+            console.log("An IFrame would link to: ", window.location.href);
+            if (window.location !== window.parent.location) {
+            console.log("Inside of an iFrame: linking to", window.location.href);
             return(
                 <a  href={window.location.href} 
                     target="_blank"
