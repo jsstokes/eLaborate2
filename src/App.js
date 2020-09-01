@@ -14,25 +14,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authorized: false,
-      auth: {
-        userid: "",
-        role: "",
-        authorized: false, 
-      },
-      setAuthorized: (authorized, userid="", role="") => 
-      { 
-        let newAuth = { "userid": userid,"role": role,"authorized":  authorized};
-        this.setState(newAuth);
-      },
-      isAuthorized: () => { return (this.state.auth.authorized)},
-      isInRole: (role) => { 
-        if (role === this.state.auth.role) {
-          return true
-        } else {
-          return false
-        }
-      },
       
       currentLab: null, 
       setCurrentLab: (lab) => {this.setState({"currentLab": lab})},

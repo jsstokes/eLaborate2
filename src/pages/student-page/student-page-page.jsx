@@ -27,7 +27,7 @@ class StudentPage extends React.Component {
     }
 
     handleSaveButton = () => {
-        this.context.setAuthorized(false, this.state.tempuser); 
+        // this.context.setAuthorized(false, this.state.tempuser); 
         this.props.setStudentEmail(this.state.tempuser);
         this.forceUpdate();
         if (!this.context.currentLab) {
@@ -68,7 +68,7 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setStudentEmail(this.context.auth.userid);
+        // this.props.setStudentEmail(this.context.auth.userid);
         if ((this.props.match.workshop_id) && (!this.context.currentLab)) {
             this.getLab();
         }
