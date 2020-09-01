@@ -74,7 +74,7 @@ class AuthButton extends React.Component {
                 <Form.Control 
                     type='text' 
                     name='userid' 
-                    value={this.state.userid}
+                    value={this.props.studentEmail}
                     placeholder='Enter you user name'
                 />
                 <Form.Control 

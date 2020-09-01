@@ -2,6 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import { Col, Row, Form, Button } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { setStudentEmail }from '../../redux/user/user.actions'; 
 
 import LabContext from '../../lab.context';
 
@@ -26,7 +28,7 @@ class StudentPage extends React.Component {
 
     handleSaveButton = () => {
         this.context.setAuthorized(false, this.state.tempuser); 
-        this.setState({"userid": this.state.tempuser});
+        this.props.setStudentEmail(this.state.tempuser);
         this.forceUpdate();
         if (!this.context.currentLab) {
             this.getLab();
@@ -66,7 +68,7 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({"userid": this.context.auth.userid});
+        this.props.setStudentEmail(this.context.auth.userid);
         if ((this.props.match.workshop_id) && (!this.context.currentLab)) {
             this.getLab();
         }
@@ -75,7 +77,7 @@ class StudentPage extends React.Component {
 
     render() {
         console.log("Entering StudentPage.render - state is:", this.state);
-        if (this.state.userid === "") {
+        if (this.props.studentEmail === "") {
         // if (this.state.tempuser === "") {
             return(<this.emailForm/>);
         }
@@ -87,4 +89,13 @@ class StudentPage extends React.Component {
     }
 }
 StudentPage.contextType = LabContext;
-export default withRouter(StudentPage);
+
+const mapStateToProps = (state) => ({
+    studentEmail: state.user.studentEmail
+})
+
+const mapDispatchToProps = dispatch => ({
+    setStudentEmail: email => dispatch(setStudentEmail(email))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(StudentPage));
