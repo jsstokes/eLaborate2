@@ -85,17 +85,7 @@ class App extends React.Component {
                     ? <LoginPage handleSaveButton={this.handleSaveButton}/>
                     : <MainPage/>
                   )}/>
-                  component={MainPage} />
                   <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
-                  {
-                    // Route for testing stuff
-                  // <Route path="/junk"
-                  //   render={props => (
-                  //     this.props.userid === "" 
-                  //     ? <LoginPage handleSaveButton={this.handleSaveButton}/>
-                  //     : <MainPage/>
-                  // )}/>
-                  }
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>

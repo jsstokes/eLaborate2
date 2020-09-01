@@ -4,7 +4,7 @@ import {withRouter, Redirect} from 'react-router-dom';
 // eslint-disable-next-line
 import { Col, Row, Form, Button } from "react-bootstrap";
 
-import { setCurrentUser }from '../../redux/user/user.actions'; 
+import { setCurrentUser, setStudentEmail }from '../../redux/user/user.actions'; 
 
 import LabContext from '../../lab.context';
 import './login-page.styles.css';
@@ -31,6 +31,7 @@ class LoginPage extends React.Component {
 
     handleSaveButton = (parms) => {
         this.props.setCurrentUser(parms.userid);    // set userid in Redux
+        this.props.setStudentEmail("redux@mongodb.com");
         this.props.history.push(`/`); 
         return(
           <Redirect to="/student/5f35b6b724f7a22dde49e082"/>
@@ -78,7 +79,8 @@ const mapStateToProps = (state) => ({
   });
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    setStudentEmail: email => dispatch(setStudentEmail(email))
 })
   
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LoginPage));

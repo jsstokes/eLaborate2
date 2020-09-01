@@ -2,10 +2,12 @@ const INITIAL_USER_STATE = {
     userid: "",
     role: "",
     authorized: false, 
+    studentEmail: ""
 };
 
 export const USER_ACTION_TYPES = {
     SET_CURRENT_USER: "SET_CURRENT_USER",
+    SET_STUDENT_EMAIL: "SET_STUDENT_EMAIL"
 }
 
 const userReducer = (state = INITIAL_USER_STATE, action) => {
@@ -15,6 +17,11 @@ const userReducer = (state = INITIAL_USER_STATE, action) => {
                 ...state,
                 userid: action.payload,
                 authorized: true
+            }
+        case USER_ACTION_TYPES.SET_STUDENT_EMAIL:
+            return {
+                ...state,
+                studentEmail: action.payload
             }
 
         default:
