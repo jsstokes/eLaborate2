@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import SAMPLE_DATA from './sample-lab.data';
@@ -10,8 +11,8 @@ import LoginPage from './pages/login-page/login-page.page';
 import MainPage from './pages/main-page/main-page.page';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       authorized: false,
       auth: {
@@ -71,6 +72,7 @@ class App extends React.Component {
   // Original function - uncomment to restore AuthButton
   // ----------------------------------------------------
   render () {
+    console.log("USERID from redux:", this.props);
     return (
       <Router>
         <div>
@@ -85,9 +87,9 @@ class App extends React.Component {
                   }
                   <Route path="/junk"
                     render={props => (
-                      this.state.auth.userid === "" 
+                      this.props.userid === "" 
                       ? <LoginPage handleSaveButton={this.handleSaveButton}/>
-                      : <StudentPage/>
+                      : <MainPage/>
                       )}/>
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
@@ -105,4 +107,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  userid: state.user.userid
+})
+
+export default connect(mapStateToProps)(App);

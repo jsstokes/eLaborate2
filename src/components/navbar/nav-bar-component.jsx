@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
 
@@ -42,7 +43,7 @@ class MyNavBar extends React.Component {
         );
      }
      EditButton = (props) => {
-        if (this.context.authorized) {
+        if (this.props.userid) {
             return(
                 <Button onClick={props.onClick}  className={props.className}>
                     <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
@@ -87,7 +88,7 @@ class MyNavBar extends React.Component {
     }
 
     AddStepButton = (props) => {
-        if (this.context.authorized) {
+        if (this.props.userid) {
             return(
                 <span onClick={this.handleNewStepAfter}  className={props.className}>
                 <FontAwesomeIcon icon={faPlus} />&nbsp;Add Step
@@ -108,7 +109,7 @@ class MyNavBar extends React.Component {
     }
 
     DeleteButton = (props) => {
-        if (this.context.authorized) {
+        if (this.props.userid) {
             return (
                 <span className={props.className} onClick={this.handleDeleteStep}>
                     <FontAwesomeIcon icon={faTrash} />&nbsp;Delete
@@ -137,7 +138,7 @@ class MyNavBar extends React.Component {
     }   // end of handleSaveLab
 
     SaveLabButton = (props) => {
-        if (this.context.authorized) {
+        if (this.props.userid) {
             return (
                 <button 
                 onClick={this.handleSaveLab} 
@@ -166,4 +167,8 @@ class MyNavBar extends React.Component {
     }
 }
 MyNavBar.contextType = LabContext;
-export default MyNavBar;
+
+const mapStateToProps = (state) => ({
+    userid: state.user.userid
+})
+export default connect(mapStateToProps)(MyNavBar);

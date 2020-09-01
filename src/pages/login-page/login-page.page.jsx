@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {withRouter, Redirect} from 'react-router-dom';
 // eslint-disable-next-line
 import { Col, Row, Form, Button } from "react-bootstrap";
@@ -70,5 +71,8 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.contextType = LabContext;
-
-export default withRouter(LoginPage);
+const mapStateToProps = (state) => ({
+    userid: state.user.userid
+  })
+  
+export default connect(mapStateToProps)(withRouter(LoginPage));

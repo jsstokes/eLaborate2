@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
@@ -75,7 +76,7 @@ class LabDetails extends React.Component {
 
 
     EditButton = (props) => {
-        if (this.context.authorized) {
+        if (this.props.userid) {
             return(
                     <Fragment>
                         <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
@@ -91,12 +92,12 @@ class LabDetails extends React.Component {
         // for the copy text function to work properly (due to security restrictions)
         // ----------------------------------------------------------------------------
             console.log("=============================");
-            console.log("  Context is:", this.context.userid);
-            console.log("An IFrame would link to: ", `${window.location.href}/${this.context.userid}`);
+            console.log("  Context is:", this.props.userid);
+            console.log("An IFrame would link to: ", `${window.location.href}/${this.props.userid}`);
             if (window.location !== window.parent.location) {
-            console.log("Inside of an iFrame: linking to", `${window.location.href}/${this.context.userid}`);
+            console.log("Inside of an iFrame: linking to", `${window.location.href}/${this.props.userid}`);
             return(
-                <a  href={`${window.location.href}/${this.context.userid}`} 
+                <a  href={`${window.location.href}/${this.props.userid}`} 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary LinkButton"
@@ -174,4 +175,9 @@ class LabDetails extends React.Component {
 
 LabDetails.contextType = LabContext;
 
-export default LabDetails;
+const mapStateToProps = (state) => ({
+    userid: state.user.userid
+  })
+  
+
+export default connect(mapStateToProps)(LabDetails);
