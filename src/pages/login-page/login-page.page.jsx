@@ -4,6 +4,8 @@ import {withRouter, Redirect} from 'react-router-dom';
 // eslint-disable-next-line
 import { Col, Row, Form, Button } from "react-bootstrap";
 
+import { setCurrentUser }from '../../redux/user/user.actions'; 
+
 import LabContext from '../../lab.context';
 import './login-page.styles.css';
 
@@ -28,9 +30,8 @@ class LoginPage extends React.Component {
     }
 
     handleSaveButton = (parms) => {
-        this.context.setAuthorized(true, parms.userid,"");
-        // this.props.history.push(`/student/5f35b6b724f7a22dde49e082`); ///${parms.userid}`);
-        this.props.history.push(`/`); ///${parms.userid}`);
+        this.props.setCurrentUser(parms.userid);    // set userid in Redux
+        this.props.history.push(`/`); 
         return(
           <Redirect to="/student/5f35b6b724f7a22dde49e082"/>
         );
@@ -71,8 +72,13 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.contextType = LabContext;
+
 const mapStateToProps = (state) => ({
     userid: state.user.userid
-  })
+  });
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+})
   
-export default connect(mapStateToProps)(withRouter(LoginPage));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LoginPage));

@@ -80,17 +80,22 @@ class App extends React.Component {
             <LabContext.Consumer>
               {({context}) => (
                 <Switch>
-                  <Route path="/" exact component={MainPage} />
+                  <Route path="/" exact render={props => (
+                    this.props.userid === ""
+                    ? <LoginPage handleSaveButton={this.handleSaveButton}/>
+                    : <MainPage/>
+                  )}/>
+                  component={MainPage} />
                   <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
                   {
                     // Route for testing stuff
+                  // <Route path="/junk"
+                  //   render={props => (
+                  //     this.props.userid === "" 
+                  //     ? <LoginPage handleSaveButton={this.handleSaveButton}/>
+                  //     : <MainPage/>
+                  // )}/>
                   }
-                  <Route path="/junk"
-                    render={props => (
-                      this.props.userid === "" 
-                      ? <LoginPage handleSaveButton={this.handleSaveButton}/>
-                      : <MainPage/>
-                      )}/>
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>

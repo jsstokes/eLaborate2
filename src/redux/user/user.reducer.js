@@ -1,5 +1,5 @@
 const INITIAL_USER_STATE = {
-    userid: "redux-user",
+    userid: "",
     role: "",
     authorized: false, 
 };
