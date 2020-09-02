@@ -16,11 +16,11 @@ class App extends React.Component {
     this.state = {
       
       // currentLab: null, 
-      setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
+      // setCurrentLab: (lab) => {this.setState({"currentLab": lab})},
       
       // Current Lab ID is set either from the LabList or from the URL parm
-      currentLabID: null,
-      setCurrentLabID: (lab_id) => {this.setState({"currentLabID": lab_id})},
+      // currentLabID: null,
+      // setCurrentLabID: (lab_id) => {this.setState({"currentLabID": lab_id})},
       
       currentStep: 0, 
       setCurrentStep: (step) => {this.setState({"currentStep": step})},

@@ -3,7 +3,7 @@ import Axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { setCurrentLab } from '../../redux/lab/lab.actions';
+import { setCurrentLab, setCurrentLabID } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -76,7 +76,7 @@ class LabList extends React.Component {
     }
 
     handleSelectClick = (oid) => {
-        this.context.setCurrentLabID(oid);
+        this.props.setCurrentLabID(oid);
         Axios.get(
             `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
             { 
@@ -106,7 +106,7 @@ class LabList extends React.Component {
     handleTestClick = (oid) => {
         let newPath = `/student/${oid}`;
         console.log("Setting Student URl to", newPath);
-        this.context.setCurrentLabID(oid);
+        this.props.setCurrentLabID(oid);
         this.props.history.push(newPath);
         // return(<Redirect push to="/student/sdfgdfsg" />);
         
@@ -142,10 +142,12 @@ LabList.contextType = LabContext;
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
     //currentLab: state.lab.currentLab
+    setCurrentLabID: state.lab.setCurrentLab
 })
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+    setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    setCurrentLabID: lab_id => dispatch(setCurrentLabID(lab_id))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LabList));
