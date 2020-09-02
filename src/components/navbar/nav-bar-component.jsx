@@ -54,7 +54,7 @@ class MyNavBar extends React.Component {
     }
 
     handleNext = () => {
-        const MAX_STEP = this.context.currentLab.steps.length - 1;
+        const MAX_STEP = this.props.currentLab.steps.length - 1;
         if (this.context.currentStep < MAX_STEP) {
             this.context.setCurrentStep(this.context.currentStep + 1);
         }
@@ -62,7 +62,7 @@ class MyNavBar extends React.Component {
 
     NextButton = (props) => {
         var disableNext = false;
-        var lastStep = this.context.currentLab.steps.length - 1;
+        var lastStep = this.props.currentLab.steps.length - 1;
 
         if ((this.context.currentStep) === lastStep) {
             disableNext = true;
@@ -78,7 +78,7 @@ class MyNavBar extends React.Component {
 
     handleNewStepAfter = () => {
         let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-        this.context.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
+        this.props.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
         this.context.setCurrentStep(this.context.currentStep + 1);
 
         // Changed
@@ -100,9 +100,9 @@ class MyNavBar extends React.Component {
     }
 
     handleDeleteStep = () => {
-        this.context.currentLab.steps.splice(this.context.currentStep,1);
-        if (this.context.currentStep > (this.context.currentLab.steps.length -1)) {
-           this.context.setCurrentStep(this.context.currentLab.steps.length - 1);
+        this.props.currentLab.steps.splice(this.context.currentStep,1);
+        if (this.context.currentStep > (this.props.currentLab.steps.length -1)) {
+           this.context.setCurrentStep(this.props.currentLab.steps.length - 1);
         } else {
             this.context.setCurrentStep(this.context.currentStep);  // Force page refresh :D
         }
@@ -123,11 +123,11 @@ class MyNavBar extends React.Component {
     handleSaveLab = () => {
         axios.post(
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveLab",
-            this.context.currentLab
+            this.props.currentLab
         ).then(response => {
             if (response.data.hasOwnProperty("insertedId")) {
                 // alert("A new lab was inserted, updating _id: " + JSON.stringify(response.data,0,2));
-                let newLab = this.context.currentLab;
+                let newLab = this.props.currentLab;
                 newLab._id = response.data.insertedId;
                 this.context.setCurrentLab(newLab);
             } else {
@@ -169,6 +169,7 @@ class MyNavBar extends React.Component {
 MyNavBar.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
-    userid: state.user.userid
+    userid: state.user.userid,
+    currentLab: state.lab.currentLab
 })
 export default connect(mapStateToProps)(MyNavBar);

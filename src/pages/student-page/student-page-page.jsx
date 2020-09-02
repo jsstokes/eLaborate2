@@ -9,6 +9,7 @@ import LabContext from '../../lab.context';
 
 import './student-page.styles.css';
 import LabPage from '../lab-page/lab-page.component';
+import { setCurrentLab } from '../../redux/lab/lab.actions';
 
 class StudentPage extends React.Component {
 
@@ -45,7 +46,7 @@ class StudentPage extends React.Component {
             }
         )
         .then(response => {
-            this.context.setCurrentLab(response.data);
+            this.props.setCurrentLab(response.data);
         });
     }
 
@@ -91,11 +92,13 @@ class StudentPage extends React.Component {
 StudentPage.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
-    studentEmail: state.user.studentEmail
+    studentEmail: state.user.studentEmail,
+    currentLab: state.lab.currentLab
 })
 
 const mapDispatchToProps = dispatch => ({
-    setStudentEmail: email => dispatch(setStudentEmail(email))
+    setStudentEmail: email => dispatch(setStudentEmail(email)),
+    setCurrentLab: lab => dispatch(setCurrentLab(lab))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(StudentPage));

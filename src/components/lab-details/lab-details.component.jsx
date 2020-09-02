@@ -5,6 +5,8 @@ import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
 import {Form, Row, Col} from 'react-bootstrap';
 
+import {setCurrentLab} from '../../redux/lab/lab.actions';
+
 // FontAwesome for buttons
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +33,7 @@ class LabDetails extends React.Component {
 
     componentDidMount () {
         if (this.state.tempLab == null) {
-            let tempLab = JSON.parse(JSON.stringify(this.context.currentLab))
+            let tempLab = JSON.parse(JSON.stringify(this.props.currentLab))
             this.setState({tempLab: tempLab});
         }
         this.setState({"isEditing": this.context.isEditing});
@@ -60,7 +62,7 @@ class LabDetails extends React.Component {
         //
         let tempLab;
         if (!this.state.isEditing) {
-            tempLab = JSON.parse(JSON.stringify(this.context.currentLab));
+            tempLab = JSON.parse(JSON.stringify(this.props.currentLab));
             this.setState({
                 tempLab: tempLab,
                 isEditing: !this.state.isEditing
@@ -155,12 +157,12 @@ class LabDetails extends React.Component {
                 </div>
             );
         }  // end of if(isEditing)
-        if (this.context.currentLab){
+        if (this.props.currentLab){
             return(
                 <div className="TopLevelDiv"> 
-                    <h1>{this.context.currentLab.name}</h1>
+                    <h1>{this.props.currentLab.name}</h1>
                     <ReactMarkdown
-                        source={this.context.currentLab.description}
+                        source={this.props.currentLab.description}
                         renderers={{code: CodeBlock}}
                     />
                     <this.EditButton className='btn btn-primary'/>
@@ -176,8 +178,12 @@ class LabDetails extends React.Component {
 LabDetails.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
-    userid: state.user.userid
-  })
-  
+    userid: state.user.userid,
+    currentLab: state.lab.currentLab
+})
 
-export default connect(mapStateToProps)(LabDetails);
+const mapDispatchToProps = dispatch => ({
+    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LabDetails);

@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {BLANK_STEP} from '../../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
+import { connect } from "react-redux";
 
 class LabStep extends React.Component {
 
@@ -33,7 +34,7 @@ class LabStep extends React.Component {
     //    to allow the edit to be cancelled
     //----------------------------------------------------------------------
     toggleEdit = (index) => {
-        let newStep = JSON.parse(JSON.stringify(this.context.currentLab.steps[index]));
+        let newStep = JSON.parse(JSON.stringify(this.props.currentLab.steps[index]));
         this.setState({
             tempEditStep: newStep,
             isEditing: !this.state.isEditing
@@ -88,7 +89,7 @@ class LabStep extends React.Component {
         if (this.state.isEditing) {
             return(
                 <div className="Form StepPage">
-                    <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
+                    <i>Step {this.context.currentStep + 1} of {this.props.currentLab.steps.length}</i>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1"  >Title</Form.Label>
                         <Col sm="11">
@@ -119,19 +120,19 @@ class LabStep extends React.Component {
 
         // Put the copyText as the last CodeBlock element of the Mardown
         // eslint-disable-next-line
-        var finalMarkDown = this.context.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
-        this.context.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
+        var finalMarkDown = this.props.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
+        this.props.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
         return (
             <div className="StepPage">
-                <h1>{this.context.currentLab.steps[this.context.currentStep].title}</h1>
-                <i>Step {this.context.currentStep + 1} of {this.context.currentLab.steps.length}</i>
+                <h1>{this.props.currentLab.steps[this.context.currentStep].title}</h1>
+                <i>Step {this.context.currentStep + 1} of {this.props.currentLab.steps.length}</i>
                 <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
                     /> 
                 <button 
                     className='btn btn-success' 
-                    onClick={() => {window.top.navigator.clipboard.writeText(this.context.currentLab.steps[this.context.currentStep].textToCopy)}}
+                    onClick={() => {window.top.navigator.clipboard.writeText(this.props.currentLab.steps[this.context.currentStep].textToCopy)}}
                     >Copy Text
                 </button>
                 <hr/>
@@ -141,5 +142,10 @@ class LabStep extends React.Component {
     }  // End of render()
 }
 
-LabStep.contextType = LabContext;
-export default LabStep;
+LabStep.contextType = LabContext; 
+
+const mapStateToProps = (state) => ({
+    userid: state.user.userid,
+    currentLab: state.lab.currentLab
+})
+export default connect(mapStateToProps)(LabStep);
