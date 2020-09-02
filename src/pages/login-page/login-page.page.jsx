@@ -31,7 +31,6 @@ class LoginPage extends React.Component {
 
     handleSaveButton = (parms) => {
         this.props.setCurrentUser(parms.userid);    // set userid in Redux
-        this.props.setStudentEmail("redux@mongodb.com");
         this.props.history.push(`/`); 
         return(
           <Redirect to="/student/5f35b6b724f7a22dde49e082"/>

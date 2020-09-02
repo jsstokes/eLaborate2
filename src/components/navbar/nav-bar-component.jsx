@@ -129,7 +129,7 @@ class MyNavBar extends React.Component {
                 // alert("A new lab was inserted, updating _id: " + JSON.stringify(response.data,0,2));
                 let newLab = this.props.currentLab;
                 newLab._id = response.data.insertedId;
-                this.context.setCurrentLab(newLab);
+                this.props.setCurrentLab(newLab);
             } else {
                 // alert("Lab Updated", JSON.stringify(response.data,0,2));
             }

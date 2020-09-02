@@ -2,6 +2,8 @@ import React, {Fragment} from 'react';
 import Axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { setCurrentLab } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -45,7 +47,7 @@ class LabList extends React.Component {
             ]
         };
 
-        this.context.setCurrentLab(newLab);
+        this.props.setCurrentLab(newLab);
     }
 
 
@@ -84,13 +86,13 @@ class LabList extends React.Component {
             }
         )
         .then(response => {
-            this.context.setCurrentLab(response.data);
+            this.props.setCurrentLab(response.data);
         });
     }
 
     handleNewLabClick = () => {
         let newLab = JSON.parse(JSON.stringify(BLANK_LAB));
-        this.context.setCurrentLab(newLab);
+        this.props.setCurrentLab(newLab);
         this.context.setLabHasChanged(false);
         this.context.toggleIsEditing();
     }
@@ -103,6 +105,7 @@ class LabList extends React.Component {
 
     handleTestClick = (oid) => {
         let newPath = `/student/${oid}`;
+        console.log("Setting Student URl to", newPath);
         this.context.setCurrentLabID(oid);
         this.props.history.push(newPath);
         // return(<Redirect push to="/student/sdfgdfsg" />);
@@ -135,4 +138,14 @@ class LabList extends React.Component {
 }
 
 LabList.contextType = LabContext;
-export default withRouter(LabList);
+
+const mapStateToProps = (state) => ({
+    userid: state.user.userid,
+    //currentLab: state.lab.currentLab
+})
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LabList));

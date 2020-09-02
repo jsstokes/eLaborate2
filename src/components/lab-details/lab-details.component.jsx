@@ -48,7 +48,7 @@ class LabDetails extends React.Component {
         );
     }
     handleSave = () => {
-        this.context.setCurrentLab(this.state.tempLab);
+        this.props.setCurrentLab(this.state.tempLab);
         this.toggleEdit();
     }
 
