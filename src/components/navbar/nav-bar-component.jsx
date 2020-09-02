@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
+import { setCurrentStep, setCurrentLab, deleteCurrentStep } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -23,13 +24,13 @@ class MyNavBar extends React.Component {
     }
 
     handlePrevious = () => {
-        if (this.context.currentStep > 0) {
-            this.context.setCurrentStep(this.context.currentStep - 1);
+        if (this.props.currentStep > 0) {
+            this.props.setCurrentStep(this.props.currentStep - 1);
         }
     }
 
     PreviousButton = (props) => {
-        if (this.context.currentStep === 0) {
+        if (this.props.currentStep === 0) {
             return(
                 <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
                     <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
@@ -55,8 +56,8 @@ class MyNavBar extends React.Component {
 
     handleNext = () => {
         const MAX_STEP = this.props.currentLab.steps.length - 1;
-        if (this.context.currentStep < MAX_STEP) {
-            this.context.setCurrentStep(this.context.currentStep + 1);
+        if (this.props.currentStep < MAX_STEP) {
+            this.props.setCurrentStep(this.props.currentStep + 1);
         }
     }
 
@@ -64,7 +65,7 @@ class MyNavBar extends React.Component {
         var disableNext = false;
         var lastStep = this.props.currentLab.steps.length - 1;
 
-        if ((this.context.currentStep) === lastStep) {
+        if ((this.props.currentStep) === lastStep) {
             disableNext = true;
         } else {
             disableNext = false;
@@ -78,13 +79,13 @@ class MyNavBar extends React.Component {
 
     handleNewStepAfter = () => {
         let newStep = JSON.parse(JSON.stringify(BLANK_STEP));
-        this.props.currentLab.steps.splice(this.context.currentStep + 1, 0, newStep); 
-        this.context.setCurrentStep(this.context.currentStep + 1);
+        this.props.currentLab.steps.splice(this.props.currentStep + 1, 0, newStep); 
+        this.props.setCurrentStep(this.props.currentStep + 1);
 
         // Changed
-        // this.toggleEdit(this.context.currentStep + 1);
+        // this.toggleEdit(this.props.currentStep + 1);
         // to this...
-        this.props.editToggle(this.context.currentStep + 1);
+        this.props.editToggle(this.props.currentStep + 1);
     }
 
     AddStepButton = (props) => {
@@ -100,12 +101,11 @@ class MyNavBar extends React.Component {
     }
 
     handleDeleteStep = () => {
-        this.props.currentLab.steps.splice(this.context.currentStep,1);
-        if (this.context.currentStep > (this.props.currentLab.steps.length -1)) {
-           this.context.setCurrentStep(this.props.currentLab.steps.length - 1);
-        } else {
-            this.context.setCurrentStep(this.context.currentStep);  // Force page refresh :D
-        }
+        console.log("NavBar.handleDeleteStep");
+        console.log("NavBar.handleDeleteStep - currentStep", this.props.currentStep);
+        console.log("NavBar.handleDeleteStep - labSteps", this.props.currentLab.steps.length);
+        this.props.deleteCurrentStep(this.props.currentLab);
+        this.props.handleForceUpdate();
     }
 
     DeleteButton = (props) => {
@@ -157,7 +157,7 @@ class MyNavBar extends React.Component {
         return(
             <div>
                 <this.PreviousButton />&nbsp;&nbsp;
-                <this.EditButton  onClick={() => {this.props.editToggle(this.context.currentStep)}} className="btn btn-info"/>&nbsp;&nbsp;
+                <this.EditButton  onClick={() => {this.props.editToggle(this.props.currentStep)}} className="btn btn-info"/>&nbsp;&nbsp;
                 <this.AddStepButton className="btn btn-warning"/>&nbsp;&nbsp;
                 <this.DeleteButton className="btn btn-danger"/>&nbsp;&nbsp;
                 <this.NextButton className="btn btn-primary"/>&nbsp;&nbsp;
@@ -170,6 +170,13 @@ MyNavBar.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
-    currentLab: state.lab.currentLab
+    currentLab: state.lab.currentLab,
+    currentStep: state.lab.currentStep
 })
-export default connect(mapStateToProps)(MyNavBar);
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentStep: step => dispatch(setCurrentStep(step)),
+    setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    deleteCurrentStep: lab  => dispatch(deleteCurrentStep(lab))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(MyNavBar);

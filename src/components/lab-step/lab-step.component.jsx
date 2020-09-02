@@ -8,6 +8,8 @@ import './lab-step.styles.css'
 import CodeBlock from '../CodeBlock/code-block.component';
 import MyNavBar from '../navbar/nav-bar-component';
 
+import { setCurrentLab } from '../../redux/lab/lab.actions';
+
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,9 +53,16 @@ class LabStep extends React.Component {
         this.setState(change);
     }
 
+    replaceStep = (index, step) => {
+        let newLab = this.props.currentLab;
+        newLab.steps[index] = step;
+        this.props.setCurrentLab(newLab);
+    } 
+
+
      handleSave = () => {
-         this.context.replaceStep([this.context.currentStep],this.state.tempEditStep);
-         this.toggleEdit(this.context.currentStep);
+         this.replaceStep([this.props.currentStep],this.state.tempEditStep);
+         this.toggleEdit(this.props.currentStep);
          this.context.setLabHasChanged(true);
      }
 
@@ -65,7 +74,7 @@ class LabStep extends React.Component {
          return (
              <Fragment>
                 <button onClick={this.handleSave} className={props.className + " btn-primary"}>Update</button>&nbsp;
-                <button onClick={() =>{this.toggleEdit(this.context.currentStep)}} className={props.className + " btn-secondary"}>Discard</button>
+                <button onClick={() =>{this.toggleEdit(this.props.currentStep)}} className={props.className + " btn-secondary"}>Discard</button>
             </Fragment>
          );
     }
@@ -82,14 +91,19 @@ class LabStep extends React.Component {
         return(null);
     }
 
+    handleForceUpdate = () => {
+        this.forceUpdate();
+    }
+
     render() {
+        console.log("LabStep.render() - props", this.props);
         //-------------------------------------
         // If we are editing, render this way
         //-------------------------------------
         if (this.state.isEditing) {
             return(
                 <div className="Form StepPage">
-                    <i>Step {this.context.currentStep + 1} of {this.props.currentLab.steps.length}</i>
+                    <i>Step {this.props.currentStep + 1} of {this.props.currentLab.steps.length}</i>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1"  >Title</Form.Label>
                         <Col sm="11">
@@ -120,23 +134,23 @@ class LabStep extends React.Component {
 
         // Put the copyText as the last CodeBlock element of the Mardown
         // eslint-disable-next-line
-        var finalMarkDown = this.props.currentLab.steps[this.context.currentStep].markdown + '\n```  \n' +
-        this.props.currentLab.steps[this.context.currentStep].textToCopy + '  \n```  \n';
+        var finalMarkDown = this.props.currentLab.steps[this.props.currentStep].markdown + '\n```  \n' +
+        this.props.currentLab.steps[this.props.currentStep].textToCopy + '  \n```  \n';
         return (
             <div className="StepPage">
-                <h1>{this.props.currentLab.steps[this.context.currentStep].title}</h1>
-                <i>Step {this.context.currentStep + 1} of {this.props.currentLab.steps.length}</i>
+                <h1>{this.props.currentLab.steps[this.props.currentStep].title}</h1>
+                <i>Step {this.props.currentStep + 1} of {this.props.currentLab.steps.length}</i>
                 <ReactMarkdown 
                     source={finalMarkDown} 
                     renderers={{code: CodeBlock}}
                     /> 
                 <button 
                     className='btn btn-success' 
-                    onClick={() => {window.top.navigator.clipboard.writeText(this.props.currentLab.steps[this.context.currentStep].textToCopy)}}
+                    onClick={() => {window.top.navigator.clipboard.writeText(this.props.currentLab.steps[this.props.currentStep].textToCopy)}}
                     >Copy Text
                 </button>
                 <hr/>
-                <MyNavBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleSaveLab={this.handleSaveLab}/>
+                <MyNavBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleForceUpdate={this.handleForceUpdate}/>
             </div>
         );
     }  // End of render()
@@ -146,6 +160,11 @@ LabStep.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
-    currentLab: state.lab.currentLab
+    currentLab: state.lab.currentLab,
+    currentStep: state.lab.currentStep
 })
-export default connect(mapStateToProps)(LabStep);
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+})
+export default connect(mapStateToProps,mapDispatchToProps)(LabStep);
