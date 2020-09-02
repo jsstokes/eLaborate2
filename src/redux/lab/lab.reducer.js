@@ -1,14 +1,16 @@
 const INITIAL_LAB_STATE = {
     currentLab: null,
     currentLabID: null,
-    currentStep: 0
+    currentStep: 0,
+    labView: "Details",
 }
 
 export const LAB_ACTION_TYPES = {
     SET_CURRENT_LAB: "SET_CURRENT_LAB",
     SET_CURRENT_LAB_ID: "SET_CURRENT_LAB_ID",
     SET_CURRENT_STEP: "SET_CURRENT_STEP",
-    DELETE_CURRENT_STEP: "DELETE_CURRENT_STEP"
+    DELETE_CURRENT_STEP: "DELETE_CURRENT_STEP",
+    SET_LAB_VIEW: "SET_LAB_VIEW"
 }
 
 const labReducer = (state = INITIAL_LAB_STATE, action) => {
@@ -43,6 +45,11 @@ const labReducer = (state = INITIAL_LAB_STATE, action) => {
                 currentLab: newLab,
                 currentStep: newCurrentStep
             };
+        case LAB_ACTION_TYPES.SET_LAB_VIEW: 
+            return {
+                ...state,
+                labView: action.payload
+            }
         
         default:
             return state;

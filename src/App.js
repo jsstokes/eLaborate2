@@ -24,13 +24,13 @@ class App extends React.Component {
       //   this.state.setCurrentLab(newLab);
       // } ,
 
-      labView: "Details",
-      setLabView: (view) => { this.setState({"labView": view})},
+      // labView: "Details",
+      // setLabView: (view) => { this.setState({"labView": view})},
 
       labList: null,
       setLabList: (list) => {this.setState({"labList": list})},
 
-      nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
+      // nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
 
       tempEditStep: null,
       setTempEditStep: (target) => {this.setState({"tempEditStep": target})},

@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from 'react-redux';
 
 import LabContext from "../../lab.context";
 import LabStep from '../../components/lab-step/lab-step.component';
@@ -19,7 +20,7 @@ class LabPage extends React.Component {
       }
      
     render() {
-        if (this.context.labView === "Steps") {
+        if (this.props.labView === "Steps") {
             return (
                 <div>
                     <LabStep allowEditing={true}/>
@@ -36,4 +37,8 @@ class LabPage extends React.Component {
 
 LabPage.contextType = LabContext;
 
-export default LabPage;
+const mapStateToProps = (state) => ({
+    labView: state.lab.labView
+})
+
+export default connect(mapStateToProps)(LabPage);

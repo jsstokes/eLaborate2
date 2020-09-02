@@ -19,3 +19,8 @@ export const deleteCurrentStep = lab => ({
     type: LAB_ACTION_TYPES.DELETE_CURRENT_STEP,
     payload: lab
 })
+
+export const setLabView = labView => ({
+    type: LAB_ACTION_TYPES.SET_LAB_VIEW,
+    payload: labView
+})

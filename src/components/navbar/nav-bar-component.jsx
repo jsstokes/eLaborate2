@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
-import { setCurrentStep, setCurrentLab, deleteCurrentStep } from '../../redux/lab/lab.actions';
+import { setCurrentStep, setCurrentLab, deleteCurrentStep, setLabView } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -32,7 +32,7 @@ class MyNavBar extends React.Component {
     PreviousButton = (props) => {
         if (this.props.currentStep === 0) {
             return(
-                <Button onClick={() => {this.context.setLabView("Description")}} className={props.className}>
+                <Button onClick={() => {this.props.setLabView("Description")}} className={props.className}>
                     <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
                 </Button>
             );
@@ -177,6 +177,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
     setCurrentStep: step => dispatch(setCurrentStep(step)),
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
-    deleteCurrentStep: lab  => dispatch(deleteCurrentStep(lab))
+    deleteCurrentStep: lab  => dispatch(deleteCurrentStep(lab)),
+    setLabView: labView => dispatch(setLabView(labView))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(MyNavBar);

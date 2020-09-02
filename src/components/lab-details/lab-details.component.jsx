@@ -5,7 +5,7 @@ import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
 import {Form, Row, Col} from 'react-bootstrap';
 
-import {setCurrentLab} from '../../redux/lab/lab.actions';
+import {setCurrentLab, setLabView} from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -118,7 +118,7 @@ class LabDetails extends React.Component {
     }
 
     handleStartButton = () => {
-        this.context.setLabView("Steps");
+        this.props.setLabView("Steps");
     }
 
 
@@ -183,7 +183,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+    setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    setLabView: labView => dispatch(setLabView(labView))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabDetails);
