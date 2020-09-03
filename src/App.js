@@ -18,8 +18,8 @@ class App extends React.Component {
       // labList: null,
       // setLabList: (list) => {this.setState({"labList": list})},
 
-      tempEditStep: null,
-      setTempEditStep: (target) => {this.setState({"tempEditStep": target})},
+      // tempEditStep: null,
+      // setTempEditStep: (target) => {this.setState({"tempEditStep": target})},
 
       isEditing: false,
       toggleIsEditing: ()=> {this.setState({"isEditing": !this.state.isEditing})},

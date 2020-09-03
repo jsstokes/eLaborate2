@@ -4,6 +4,8 @@ const INITIAL_LAB_STATE = {
     currentStep: 0,
     labView: "Details",
     labList: null,
+    // tempEditStep: null,
+
 }
 
 export const LAB_ACTION_TYPES = {
@@ -13,6 +15,7 @@ export const LAB_ACTION_TYPES = {
     DELETE_CURRENT_STEP: "DELETE_CURRENT_STEP",
     SET_LAB_VIEW: "SET_LAB_VIEW",
     SET_LAB_LIST: "SET_LAB_LIST",
+    // SET_TEMP_EDIT_STEP: "SET_TEMP_EDIT_STEP",
 }
 
 const labReducer = (state = INITIAL_LAB_STATE, action) => {
@@ -53,13 +56,19 @@ const labReducer = (state = INITIAL_LAB_STATE, action) => {
                 ...state,
                 labView: action.payload
             }
-            
+
         case LAB_ACTION_TYPES.SET_LAB_LIST:
             return {
                 ...state,
                 labList: action.payload
             }
         
+        // case LAB_ACTION_TYPES.SET_TEMP_EDIT_STEP:
+        //     return {
+        //         ...state,
+        //         tempEditStep: action.payload
+        //     }
+
         default:
             return state;
     }

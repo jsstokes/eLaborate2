@@ -14,11 +14,11 @@ class MyNavBar extends React.Component {
    
     constructor(props) {
         super(props);
-        var newStep = JSON.parse(JSON.stringify(BLANK_STEP));
+        // var newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.state = {
             isEditing: false, 
             allowEditing: false,
-            tempEditStep: newStep,
+            // tempEditStep: newStep,   // Doesn't appear to be needed - delete next time if no issues
             mode: this.props.mode ? props.mode : "STEPS"
         }
     }
