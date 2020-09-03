@@ -15,8 +15,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       
-      labList: null,
-      setLabList: (list) => {this.setState({"labList": list})},
+      // labList: null,
+      // setLabList: (list) => {this.setState({"labList": list})},
 
       tempEditStep: null,
       setTempEditStep: (target) => {this.setState({"tempEditStep": target})},

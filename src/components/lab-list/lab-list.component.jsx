@@ -3,7 +3,7 @@ import Axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { setCurrentLab, setCurrentLabID } from '../../redux/lab/lab.actions';
+import { setCurrentLab, setCurrentLabID, setLabList } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +21,7 @@ class LabList extends React.Component {
     componentDidMount() {
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLabs")
             .then( response => {
-                this.context.setLabList(response.data);
+                this.props.setLabList(response.data);
             })
     }
 
@@ -113,12 +113,12 @@ class LabList extends React.Component {
     }
 
     render() {
-        if (this.context.labList != null) {
+        if (this.props.labList != null) {
             return(
                 <div className="TopLevelDiv">
-                    <h1>Available Labs ({this.context.labList.length}) </h1>
+                    <h1>Available Labs ({this.props.labList.length}) </h1>
                     {
-                        this.context.labList.map( (lab, index) => (
+                        this.props.labList.map( (lab, index) => (
                             <this.LabListItem 
                                 lab={lab} 
                                 key={index} 
@@ -141,13 +141,13 @@ LabList.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
-    //currentLab: state.lab.currentLab
-    setCurrentLabID: state.lab.setCurrentLab
+    labList: state.lab.labList
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
-    setCurrentLabID: lab_id => dispatch(setCurrentLabID(lab_id))
+    setCurrentLabID: lab_id => dispatch(setCurrentLabID(lab_id)),
+    setLabList: labList => dispatch(setLabList(labList))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LabList));

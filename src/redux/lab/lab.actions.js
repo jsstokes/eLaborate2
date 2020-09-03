@@ -24,3 +24,7 @@ export const setLabView = labView => ({
     type: LAB_ACTION_TYPES.SET_LAB_VIEW,
     payload: labView
 })
+export const setLabList = labList => ({
+    type: LAB_ACTION_TYPES.SET_LAB_LIST,
+    payload: labList
+})
