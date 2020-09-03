@@ -42,10 +42,6 @@ class LabStep extends React.Component {
         this.props.toggleIsEditing();
     }
     
-    componentDidMount = () => {
-        console.log("Inside of LabStep.componentDidMount()");
-    }
-
     handleKeyChange = (e) => {
         let change = this.state.tempEditStep;
         change[e.target.name] = e.target.value;
@@ -95,7 +91,6 @@ class LabStep extends React.Component {
     }
 
     render() {
-        console.log("LabStep.render() - props", this.props);
         //-------------------------------------
         // If we are editing, render this way
         //-------------------------------------

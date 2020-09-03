@@ -29,11 +29,6 @@ export const setLabList = labList => ({
     payload: labList
 })
 
-// export const setTempEditStep = tempStep => ({
-//     type: LAB_ACTION_TYPES.SET_TEMP_EDIT_STEP,
-//     payload: tempStep
-// })
-
 export const toggleIsEditing = () => ({
     type: LAB_ACTION_TYPES.TOGGLE_LAB_IS_EDITING,
     payload: null

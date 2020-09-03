@@ -19,7 +19,6 @@ class LabDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // isEditing: false,
             allowEditing: false,
             tempLab: null
         }
@@ -36,7 +35,6 @@ class LabDetails extends React.Component {
             let tempLab = JSON.parse(JSON.stringify(this.props.currentLab))
             this.setState({tempLab: tempLab});
         }
-        // this.setState({"isEditing": this.context.isEditing});
     }
 
     SaveButton = (props) => {
@@ -94,11 +92,7 @@ class LabDetails extends React.Component {
         // If we're in an iFrame, we need to open in a seperate window
         // for the copy text function to work properly (due to security restrictions)
         // ----------------------------------------------------------------------------
-            console.log("=============================");
-            console.log("  Context is:", this.props.userid);
-            console.log("An IFrame would link to: ", `${window.location.href}/${this.props.userid}`);
-            if (window.location !== window.parent.location) {
-            console.log("Inside of an iFrame: linking to", `${window.location.href}/${this.props.userid}`);
+        if (window.location !== window.parent.location) {
             return(
                 <a  href={`${window.location.href}/${this.props.userid}`} 
                     target="_blank"
@@ -124,10 +118,6 @@ class LabDetails extends React.Component {
 
 
     render() {
-        if (this.state.tempLab === null) {
-            console.log("in LabDetails.render - tempLab is null");
-        }
-        console.log("LabDetails:render - props:", this.props);
         if (this.props.isEditing && (this.state.tempLab != null)) {
             return(
                 <div className="Form TopLevelDiv">

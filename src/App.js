@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import SAMPLE_DATA from './sample-lab.data';
 
 import LabContext from './lab.context';
 import StudentPage from './pages/student-page/student-page-page';
@@ -21,7 +20,6 @@ class App extends React.Component {
   // Original function - uncomment to restore AuthButton
   // ----------------------------------------------------
   render () {
-    console.log("USERID from redux:", this.props);
     return (
       <Router>
         <div>

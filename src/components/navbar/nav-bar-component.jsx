@@ -14,11 +14,9 @@ class MyNavBar extends React.Component {
    
     constructor(props) {
         super(props);
-        // var newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.state = {
             isEditing: false, 
             allowEditing: false,
-            // tempEditStep: newStep,   // Doesn't appear to be needed - delete next time if no issues
             mode: this.props.mode ? props.mode : "STEPS"
         }
     }
@@ -82,9 +80,6 @@ class MyNavBar extends React.Component {
         this.props.currentLab.steps.splice(this.props.currentStep + 1, 0, newStep); 
         this.props.setCurrentStep(this.props.currentStep + 1);
 
-        // Changed
-        // this.toggleEdit(this.props.currentStep + 1);
-        // to this...
         this.props.editToggle(this.props.currentStep + 1);
     }
 
@@ -101,9 +96,6 @@ class MyNavBar extends React.Component {
     }
 
     handleDeleteStep = () => {
-        console.log("NavBar.handleDeleteStep");
-        console.log("NavBar.handleDeleteStep - currentStep", this.props.currentStep);
-        console.log("NavBar.handleDeleteStep - labSteps", this.props.currentLab.steps.length);
         this.props.deleteCurrentStep(this.props.currentLab);
         this.props.handleForceUpdate();
     }
@@ -126,12 +118,10 @@ class MyNavBar extends React.Component {
             this.props.currentLab
         ).then(response => {
             if (response.data.hasOwnProperty("insertedId")) {
-                // alert("A new lab was inserted, updating _id: " + JSON.stringify(response.data,0,2));
                 let newLab = this.props.currentLab;
                 newLab._id = response.data.insertedId;
                 this.props.setCurrentLab(newLab);
             } else {
-                // alert("Lab Updated", JSON.stringify(response.data,0,2));
             }
             this.props.setLabHasChanged(false);
         });

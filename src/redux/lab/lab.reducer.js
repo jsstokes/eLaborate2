@@ -4,7 +4,6 @@ const INITIAL_LAB_STATE = {
     currentStep: 0,
     labView: "Details",
     labList: null,
-    // tempEditStep: null,
     isEditing: false,
     labHasChanged: false,
 }
@@ -16,7 +15,6 @@ export const LAB_ACTION_TYPES = {
     DELETE_CURRENT_STEP: "DELETE_CURRENT_STEP",
     SET_LAB_VIEW: "SET_LAB_VIEW",
     SET_LAB_LIST: "SET_LAB_LIST",
-    // SET_TEMP_EDIT_STEP: "SET_TEMP_EDIT_STEP",
     TOGGLE_LAB_IS_EDITING: "TOGGLE_LAB_IS_EDITING",
     SET_LAB_HAS_CHANGED: "SET_LAB_HAS_CHANGED" 
 }
@@ -39,7 +37,6 @@ const labReducer = (state = INITIAL_LAB_STATE, action) => {
                 currentStep: action.payload
             }
         case LAB_ACTION_TYPES.DELETE_CURRENT_STEP: 
-            console.log("About to Delete Lab Step - state: ", state);
             let newLab = state.currentLab;
             newLab.steps.splice(state.currentStep, 1);
             let newCurrentStep = 0
@@ -66,12 +63,6 @@ const labReducer = (state = INITIAL_LAB_STATE, action) => {
                 labList: action.payload
             }
         
-        // case LAB_ACTION_TYPES.SET_TEMP_EDIT_STEP:
-        //     return {
-        //         ...state,
-        //         tempEditStep: action.payload
-        //     }
-
         case LAB_ACTION_TYPES.TOGGLE_LAB_IS_EDITING:
             return {
                 ...state,

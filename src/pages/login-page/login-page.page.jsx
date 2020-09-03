@@ -20,10 +20,6 @@ class LoginPage extends React.Component {
         };
     }
 
-    componentDidMount = () => {
-        console.log("Entering LoginWindow.componentDidMount");
-    }
-    
     handleKeyChange = (e) => {
         let change = {[e.target.name]: e.target.value};
         this.setState(change);

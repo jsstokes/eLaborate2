@@ -20,7 +20,6 @@ class StudentPage extends React.Component {
         } else {
             this.state = {tempuser: ""};
         }
-        console.log("STudentPage () - workshop_id", this.props.match.params.workshop_id);
     }
 
     handleKeyChange = (e) => {
@@ -38,7 +37,6 @@ class StudentPage extends React.Component {
     }
 
     getLab() {
-        console.log("StudentPage.getLab - looking for", this.props.match.params.workshop_id);
         Axios.get(
             `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
             { 
@@ -48,7 +46,6 @@ class StudentPage extends React.Component {
             }
         )
         .then(response => {
-            console.log("AXIOS reponse:", response.data);
             this.props.setCurrentLab(response.data);
         });
     }
@@ -73,18 +70,13 @@ class StudentPage extends React.Component {
 
     componentDidMount() {
         // this.props.setStudentEmail(this.context.auth.userid);
-        console.log("StudentPage.componentDidMount() - entering");
-        console.log("StudentPage.componentDidMount() - workshop_id",this.props.match.workshop_id);
-        console.log("StudentPage.componentDidMount() - currentLab",this.props.currentLab);
         if ((this.props.match.workshop_id) && (!this.props.currentLab)) {
-        console.log("StudentPage.componentDidMount() - calling getLab()");
         this.getLab();
         }
 
     }
 
     render() {
-        console.log("Entering StudentPage.render - state is:", this.state);
         if (this.props.studentEmail === "") {
         // if (this.state.tempuser === "") {
             return(<this.emailForm/>);
