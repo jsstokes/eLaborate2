@@ -5,7 +5,7 @@ import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
 import {Form, Row, Col} from 'react-bootstrap';
 
-import {setCurrentLab, setLabView} from '../../redux/lab/lab.actions';
+import {setCurrentLab, setLabView, toggleIsEditing} from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ class LabDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditing: false,
+            // isEditing: false,
             allowEditing: false,
             tempLab: null
         }
@@ -36,7 +36,7 @@ class LabDetails extends React.Component {
             let tempLab = JSON.parse(JSON.stringify(this.props.currentLab))
             this.setState({tempLab: tempLab});
         }
-        this.setState({"isEditing": this.context.isEditing});
+        // this.setState({"isEditing": this.context.isEditing});
     }
 
     SaveButton = (props) => {
@@ -61,18 +61,18 @@ class LabDetails extends React.Component {
         // If we are about to edit, make a copy of the lab so we can cancel
         //
         let tempLab;
-        if (!this.state.isEditing) {
+        if (!this.props.isEditing) {
             tempLab = JSON.parse(JSON.stringify(this.props.currentLab));
             this.setState({
-                tempLab: tempLab,
-                isEditing: !this.state.isEditing
+                tempLab: tempLab
             });
+            this.props.toggleIsEditing();
         }
         else {
             this.setState({
-                tempLab: null,
-                isEditing: !this.state.isEditing
+                tempLab: null
             });
+            this.props.toggleIsEditing();
         }
     }
 
@@ -126,7 +126,8 @@ class LabDetails extends React.Component {
         if (this.state.tempLab === null) {
             console.log("in LabDetails.render - tempLab is null");
         }
-        if (this.state.isEditing && (this.state.tempLab != null)) {
+        console.log("LabDetails:render - props:", this.props);
+        if (this.props.isEditing && (this.state.tempLab != null)) {
             return(
                 <div className="Form TopLevelDiv">
                     <Form.Group as={Row}>
@@ -179,12 +180,14 @@ LabDetails.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
-    currentLab: state.lab.currentLab
+    currentLab: state.lab.currentLab,
+    isEditing: state.lab.isEditing
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
-    setLabView: labView => dispatch(setLabView(labView))
+    setLabView: labView => dispatch(setLabView(labView)),
+    toggleIsEditing: () => dispatch(toggleIsEditing())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabDetails);

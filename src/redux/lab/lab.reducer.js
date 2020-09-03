@@ -5,7 +5,7 @@ const INITIAL_LAB_STATE = {
     labView: "Details",
     labList: null,
     // tempEditStep: null,
-
+    isEditing: false,
 }
 
 export const LAB_ACTION_TYPES = {
@@ -16,6 +16,7 @@ export const LAB_ACTION_TYPES = {
     SET_LAB_VIEW: "SET_LAB_VIEW",
     SET_LAB_LIST: "SET_LAB_LIST",
     // SET_TEMP_EDIT_STEP: "SET_TEMP_EDIT_STEP",
+    TOGGLE_LAB_IS_EDITING: "TOGGLE_LAB_IS_EDITING",
 }
 
 const labReducer = (state = INITIAL_LAB_STATE, action) => {
@@ -68,6 +69,12 @@ const labReducer = (state = INITIAL_LAB_STATE, action) => {
         //         ...state,
         //         tempEditStep: action.payload
         //     }
+
+        case LAB_ACTION_TYPES.TOGGLE_LAB_IS_EDITING:
+            return {
+                ...state,
+                isEditing: !state.isEditing
+            }
 
         default:
             return state;

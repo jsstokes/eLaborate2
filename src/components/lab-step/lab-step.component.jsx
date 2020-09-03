@@ -8,7 +8,7 @@ import './lab-step.styles.css'
 import CodeBlock from '../CodeBlock/code-block.component';
 import MyNavBar from '../navbar/nav-bar-component';
 
-import { setCurrentLab } from '../../redux/lab/lab.actions';
+import { setCurrentLab, toggleIsEditing } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +24,6 @@ class LabStep extends React.Component {
         super(props);
         var newStep = JSON.parse(JSON.stringify(BLANK_STEP));
         this.state = {
-            isEditing: false, 
             allowEditing: props.allowEditing,
             tempEditStep: newStep,
             mode: this.props.mode ? props.mode : "STEPS"
@@ -39,8 +38,8 @@ class LabStep extends React.Component {
         let newStep = JSON.parse(JSON.stringify(this.props.currentLab.steps[index]));
         this.setState({
             tempEditStep: newStep,
-            isEditing: !this.state.isEditing
         });
+        this.props.toggleIsEditing();
     }
     
     componentDidMount = () => {
@@ -100,7 +99,7 @@ class LabStep extends React.Component {
         //-------------------------------------
         // If we are editing, render this way
         //-------------------------------------
-        if (this.state.isEditing) {
+        if (this.props.isEditing) {
             return(
                 <div className="Form StepPage">
                     <i>Step {this.props.currentStep + 1} of {this.props.currentLab.steps.length}</i>
@@ -161,10 +160,12 @@ LabStep.contextType = LabContext;
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
     currentLab: state.lab.currentLab,
-    currentStep: state.lab.currentStep
+    currentStep: state.lab.currentStep,
+    isEditing: state.lab.isEditing
 })
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+    setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    toggleIsEditing: () => dispatch(toggleIsEditing()),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(LabStep);

@@ -34,4 +34,9 @@ export const setLabList = labList => ({
 //     payload: tempStep
 // })
 
+export const toggleIsEditing = () => ({
+    type: LAB_ACTION_TYPES.TOGGLE_LAB_IS_EDITING,
+    payload: null
+})
+
 

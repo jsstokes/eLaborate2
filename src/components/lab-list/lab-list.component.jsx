@@ -3,7 +3,7 @@ import Axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { setCurrentLab, setCurrentLabID, setLabList } from '../../redux/lab/lab.actions';
+import { setCurrentLab, setCurrentLabID, setLabList, toggleIsEditing } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -94,7 +94,7 @@ class LabList extends React.Component {
         let newLab = JSON.parse(JSON.stringify(BLANK_LAB));
         this.props.setCurrentLab(newLab);
         this.context.setLabHasChanged(false);
-        this.context.toggleIsEditing();
+        this.props.toggleIsEditing();
     }
 
     NewLabButton = () => {
@@ -141,13 +141,15 @@ LabList.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
-    labList: state.lab.labList
+    labList: state.lab.labList,
+    isEditing: state.lab.isEditing
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
     setCurrentLabID: lab_id => dispatch(setCurrentLabID(lab_id)),
-    setLabList: labList => dispatch(setLabList(labList))
+    setLabList: labList => dispatch(setLabList(labList)),
+    toggleIsEditing: () => dispatch(toggleIsEditing())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LabList));
