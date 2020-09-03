@@ -14,12 +14,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
-      // isEditing: false,
-      // toggleIsEditing: ()=> {this.setState({"isEditing": !this.state.isEditing})},
-
-      labHasChanged: false,
-      setLabHasChanged: (value) => {this.setState({"labHasChanged": value})}
     }
   };
 

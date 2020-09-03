@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
-import { setCurrentStep, setCurrentLab, deleteCurrentStep, setLabView } from '../../redux/lab/lab.actions';
+import { setCurrentStep, setCurrentLab, deleteCurrentStep, setLabView, setLabHasChanged } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -133,7 +133,7 @@ class MyNavBar extends React.Component {
             } else {
                 // alert("Lab Updated", JSON.stringify(response.data,0,2));
             }
-            this.context.setLabHasChanged(false);
+            this.props.setLabHasChanged(false);
         });
     }   // end of handleSaveLab
 
@@ -143,7 +143,7 @@ class MyNavBar extends React.Component {
                 <button 
                 onClick={this.handleSaveLab} 
                 className={props.className}
-                disabled={!this.context.labHasChanged}
+                disabled={!this.props.labHasChanged}
                 >
                 <FontAwesomeIcon icon={faSave} />
                 &nbsp;Save Lab
@@ -171,13 +171,15 @@ MyNavBar.contextType = LabContext;
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
     currentLab: state.lab.currentLab,
-    currentStep: state.lab.currentStep
+    currentStep: state.lab.currentStep,
+    labHasChanged: state.lab.labHasChanged,
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentStep: step => dispatch(setCurrentStep(step)),
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
     deleteCurrentStep: lab  => dispatch(deleteCurrentStep(lab)),
-    setLabView: labView => dispatch(setLabView(labView))
+    setLabView: labView => dispatch(setLabView(labView)),
+    setLabHasChanged: hasChanged => dispatch(setLabHasChanged(hasChanged)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(MyNavBar);

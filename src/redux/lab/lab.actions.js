@@ -39,4 +39,9 @@ export const toggleIsEditing = () => ({
     payload: null
 })
 
+export const setLabHasChanged = hasChanged => ({
+    type: LAB_ACTION_TYPES.SET_LAB_HAS_CHANGED,
+    payload: hasChanged
+})
+
 

@@ -8,7 +8,7 @@ import './lab-step.styles.css'
 import CodeBlock from '../CodeBlock/code-block.component';
 import MyNavBar from '../navbar/nav-bar-component';
 
-import { setCurrentLab, toggleIsEditing } from '../../redux/lab/lab.actions';
+import { setCurrentLab, toggleIsEditing, setLabHasChanged } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -62,7 +62,7 @@ class LabStep extends React.Component {
      handleSave = () => {
          this.replaceStep([this.props.currentStep],this.state.tempEditStep);
          this.toggleEdit(this.props.currentStep);
-         this.context.setLabHasChanged(true);
+         this.props.setLabHasChanged(true);
      }
 
     KillMeNowButton = () => {
@@ -161,11 +161,13 @@ const mapStateToProps = (state) => ({
     userid: state.user.userid,
     currentLab: state.lab.currentLab,
     currentStep: state.lab.currentStep,
-    isEditing: state.lab.isEditing
+    isEditing: state.lab.isEditing,
+    labHasChanged: state.lab.labHasChanged,
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
     toggleIsEditing: () => dispatch(toggleIsEditing()),
+    setLabHasChanged: (hasChanged) => dispatch(setLabHasChanged(hasChanged)),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(LabStep);

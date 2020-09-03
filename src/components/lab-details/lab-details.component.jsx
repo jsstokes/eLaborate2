@@ -5,7 +5,7 @@ import CodeBlock from '../CodeBlock/code-block.component';
 import LabContext from '../../lab.context';
 import {Form, Row, Col} from 'react-bootstrap';
 
-import {setCurrentLab, setLabView, toggleIsEditing} from '../../redux/lab/lab.actions';
+import {setCurrentLab, setLabView, toggleIsEditing, setLabHasChanged} from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -50,6 +50,7 @@ class LabDetails extends React.Component {
     handleSave = () => {
         this.props.setCurrentLab(this.state.tempLab);
         this.toggleEdit();
+        this.props.setLabHasChanged(true);
     }
 
     //----------------------------------------------------------------------
@@ -181,13 +182,15 @@ LabDetails.contextType = LabContext;
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
     currentLab: state.lab.currentLab,
-    isEditing: state.lab.isEditing
+    isEditing: state.lab.isEditing,
+    labHasChanged: state.lab.labHasChanged,
 })
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
     setLabView: labView => dispatch(setLabView(labView)),
-    toggleIsEditing: () => dispatch(toggleIsEditing())
+    toggleIsEditing: () => dispatch(toggleIsEditing()),
+    setLabHasChanged: hasChanged => dispatch(setLabHasChanged(hasChanged)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabDetails);
