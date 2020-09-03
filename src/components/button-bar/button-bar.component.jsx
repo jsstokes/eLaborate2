@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import {BLANK_STEP} from '../../sample-lab.data';
 
-class MyNavBar extends React.Component {
+class ButtonBar extends React.Component {
    
     constructor(props) {
         super(props);
@@ -156,7 +156,7 @@ class MyNavBar extends React.Component {
         );
     }
 }
-MyNavBar.contextType = LabContext;
+ButtonBar.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
@@ -172,4 +172,4 @@ const mapDispatchToProps = dispatch => ({
     setLabView: labView => dispatch(setLabView(labView)),
     setLabHasChanged: hasChanged => dispatch(setLabHasChanged(hasChanged)),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(MyNavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(ButtonBar);

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './lab-step.styles.css'
 // eslint-disable-next-line
 import CodeBlock from '../CodeBlock/code-block.component';
-import MyNavBar from '../navbar/nav-bar-component';
+import ButtonBar from '../button-bar/button-bar.component'; 
 
 import { setCurrentLab, toggleIsEditing, setLabHasChanged } from '../../redux/lab/lab.actions';
 
@@ -144,7 +144,7 @@ class LabStep extends React.Component {
                     >Copy Text
                 </button>
                 <hr/>
-                <MyNavBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleForceUpdate={this.handleForceUpdate}/>
+                <ButtonBar editToggle={this.toggleEdit} handleSave={this.handleSave} handleForceUpdate={this.handleForceUpdate}/>
             </div>
         );
     }  // End of render()
