@@ -15,22 +15,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       
-      
-      // currentStep: 0, 
-      // setCurrentStep: (step) => {this.setState({"currentStep": step})},
-      // replaceStep: (index, step) => {
-      //   let newLab = this.state.currentLab;
-      //   newLab.steps[index] = step;
-      //   this.state.setCurrentLab(newLab);
-      // } ,
-
-      // labView: "Details",
-      // setLabView: (view) => { this.setState({"labView": view})},
-
       labList: null,
       setLabList: (list) => {this.setState({"labList": list})},
-
-      // nextClicked: () => {this.setState({"currentStep": this.state.currentStep + 1 })},
 
       tempEditStep: null,
       setTempEditStep: (target) => {this.setState({"tempEditStep": target})},
