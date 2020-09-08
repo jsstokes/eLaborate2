@@ -1,5 +1,5 @@
 const INITIAL_USER_STATE = {
-    userid: "",
+    userid: "testuser@mongodb.com",
     role: "",
     authorized: false, 
     studentEmail: ""
