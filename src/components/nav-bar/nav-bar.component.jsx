@@ -1,23 +1,23 @@
 import React from 'react';
 import './nav-bar.styles.css';
 import {Navbar, Nav} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 // import Nav from 'react-bootstrap/Nav';
 
 class MyNavBar extends React.Component {
 
     render() {
-        var disabledValue = true;
+        var disabledValue = false;
         return(
             <Navbar collapseOnSelect expand="lg" bg="NavBG" variant="dark">
             <Navbar.Brand href="#home">eLaborate</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <Nav.Link href="#features">Labs</Nav.Link>
-                <Nav.Link href="#features" disabled={disabledValue}>Labs</Nav.Link>
-                <Nav.Link href="#features" disabled={disabledValue}>Labs</Nav.Link>
-                <Nav.Link href="#features" disabled={disabledValue}>Labs</Nav.Link>
-                <Nav.Link href="#pricing" disabled={disabledValue}>Pricing</Nav.Link>
+                <Nav.Link as={Link} href="/" exact>Select Labs</Nav.Link>
+                <Nav.Link as={Link} href="#steps" disabled={disabledValue}>Steps</Nav.Link>
+                <Nav.Link as={Link} href="#order" disabled={disabledValue}>Reorder</Nav.Link>
+                <Nav.Link as={Link} href="#pricing" disabled={disabledValue}>Workshops</Nav.Link>
                 {
                 //     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                 //     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -28,12 +28,12 @@ class MyNavBar extends React.Component {
                 // </NavDropdown>
                 }
                 </Nav>
-                <Nav>
+                {/* <Nav>
                 <Nav.Link href="#deets">More deets</Nav.Link>
                 <Nav.Link eventKey={2} href="#memes">
                     Dank memes
                 </Nav.Link>
-                </Nav>
+                </Nav> */}
             </Navbar.Collapse>
             </Navbar>        
         );

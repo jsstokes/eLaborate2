@@ -77,8 +77,12 @@ class StudentPage extends React.Component {
     }
 
     render() {
+        console.log("Email from parent:", window.parent.email)
+        if (window.parent.email) {
+            console.log("Email from parent:", window.parent.email)
+            this.props.setStudentEmail(window.parent.email);
+        }
         if (this.props.studentEmail === "") {
-        // if (this.state.tempuser === "") {
             return(<this.emailForm/>);
         }
         return(
