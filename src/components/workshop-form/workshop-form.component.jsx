@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setCurrentWorkshop } from '../../redux/workshop/workshop.actions';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,14 +9,14 @@ class WorkShopForm extends React.Component {
 
     constructor(props) {
         super(props);
-        var junk = new Date();
-        junk.setDate(junk.getDate()  + 2);
+        
         this.state = {
             workshop: {
                 name: "",
                 description: "",
                 customer: "",
-                startDate: junk,
+                startDate: new Date(),
+                owner: props.userid
             },
         }
 
@@ -34,7 +36,15 @@ class WorkShopForm extends React.Component {
     }
 
     handleSaveWorkshop = () => {
+        console.log("Props:", this.props);
         console.log("State is:", this.state);
+        console.log("Current user is:", this.props.userid);
+        if (this.props.labList) {
+            this.props.labList.forEach(lab  => {
+                console.log("lab ID: ", lab._id.$oid);
+                console.log("  Name: ", lab.name);
+            });
+        }
     }
 
     render() {
@@ -82,11 +92,43 @@ class WorkShopForm extends React.Component {
                             <DatePicker selected={this.state.workshop.startDate} onChange={ date => this.onDateChange(date)} />
                         </Col>
                     </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1">Owner</Form.Label>
+                        <Col>
+                            <Form.Control
+                                disabled
+                                plaintext
+                                value={this.state.workshop.owner} 
+                                className="formControls"
+                                />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1">Lab</Form.Label>
+                        <Col>
+                            <Form.Control
+                                disabled
+                                plaintext
+                                value={this.props.currentLab.name}
+                                className="formControls"
+                                />
+                        </Col>
+                    </Form.Group>
                     <Button onClick={this.handleSaveWorkshop}>Save </Button>
                     <Button onClick={this.handleSaveWorkshop}>Discard</Button>
             </div>
         )
     }
 }
+const mapStateToProps = (state) => ({
+    userid: state.user.userid,
+    currentWorkshop: state.workshop.currentWorkshop,
+    currentLab: state.lab.currentLab,
+    labList: state.lab.labList
+})
 
-export default WorkShopForm
+const mapDispatchToProps = dispatch => ({
+    setCurrentWorkshop: workshop => dispatch(setCurrentWorkshop(workshop)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkShopForm);
