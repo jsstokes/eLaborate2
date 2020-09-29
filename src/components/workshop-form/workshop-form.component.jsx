@@ -4,6 +4,8 @@ import { setCurrentWorkshop } from '../../redux/workshop/workshop.actions';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import {LinkContainer} from 'react-router-bootstrap'
+import { Link } from 'react-router-dom';
 
 class WorkShopForm extends React.Component {
 
@@ -33,6 +35,25 @@ class WorkShopForm extends React.Component {
             ...this.state.workshop,
             startDate: date};
         this.setState({workshop: newWorkshop});
+    }
+
+    LabNameControl = () => {
+        if (this.props.currentLab == null) {
+            return(
+                <LinkContainer to="/">
+                    <Link to="/" >You must have a lab selected to continue - click here</Link>
+                </LinkContainer>
+            );
+        } else {
+            return (
+                <Form.Control
+                    disabled
+                    plaintext
+                    value={this.props.currentLab?this.props.currentLab.name:"No Lab Selected"}
+                    className="formControls"
+                    />
+            )
+        }
     }
 
     handleSaveWorkshop = () => {
@@ -95,23 +116,18 @@ class WorkShopForm extends React.Component {
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Owner</Form.Label>
                         <Col>
-                            <Form.Control
-                                disabled
-                                plaintext
-                                value={this.state.workshop.owner} 
-                                className="formControls"
-                                />
+                        <Form.Control
+                            disabled
+                            plaintext
+                            value={this.state.workshop.owner} 
+                            className="formControls"
+                            />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Lab</Form.Label>
                         <Col>
-                            <Form.Control
-                                disabled
-                                plaintext
-                                value={this.props.currentLab.name}
-                                className="formControls"
-                                />
+                            <this.LabNameControl/>
                         </Col>
                     </Form.Group>
                     <Button onClick={this.handleSaveWorkshop}>Save </Button>
