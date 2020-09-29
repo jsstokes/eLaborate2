@@ -1,15 +1,20 @@
 import React from 'react';
-import {Form, Row, Col} from 'react-bootstrap';
+import {Form, Row, Col, Button} from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 class WorkShopForm extends React.Component {
 
     constructor(props) {
         super(props);
+        var junk = new Date();
+        junk.setDate(junk.getDate()  + 2);
         this.state = {
             workshop: {
                 name: "",
                 description: "",
-                date: null
+                customer: "",
+                startDate: junk,
             },
         }
 
@@ -20,6 +25,16 @@ class WorkShopForm extends React.Component {
         change[e.target.name] = e.target.value;
         this.setState(change);
 
+    }
+    onDateChange = (date) => {
+        var newWorkshop = {
+            ...this.state.workshop,
+            startDate: date};
+        this.setState({workshop: newWorkshop});
+    }
+
+    handleSaveWorkshop = () => {
+        console.log("State is:", this.state);
     }
 
     render() {
@@ -33,6 +48,17 @@ class WorkShopForm extends React.Component {
                                 plaintext  
                                 name="name" 
                                 onChange={this.handleKeyChange} value={this.state.workshop.name} 
+                                className="formControls"
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1">Customer</Form.Label>
+                        <Col sm="11">
+                            <Form.Control 
+                                plaintext  
+                                name="customer" 
+                                onChange={this.handleKeyChange} value={this.state.workshop.customer} 
                                 className="formControls"
                             />
                         </Col>
@@ -53,14 +79,11 @@ class WorkShopForm extends React.Component {
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Start</Form.Label>
                         <Col sm="11">
-                            <Form.Control 
-                                date  
-                                name="date" 
-                                onChange={this.handleKeyChange} value={this.state.workshop.name} 
-                                className="formControls"
-                            />
+                            <DatePicker selected={this.state.workshop.startDate} onChange={ date => this.onDateChange(date)} />
                         </Col>
                     </Form.Group>
+                    <Button onClick={this.handleSaveWorkshop}>Save </Button>
+                    <Button onClick={this.handleSaveWorkshop}>Discard</Button>
             </div>
         )
     }
