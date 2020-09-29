@@ -1,7 +1,8 @@
 import React from 'react';
 import './nav-bar.styles.css';
 import {Navbar, Nav} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap'
 // import Nav from 'react-bootstrap/Nav';
 
 class MyNavBar extends React.Component {
@@ -14,10 +15,14 @@ class MyNavBar extends React.Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <Nav.Link as={Link} href="/" exact>Select Labs</Nav.Link>
-                <Nav.Link as={Link} href="#steps" disabled={disabledValue}>Steps</Nav.Link>
-                <Nav.Link as={Link} href="#order" disabled={disabledValue}>Reorder</Nav.Link>
-                <Nav.Link as={Link} href="#pricing" disabled={disabledValue}>Workshops</Nav.Link>
+                <LinkContainer to="/">
+                    <Nav.Link href="/" >Select Labs</Nav.Link>
+                </LinkContainer>
+                <Nav.Link href="#steps" disabled={disabledValue}>Steps</Nav.Link>
+                <Nav.Link href="#order" disabled={disabledValue}>Reorder</Nav.Link>
+                <LinkContainer to="/workshop">
+                    <Nav.Link href="/workshop" >Workshops</Nav.Link>
+                </LinkContainer>
                 {
                 //     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                 //     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

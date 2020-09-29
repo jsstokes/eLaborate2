@@ -8,6 +8,7 @@ import StudentPage from './pages/student-page/student-page-page';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login-page/login-page.page';
 import MainPage from './pages/main-page/main-page.page';
+import WorkshopPage from './pages/workshop-page/workshop-page.page'
 
 class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class App extends React.Component {
                     : <MainPage/>
                   )}/>
                   <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
+                  <Route path="/workshop" component={WorkshopPage} />
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>
