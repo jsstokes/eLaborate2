@@ -68,6 +68,10 @@ class WorkShopForm extends React.Component {
         }
     }
 
+    handleCancel = () => {
+        this.props.setCurrentWorkshop(null);
+    }
+
     render() {
         return (
             <div className="TopLevelDiv">
