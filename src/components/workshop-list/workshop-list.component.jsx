@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setCurrentWorkshop, setWorkshopList } from '../../redux/workshop/workshop.actions';
 import Axios from 'axios';
 import { setCurrentLab } from '../../redux/lab/lab.actions';
+import { BLANK_WORKSHOP } from '../../redux/workshop/workshop.reducer';
 // import {Form, Row, Col, Button} from 'react-bootstrap';
 // import DatePicker from 'react-datepicker';
 // import "react-datepicker/dist/react-datepicker.css";
@@ -40,6 +41,10 @@ class WorkshopList extends React.Component {
             this.props.setCurrentWorkshop(response.data);
             this.props.setCurrentLab(response.data.lab);
         })
+    }
+
+    handleNew = () => {
+       this.props.setCurrentWorkshop(BLANK_WORKSHOP); 
     }
 
     WorkListItem = (props) => {
@@ -86,6 +91,7 @@ class WorkshopList extends React.Component {
                                 />
                             ))
                     }
+                    <button className='btn btn-primary' onClick={this.handleNew}>New</button>
                 </div>
             );
             } else {
@@ -93,6 +99,7 @@ class WorkshopList extends React.Component {
                 return(
                     <div className="TopLevelDiv">
                         <h1>WorkshopList</h1>
+                        <button className='btn btn-primary' onClick={this.handleNew}>New</button>
                     </div>
                 );
                 }

@@ -1,3 +1,9 @@
+export const BLANK_WORKSHOP = {
+        name: "",
+        description: "",
+        customer: "",
+        startDate: new Date()
+}
 const INITIAL_WORKSHOP_STATE = {
     currentWorkshop: null,
     // currentWorkshop: {
