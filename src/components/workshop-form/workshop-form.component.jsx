@@ -15,15 +15,20 @@ class WorkShopForm extends React.Component {
         
         this.state = {
             workshop: {
-                name: "",
-                description: "",
-                customer: "",
-                startDate: new Date(),
+                name: props.currentWorkshop.name,
+                description: props.currentWorkshop.description,
+                customer: props.currentWorkshop.customer,
+                startDate: null,
                 owner: props.userid,
                 steps: null
             },
         }
 
+    }
+
+    componentDidMount = () => {
+        // save state from props??
+        
     }
 
     handleKeyChange = (e) => {
@@ -106,6 +111,11 @@ class WorkShopForm extends React.Component {
         this.props.setCurrentWorkshop(null);
     }
 
+    handleTestButton = () => {
+        console.log("Props:",this.props);
+        console.log("Making Date:", new Date(this.props.currentWorkshop.startDate));
+    }
+
     render() {
         return (
             <div className="TopLevelDiv">
@@ -116,7 +126,7 @@ class WorkShopForm extends React.Component {
                             <Form.Control 
                                 plaintext  
                                 name="name" 
-                                onChange={this.handleKeyChange} value={this.state.workshop.name} 
+                                onChange={this.handleKeyChange} value={this.props.currentWorkshop.name} 
                                 className="formControls"
                             />
                         </Col>
@@ -127,7 +137,7 @@ class WorkShopForm extends React.Component {
                             <Form.Control 
                                 plaintext  
                                 name="customer" 
-                                onChange={this.handleKeyChange} value={this.state.workshop.customer} 
+                                onChange={this.handleKeyChange} value={this.props.currentWorkshop.customer} 
                                 className="formControls"
                             />
                         </Col>
@@ -141,14 +151,14 @@ class WorkShopForm extends React.Component {
                                 rows={5} 
                                 name="description" 
                                 onChange={this.handleKeyChange} 
-                                value={this.state.workshop.description}
+                                value={this.props.currentWorkshop.description}
                             />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Start</Form.Label>
                         <Col sm="11">
-                            <DatePicker selected={this.state.workshop.startDate} onChange={ date => this.onDateChange(date)} />
+                            <DatePicker selected={this.props.currentWorkshop.startDate} onChange={ date => this.onDateChange(date)} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -169,7 +179,8 @@ class WorkShopForm extends React.Component {
                         </Col>
                     </Form.Group>
                     <Button onClick={this.handleSaveWorkshop}>Save </Button>
-                    <Button onClick={this.handleSaveWorkshop}>Discard</Button>
+                    <Button onClick={this.handleCancel}>Discard</Button>
+                    <Button onClick={this.handleTestButton}>Test</Button>
             </div>
         )
     }

@@ -9,6 +9,7 @@ import "./lab-page.styles.css";
 
 class LabPage extends React.Component {
     constructor() {
+        console.log("In LabPage Constructor()");
         super();
         this.state = {
           currentStep: 0, 

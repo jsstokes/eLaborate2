@@ -1,8 +1,11 @@
 const INITIAL_WORKSHOP_STATE = {
-    name: "",
-    description: "",
-    customer: "",
-    startDate: new Date(),
+    currentWorkshop: null,
+    // currentWorkshop: {
+    //     name: "",
+    //     description: "",
+    //     customer: "",
+    //     startDate: new Date()
+    // },
     workshopList: null,
 }
 export const WORKSHOP_ACTION_TYPES = {

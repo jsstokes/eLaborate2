@@ -5,7 +5,7 @@ export const setCurrentWorkshop = workshop => ({
     payload:    workshop
 })
 
-export const setCurrentWorkshopList = workshopList => ({
+export const setWorkshopList = workshopList => ({
     type:       WORKSHOP_ACTION_TYPES.SET_WORKSHOP_LIST,
     payload:    workshopList
 })
