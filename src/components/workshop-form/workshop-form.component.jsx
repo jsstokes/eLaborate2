@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {LinkContainer} from 'react-router-bootstrap'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class WorkShopForm extends React.Component {
 
@@ -18,7 +19,8 @@ class WorkShopForm extends React.Component {
                 description: "",
                 customer: "",
                 startDate: new Date(),
-                owner: props.userid
+                owner: props.userid,
+                steps: null
             },
         }
 
@@ -57,15 +59,47 @@ class WorkShopForm extends React.Component {
     }
 
     handleSaveWorkshop = () => {
+        var workshopToSave = this.state.workshop;
+        // ----------------------------------------------------------------
+        //   decided to embed the entire Lab doc into the workshop
+        //      should prevent any weird issues if someone delete the lab
+        // ----------------------------------------------------------------
+        workshopToSave.lab = this.props.currentLab;
+        // if (!this.state.workshop.steps) {
+        //     console.log("Saving lab steps to workshop in state");
+            
+        //     workshopToSave.steps = this.props.currentLab.steps;
+        //     // this.setState(newWorkshop);
+        // }
+        // if (!workshopToSave.labID) {
+        //     workshopToSave.labID = this.props.currentLab._id;
+        // }
+        console.log("About to save this workshop", workshopToSave);
         console.log("Props:", this.props);
         console.log("State is:", this.state);
         console.log("Current user is:", this.props.userid);
-        if (this.props.labList) {
-            this.props.labList.forEach(lab  => {
-                console.log("lab ID: ", lab._id.$oid);
-                console.log("  Name: ", lab.name);
-            });
-        }
+        console.log("Lab _id:", this.props.currentLab._id);
+        console.log("Calling updateWorkshop");
+        this.updateWorkshop(workshopToSave);
+    }
+
+    updateWorkshop = (workshopToSave) => {
+        console.log("Updating workshop with:", workshopToSave);
+        this.setState({workshop: workshopToSave});
+        axios.post(
+            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveWorkshop",
+            workshopToSave
+        ).then(response => {
+            console.log("Workshop update response:", response);
+            if (response.data.hasOwnProperty("insertedId")) {
+                let newWorkshop = this.state.workshop;
+                response._id = response.data.insertedId;
+                this.props.setCurrentWorkshop(newWorkshop);
+            } else {
+                console.log("Something happened during Workshop update:", response);
+            }
+            // this.props.setLabHasChanged(false);  // Not needed for workshops
+        });
     }
 
     handleCancel = () => {
