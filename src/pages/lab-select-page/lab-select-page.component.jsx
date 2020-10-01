@@ -14,9 +14,9 @@ class LabSelectPage extends React.Component {
     }
 
     render() {
-        // if (this.props.currentLab) {
-        //     return null;
-        // }
+        if (this.props.currentLab) {
+            return null;
+        }
         return(
             <div>
                 <LabList/>      
