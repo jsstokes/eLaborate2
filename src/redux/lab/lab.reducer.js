@@ -1,8 +1,6 @@
 const INITIAL_LAB_STATE = {
     currentLab: null,
     currentLabID: null,
-    currentStep: 0,
-    labView: "Details",
     labList: null,
     isEditing: false,
     labHasChanged: false,

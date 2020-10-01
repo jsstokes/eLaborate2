@@ -3,7 +3,7 @@ import Axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { setCurrentLab, setCurrentLabID, setLabList, toggleIsEditing, setLabHasChanged } from '../../redux/lab/lab.actions';
+import { setCurrentLab, setCurrentLabID, setLabList, toggleIsEditing, setLabHasChanged, setLabView, setCurrentStep } from '../../redux/lab/lab.actions';
 
 // FontAwesome for buttons 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -87,6 +87,8 @@ class LabList extends React.Component {
         )
         .then(response => {
             this.props.setCurrentLab(response.data);
+            this.props.setLabView("Description");
+            this.props.setCurrentStep(0);
             this.props.history.push("/lab");
         });
     }
@@ -149,6 +151,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    setLabView: view => dispatch(setLabView(view)),
+    setCurrentStep: step => dispatch(setCurrentStep(step)),
     setCurrentLabID: lab_id => dispatch(setCurrentLabID(lab_id)),
     setLabList: labList => dispatch(setLabList(labList)),
     toggleIsEditing: () => dispatch(toggleIsEditing()),
