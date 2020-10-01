@@ -1,0 +1,7 @@
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student1@mongodb.com", "step": 1 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student2@mongodb.com", "step": 2 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student3@mongodb.com", "step": 3 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student4@mongodb.com", "step": 4 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student5@mongodb.com", "step": 5 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student6@mongodb.com", "step": 6 }
+{ "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student7@mongodb.com", "step": 7 }

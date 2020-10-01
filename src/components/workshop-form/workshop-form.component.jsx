@@ -97,9 +97,10 @@ class WorkShopForm extends React.Component {
         ).then(response => {
             console.log("Workshop update response:", response);
             if (response.data.hasOwnProperty("insertedId")) {
-                let newWorkshop = this.state.workshop;
-                response._id = response.data.insertedId;
-                this.props.setCurrentWorkshop(newWorkshop);
+                console.log("Results of insert have OID")
+                // let newWorkshop = this.state.workshop;
+                workshopToSave._id = response.data.insertedId;
+                this.props.setCurrentWorkshop(workshopToSave);
             } else {
                 console.log("Something happened during Workshop update:", response);
             }
@@ -126,7 +127,7 @@ class WorkShopForm extends React.Component {
                             <Form.Control 
                                 plaintext  
                                 name="name" 
-                                onChange={this.handleKeyChange} value={this.props.currentWorkshop.name} 
+                                onChange={this.handleKeyChange} value={this.state.workshop.name} 
                                 className="formControls"
                             />
                         </Col>
@@ -137,7 +138,7 @@ class WorkShopForm extends React.Component {
                             <Form.Control 
                                 plaintext  
                                 name="customer" 
-                                onChange={this.handleKeyChange} value={this.props.currentWorkshop.customer} 
+                                onChange={this.handleKeyChange} value={this.state.workshop.customer} 
                                 className="formControls"
                             />
                         </Col>
@@ -151,14 +152,14 @@ class WorkShopForm extends React.Component {
                                 rows={5} 
                                 name="description" 
                                 onChange={this.handleKeyChange} 
-                                value={this.props.currentWorkshop.description}
+                                value={this.state.workshop.description}
                             />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="1">Start</Form.Label>
                         <Col sm="11">
-                            <DatePicker selected={this.props.currentWorkshop.startDate} onChange={ date => this.onDateChange(date)} />
+                            <DatePicker selected={this.state.workshop.startDate} onChange={ date => this.onDateChange(date)} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
