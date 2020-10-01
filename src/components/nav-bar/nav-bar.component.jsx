@@ -8,18 +8,20 @@ import {LinkContainer} from 'react-router-bootstrap'
 class MyNavBar extends React.Component {
 
     render() {
-        var disabledValue = false;
+        // var disabledValue = false;
         return(
             <Navbar collapseOnSelect expand="lg" bg="NavBG" variant="dark">
-            <Navbar.Brand href="#home">eLaborate</Navbar.Brand>
+            <Navbar.Brand href="/">eLaborate</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <LinkContainer to="/">
+                <LinkContainer exact to="/">
                     <Nav.Link href="/" >Select Labs</Nav.Link>
                 </LinkContainer>
-                <Nav.Link href="#steps" disabled={disabledValue}>Steps</Nav.Link>
-                <Nav.Link href="#order" disabled={disabledValue}>Reorder</Nav.Link>
+                <LinkContainer to="/lab">
+                    <Nav.Link href="/lab" >Lab</Nav.Link>
+                </LinkContainer>
+                {/* <Nav.Link href="#order" disabled={true}>Reorder</Nav.Link> */}
                 <LinkContainer to="/workshop">
                     <Nav.Link href="/workshop" >Workshops</Nav.Link>
                 </LinkContainer>

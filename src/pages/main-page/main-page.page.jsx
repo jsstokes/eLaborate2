@@ -4,7 +4,7 @@ import NavBar from '../../components/nav-bar/nav-bar.component';
 
 import LabContext from '../../lab.context';
 import LabSelectPage from '../lab-select-page/lab-select-page.component';
-import LabPage from '../lab-page/lab-page.component';
+// import LabPage from '../lab-page/lab-page.component';
 // import { NavBar } from 'react-bootstrap';
 
 class MainPage extends React.Component {
@@ -14,7 +14,6 @@ class MainPage extends React.Component {
             <div>
                 <NavBar/>
                 <LabSelectPage/>
-                <LabPage/>
             </div>
         );
     }

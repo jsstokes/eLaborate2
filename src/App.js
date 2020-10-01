@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login-page/login-page.page';
 import MainPage from './pages/main-page/main-page.page';
 import WorkshopPage from './pages/workshop-page/workshop-page.page'
+import LabPage from './pages/lab-page/lab-page.component';
 
 class App extends React.Component {
   constructor(props) {
@@ -32,6 +33,9 @@ class App extends React.Component {
                     this.props.userid === ""
                     ? <LoginPage handleSaveButton={this.handleSaveButton}/>
                     : <MainPage/>
+                  )}/>
+                  <Route path="/lab" exact render={ props => (
+                    <LabPage />
                   )}/>
                   <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
                   <Route path="/workshop" component={WorkshopPage} />

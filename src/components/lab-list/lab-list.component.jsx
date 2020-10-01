@@ -87,6 +87,7 @@ class LabList extends React.Component {
         )
         .then(response => {
             this.props.setCurrentLab(response.data);
+            this.props.history.push("/lab");
         });
     }
 
@@ -95,6 +96,7 @@ class LabList extends React.Component {
         this.props.setCurrentLab(newLab);
         this.props.setLabHasChanged(false);
         this.props.toggleIsEditing();
+        this.props.history.push("/lab");
     }
 
     NewLabButton = () => {

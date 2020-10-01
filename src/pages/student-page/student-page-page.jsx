@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import { Col, Row, Form, Button } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { setStudentEmail }from '../../redux/user/user.actions'; 
+import { setCurrentWorkshop } from '../../redux/workshop/workshop.actions';
 
 import LabContext from '../../lab.context';
 
@@ -38,15 +39,19 @@ class StudentPage extends React.Component {
 
     getLab() {
         Axios.get(
-            `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+            // Not getting the lab directly any longer
+            // `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
+            // getting the workshop instead
+            '"https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop"',
             { 
                 params: {
-                    id: this.props.match.params.workshop_id 
+                    id: this.props.match.params.workshop_id
                 }
             }
         )
         .then(response => {
-            this.props.setCurrentLab(response.data);
+            this.props.setCurrentWorkshop(response.data);
+            this.props.setCurrentLab(response.data.lab);
         });
     }
 
@@ -96,12 +101,14 @@ StudentPage.contextType = LabContext;
 
 const mapStateToProps = (state) => ({
     studentEmail: state.user.studentEmail,
-    currentLab: state.lab.currentLab
+    currentLab: state.lab.currentLab,
+    currentWorkshop: state.workshop.currentWorkshop
 })
 
 const mapDispatchToProps = dispatch => ({
     setStudentEmail: email => dispatch(setStudentEmail(email)),
-    setCurrentLab: lab => dispatch(setCurrentLab(lab))
+    setCurrentLab: lab => dispatch(setCurrentLab(lab)),
+    setCurrentWorkshop: workshop=> dispatch(setCurrentWorkshop(workshop))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(StudentPage));
