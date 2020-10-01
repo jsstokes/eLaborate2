@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { setCurrentWorkshop, setWorkshopList } from '../../redux/workshop/workshop.actions';
 import Axios from 'axios';
 import { setCurrentLab } from '../../redux/lab/lab.actions';
@@ -48,7 +49,21 @@ class WorkshopList extends React.Component {
     }
 
     handleMonitorClick = (workshopID) => {
-        console.log("Monitor Workshop Clicked:", workshopID)
+        console.log("Monitor Workshop Clicked:", workshopID);
+        Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
+        {
+            params: {
+                "id": workshopID
+            }
+        }).then(response => {
+            console.log("Returned:", response.data);
+            var newDate = new Date(response.data.startDate);
+            response.data.startDate = newDate;
+            this.props.setCurrentWorkshop(response.data);
+            this.props.setCurrentLab(response.data.lab);
+            this.props.history.push("/monitor");
+        })
+
     }
 
     WorkListItem = (props) => {
@@ -122,4 +137,4 @@ const mapDispatchToProps = dispatch => ({
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkshopList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WorkshopList));

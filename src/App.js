@@ -10,6 +10,7 @@ import LoginPage from './pages/login-page/login-page.page';
 import MainPage from './pages/main-page/main-page.page';
 import WorkshopPage from './pages/workshop-page/workshop-page.page'
 import LabPage from './pages/lab-page/lab-page.component';
+import MonitorPage from './pages/monitor-page/monitor-page.page';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class App extends React.Component {
                   )}/>
                   <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
                   <Route path="/workshop" component={WorkshopPage} />
+                  <Route path="/monitor" component={MonitorPage} />
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>

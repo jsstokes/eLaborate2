@@ -25,6 +25,9 @@ class MyNavBar extends React.Component {
                 <LinkContainer to="/workshop">
                     <Nav.Link href="/workshop" >Workshops</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to="/monitor">
+                    <Nav.Link href="/monitor" >Monitor</Nav.Link>
+                </LinkContainer>
                 {
                 //     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                 //     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
