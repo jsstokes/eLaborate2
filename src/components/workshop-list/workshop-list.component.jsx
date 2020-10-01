@@ -47,6 +47,10 @@ class WorkshopList extends React.Component {
        this.props.setCurrentWorkshop(BLANK_WORKSHOP); 
     }
 
+    handleMonitorClick = (workshopID) => {
+        console.log("Monitor Workshop Clicked:", workshopID)
+    }
+
     WorkListItem = (props) => {
         console.log("returning WorklistItem with:", props);
         return(
@@ -64,7 +68,7 @@ class WorkshopList extends React.Component {
             </button>
             <button 
                 className='btn btn-primary'
-                onClick={ () => {props.onTestClick(props.lab._id.$oid)}  }
+                onClick={ () => {props.onMonitorClick(props.workshop._id.$oid)}  }
                 >
                 Monitor Workshop
             </button>
@@ -87,7 +91,7 @@ class WorkshopList extends React.Component {
                                     key={index} 
                                     index={index}
                                     onClick={this.handleSelectClick}
-                                    onTestClick={this.handleTestClick}
+                                    onMonitorClick={this.handleMonitorClick}
                                 />
                             ))
                     }
