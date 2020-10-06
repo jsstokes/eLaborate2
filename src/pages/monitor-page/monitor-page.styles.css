@@ -1,0 +1,36 @@
+.MonitorListItem {
+  line-height: 75px;
+  height: 75px;
+  
+  border: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 7px;
+  background-color: blanchedalmond;
+  margin-bottom: 10px;
+  padding: 7px;
+  padding-bottom: 15px;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.MonitorListItem p {
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;}
+
+
+/* .MonitorListItem {
+  line-height: 75px;
+  height: 75px;
+  border: black;
+  border-style: solid;
+  text-align: center;
+
+  border-width: 1px;
+  border-radius: 7px;
+  background-color: blanchedalmond;
+
+  display: inline-block;
+  vertical-align: middle;
+} */

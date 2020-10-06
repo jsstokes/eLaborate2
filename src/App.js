@@ -38,7 +38,7 @@ class App extends React.Component {
                   <Route path="/lab" exact render={ props => (
                     <LabPage />
                   )}/>
-                  <Route path="/student/:workshop_id/:student_id?" component={StudentPage} />
+                  <Route path="/student/:lab_id/:workshop_id?/:student_id?" component={StudentPage} />
                   <Route path="/workshop" component={WorkshopPage} />
                   <Route path="/monitor" component={MonitorPage} />
                   <Route path="/login">

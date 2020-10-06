@@ -38,11 +38,12 @@ class StudentPage extends React.Component {
     }
 
     getLab() {
+        console.log("StudentPage - getting the workshop");
         Axios.get(
             // Not getting the lab directly any longer
             // `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
             // getting the workshop instead
-            '"https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop"',
+            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
             { 
                 params: {
                     id: this.props.match.params.workshop_id
@@ -50,7 +51,9 @@ class StudentPage extends React.Component {
             }
         )
         .then(response => {
+            console.log("StudentPage - Setting current workshop:", response.data);
             this.props.setCurrentWorkshop(response.data);
+            console.log("StudentPage - Setting current lab:", response.data.lab);
             this.props.setCurrentLab(response.data.lab);
         });
     }

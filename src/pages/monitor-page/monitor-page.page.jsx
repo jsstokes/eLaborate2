@@ -3,6 +3,7 @@ import NavBar from '../../components/nav-bar/nav-bar.component'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import './monitor-page.styles.css';
 
 const STATUS_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getStatus";
 const TEST_STATUS = [
@@ -57,18 +58,23 @@ class MonitorPage extends React.Component {
 
     StudentStatus = (props) => {
         return(
-            <div>
+            <div className="MonitorListItem">
+                <p>
                 {props.student.student_id} -
                 on step <b>{props.student.step}</b>&nbsp;
                 of {this.props.currentLab.steps.length}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button className="btn btn-primary">View Step {props.student.step}</button>
-                <hr/>
+                </p>
             </div>
         );
     }
 
-    render() {
+    render(props) {
         console.log("Monitoring:",this.props.currentWorkshop);
+        console.log("THIS Props:", this.props);
+        console.log("search:", this.props.location.search);
+
+        console.log("Props:", props);
         if (this.props.currentWorkshop) {
             return(
                 <div>

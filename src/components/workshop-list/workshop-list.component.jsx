@@ -68,13 +68,17 @@ class WorkshopList extends React.Component {
 
     WorkListItem = (props) => {
         console.log("returning WorklistItem with:", props);
+        console.log("Current window:", window.location);
+        console.log("Current window origin:", window.location.origin);
+        console.log("Workshop", props.workshop);
         return(
             <div className="LabListItem">
-            <div>Name: {props.workshop.name}</div>
+            <div><b>Name</b>: {props.workshop.name}</div>
             <div>_id: {props.workshop._id.$oid}</div>
-            <div>Key/Index: {props.index}</div>
+            <div><b>Key/Index</b>: {props.index}</div>
             <div><b>Description:</b> {props.workshop.description}</div>
             <div><b>Customer:</b> {props.workshop.customer}</div>
+            <div><b>iFrame Link for students</b>: {window.location.origin}/student/{props.workshop.lab._id.$oid}/{props.workshop._id.$oid}</div>
             <button 
                 className='btn btn-primary'
                 onClick={ () => {this.handleEdit(props.workshop._id.$oid)}  }

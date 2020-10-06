@@ -24,6 +24,7 @@ class LabPage extends React.Component {
       }
      
     render() {
+        console.log("LabPage - props:", this.props);
         if (!this.props.currentLab) {
             return(
                 <div>
