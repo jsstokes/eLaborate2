@@ -23,26 +23,15 @@ class MonitorPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("MonitorPage.constructor props:", props);
         this.state = {
             "workshop_id": props.match.params.workshop_id
         }
-        console.log("MonitorPage.constructor state set to:", this.state);
     }
 
     componentDidMount = () => {
-        // console.log("MonitorPage.componentdidMount - about to get status for:", this.props.currentWorkshop._id.$oid);
-        console.log("MonitorPage.componentdidMount - about to get status for:", this.props.match.workshop_id);
-        // getWorkshopStatus(this.props.currentWorkshop._id.$oid, this.processNewStatus);
         if (!this.props.currentWorkshop) {
-            console.log("MonitorPage.componentDidMount: getting currentWorkshop");
             getWorkshop(this.state.workshop_id, this.processNewWorkshop);
         }
-        // if (!this.props.currentLab) {
-        //     console.log("MonitorPage.componentDidMount: getting currentLab");
-        //     getLab( )
-        // }
-        console.log("MonitorPage.componentDidMount: getting status");
         getWorkshopStatus(this.state.workshop_id, this.processNewStatus);
     }
 
@@ -52,41 +41,11 @@ class MonitorPage extends React.Component {
     }
 
     processNewStatus = (updates) => {
-        console.log("MonitorPage.processNewStatus received updates:", updates);
         this.setState({
             status: updates.data
         });
     }
 
-    // getCurrentStatus = () => {
-    //     axios.get(  STATUS_URL, 
-    //                 {
-    //                     params: {
-    //                         "workshop_id": this.state.workshop_id,
-    //                         "student_id":  this.props.studentEmail
-    //                     }
-    //                 }
-    //         )
-
-        // filterDoc = {
-        //      "workshop_id": "0101",
-        //      "student_id": "mitch@mail.com"
-        //    }
-
-        // Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
-        // {
-        //     params: {
-        //         "id": id
-        //     }
-        // }).then(response => {
-        //     console.log("Returned:", response.data);
-        //     var newDate = new Date(response.data.startDate);
-        //     response.data.startDate = newDate;
-        //     this.props.setCurrentWorkshop(response.data);
-        //     this.props.setCurrentLab(response.data.lab);
-        // })
-
-    // }
 
     StudentStatus = (props) => {
         //
@@ -117,13 +76,6 @@ class MonitorPage extends React.Component {
     }
 
     render(props) {
-        //console.log("Monitoring:",this.props.currentWorkshop);
-        console.log("THIS Props:", this.props);
-        console.log("search:", this.props.location.search);
-        console.log("MonitorPage.render state:", this.state);
-
-        console.log("MonitorPage.render - Props:", this.props);
-        console.log("MonitorPage.render - State:", this.state);
         if ((this.props.currentWorkshop) && (this.state.status) && (this.props.currentLab)) {
             return(
                 <div>

@@ -25,23 +25,25 @@ class ButtonBar extends React.Component {
     handlePrevious = () => {
         if (this.props.currentStep > 0) {
             this.props.setCurrentStep(this.props.currentStep - 1);
-            updateStatus(  
-                this.props.currentWorkshop._id.$oid,
-                this.props.studentEmail,
-                this.props.currentStep - 1
-            );
-
+            if (this.props.currentWorkshop) {
+                updateStatus(  
+                    this.props.currentWorkshop._id.$oid,
+                    this.props.studentEmail,
+                    this.props.currentStep - 1
+                );
+            }
         }
     }
 
     handleOverview = ()  => {
         this.props.setLabView("Description");
-        updateStatus(  
-            this.props.currentWorkshop._id.$oid,
-            this.props.studentEmail,
-            -1
-        );
-
+        if (this.props.currentWorkshop) {
+            updateStatus(  
+                this.props.currentWorkshop._id.$oid,
+                this.props.studentEmail,
+                -1
+            );
+        }
     }
 
     PreviousButton = (props) => {
@@ -69,23 +71,18 @@ class ButtonBar extends React.Component {
         return(null);
     }
 
-    // updateStatus = (step) => {
-    //     console.log("Sending Status update:");
-    //     console.log("   Workshop ID:", this.props.currentWorkshop._id.$oid);
-    //     console.log("   Student ID:", this.props.studentEmail);
-    //     console.log("   Step:", step);
-    // }
-
     handleNext = () => {
         const MAX_STEP = this.props.currentLab.steps.length - 1;
         if (this.props.currentStep < MAX_STEP) {
             this.props.setCurrentStep(this.props.currentStep + 1);
-            updateStatus(  
-                this.props.currentWorkshop._id.$oid,
-                this.props.studentEmail,
-                this.props.currentStep + 1
-            );
-        }
+            if (this.props.currentWorkshop) {
+                updateStatus(  
+                    this.props.currentWorkshop._id.$oid,
+                    this.props.studentEmail,
+                    this.props.currentStep + 1
+                );
+            }
+    }
 
     }
 

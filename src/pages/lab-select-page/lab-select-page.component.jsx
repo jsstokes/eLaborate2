@@ -8,9 +8,9 @@ import LabList from '../../components/lab-list/lab-list.component';
 import { connect } from 'react-redux';
 
 class LabSelectPage extends React.Component {
+    // eslint-disable-next-line
     constructor(props) {
         super(props);
-        console.log("In LabSelectPage constructor...");
     }
 
     render() {

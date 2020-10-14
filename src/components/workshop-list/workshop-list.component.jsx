@@ -20,23 +20,19 @@ class WorkshopList extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log("componentDidMount: getting workshoplist");
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshops")
         .then( response => {
-        console.log("componentDidMount: response - ", response);
         this.props.setWorkshopList(response.data);
         })
     }
 
     handleEdit = (id) => {
-        console.log("Fetching workshop:", id);
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
         {
             params: {
                 "id": id
             }
         }).then(response => {
-            console.log("Returned:", response.data);
             var newDate = new Date(response.data.startDate);
             response.data.startDate = newDate;
             this.props.setCurrentWorkshop(response.data);
@@ -49,14 +45,12 @@ class WorkshopList extends React.Component {
     }
 
     handleMonitorClick = (workshopID) => {
-        console.log("Monitor Workshop Clicked:", workshopID);
         Axios.get("https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
         {
             params: {
                 "id": workshopID
             }
         }).then(response => {
-            console.log("Returned:", response.data);
             var newDate = new Date(response.data.startDate);
             response.data.startDate = newDate;
             this.props.setCurrentWorkshop(response.data);
@@ -67,10 +61,6 @@ class WorkshopList extends React.Component {
     }
 
     WorkListItem = (props) => {
-        console.log("returning WorklistItem with:", props);
-        console.log("Current window:", window.location);
-        console.log("Current window origin:", window.location.origin);
-        console.log("Workshop", props.workshop);
         return(
             <div className="LabListItem">
             <div><b>Name</b>: {props.workshop.name}</div>
@@ -99,7 +89,6 @@ class WorkshopList extends React.Component {
 
     render() {
         if (this.props.workshopList) {
-            console.log("Rendering WorkshopList with elements");
             return(
                 <div className="TopLevelDiv">
                     <h1>Workshop List</h1>
@@ -118,7 +107,6 @@ class WorkshopList extends React.Component {
                 </div>
             );
             } else {
-                console.log("Rendering WorkshopList WITHOUT elements:");
                 return(
                     <div className="TopLevelDiv">
                         <h1>WorkshopList</h1>

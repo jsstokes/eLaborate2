@@ -109,7 +109,6 @@ class LabList extends React.Component {
 
     handleTestClick = (oid) => {
         let newPath = `/student/${oid}`;
-        console.log("Setting Student URl is:", newPath);
         this.props.setCurrentLabID(oid);
         this.props.history.push(newPath);
         

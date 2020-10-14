@@ -115,19 +115,15 @@ class LabDetails extends React.Component {
         );
     }
 
-    // updateStatus = (step) => {
-    //     console.log("Sending Status update:");
-    //     console.log("   Workshop ID:", this.props.currentWorkshop._id.$oid);
-    //     console.log("   Student ID:", this.props.studentEmail);
-    //     console.log("   Step:", step);
-    // }
-
     handleStartButton = () => {
         this.props.setLabView("Steps");
-        updateStatus(
-            this.props.currentWorkshop._id.$oid,
-            this.props.studentEmail,
-            0);
+        if (this.props.currentWorkshop) {
+            updateStatus(
+                this.props.currentWorkshop._id.$oid,
+                this.props.studentEmail,
+                0
+            );
+        } 
     }
 
 

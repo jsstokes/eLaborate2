@@ -22,8 +22,6 @@ class StudentPage extends React.Component {
             this.state = {tempuser: ""};
         }
         if (props.match.params.workshop_id) {
-            console.log("Setting workshop ID:", props.match.params.workshop_id);
-            console.log("StudentPage Constructor Props:", props);
             this.state = {
                 ...this.state,
                 workshop_id: props.match.params.workshop_id
@@ -49,7 +47,6 @@ class StudentPage extends React.Component {
     }
 
     getLab() {
-        console.log("StudentPage - getting the workshop");
         Axios.get(
             // Not getting the lab directly any longer
             // `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
@@ -62,9 +59,7 @@ class StudentPage extends React.Component {
             }
         )
         .then(response => {
-            console.log("StudentPage - Setting current workshop:", response.data);
             this.props.setCurrentWorkshop(response.data);
-            console.log("StudentPage - Setting current lab:", response.data.lab);
             this.props.setCurrentLab(response.data.lab);
         });
     }
@@ -88,15 +83,10 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.setStudentEmail(this.context.auth.userid);
-        console.log("StudentPage didMount - this.props.match.workshop_id:", this.props.match.workshop_id);
-        console.log("StudentPage didMount - !this.props.currentLab:", this.props.currentLab);
-        console.log("StudentPage didMount - this.state:", this.state);
         if ((this.props.match.workshop_id) && (!this.props.currentLab)) {
-            console.log("StudentPage didMount: getting the lab", this.props);
             this.getLab();
         } else {
-            console.log("StudentPage didMount: NO GONNA GET THE LAB:", this.props);
+            console.log("StudentPage didMount: NOT GONNA GET THE LAB:", this.props);
         }
     }
 
