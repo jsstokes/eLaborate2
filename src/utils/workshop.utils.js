@@ -9,18 +9,22 @@ export     function updateStatus(workshopID, studentID, step) {
     console.log("   Workshop ID:", workshopID);
     console.log("   Student ID:", studentID);
     console.log("   Step:", step);
-    axios.post(
-        STATUS_UPDATE_URL,
-        {
-            "workshop_id": workshopID,
-            "student_id": studentID,
-            "step": step
+    if (studentID === "") {
+        console.log("Student Progress not updated - student ID is missing");
+    } else {
+        axios.post(
+            STATUS_UPDATE_URL,
+            {
+                "workshop_id": workshopID,
+                "student_id": studentID,
+                "step": step
+            }
+        ).then( response => {
+            console.log("Student Progress updated:", response);
         }
-    ).then( response => {
-        console.log("Student Progress updated:", response);
-    }
 
-    )
+        )
+    }
 }
 
 export function getWorkshopStatus(workshop_id,callback) {
