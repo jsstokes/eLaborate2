@@ -64,15 +64,32 @@ class LabList extends React.Component {
                     >
                     Select
                 </button>
-                <button 
-                    className='btn btn-primary'
-                    onClick={ () => {props.onTestClick(props.lab._id.$oid)}  }
-                    >
-                    Open as Student
-                </button>
-
             </div>
         );
+        // 
+        // Removed Open as Student Button
+        //
+        // return(
+        //     <div className="LabListItem">
+        //         <div>Name: {props.lab.name}</div>
+        //         <div>_id: {props.lab._id.$oid}</div>
+        //         <div>Key/Index: {props.index}</div>
+        //         <div><b>Description:</b> {props.lab.description}</div>
+        //         <button 
+        //             className='btn btn-primary'
+        //             onClick={ () => {props.onClick(props.lab._id.$oid)}  }
+        //             >
+        //             Select
+        //         </button>
+        //         <button 
+        //             className='btn btn-primary'
+        //             onClick={ () => {props.onTestClick(props.lab._id.$oid)}  }
+        //             >
+        //             Open as Student
+        //         </button>
+
+        //     </div>
+        // );
     }
 
     handleSelectClick = (oid) => {
