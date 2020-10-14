@@ -51,11 +51,13 @@ class MonitorPage extends React.Component {
         //
         // Temporarily remove the View Step Button until that functionality is available
         //
+        console.log("props.student:", props.student);
         return(
+            
             <div className="MonitorListItem">
                 <p>
                 {props.student.student_id} -
-                on step <b>{props.student.step}</b>&nbsp;
+                on step <b>{props.student.current_step.$numberInt}</b>&nbsp;
                 of {this.props.currentLab.steps.length}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </p>
             </div>
@@ -83,7 +85,7 @@ class MonitorPage extends React.Component {
                 <div className="TopLevelDiv">
                     <h1>Monitoring for  </h1>
                     <h5>&nbsp;&nbsp;&nbsp;&nbsp;{this.props.currentWorkshop.name} 
-                        (&nbsp;<i>_id: {this.props.match.workshop_id}</i>&nbsp;) - {this.state.status.length} Students Participating
+                        (&nbsp;<i>_id: {this.props.currentWorkshop._id.$oid}</i>&nbsp;) - {this.state.status.length} Students Participating
                     </h5>
                     <hr/>
                     {
