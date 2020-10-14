@@ -21,6 +21,17 @@ class StudentPage extends React.Component {
         } else {
             this.state = {tempuser: ""};
         }
+        if (props.match.params.workshop_id) {
+            console.log("Setting workshop ID:", props.match.params.workshop_id);
+            console.log("StudentPage Constructor Props:", props);
+            this.state = {
+                ...this.state,
+                workshop_id: props.match.params.workshop_id
+            }
+            
+        } else {
+            console.log("*** NO WORKSHOP ID FOUND ***");
+        }
     }
 
     handleKeyChange = (e) => {
@@ -78,10 +89,15 @@ class StudentPage extends React.Component {
 
     componentDidMount() {
         // this.props.setStudentEmail(this.context.auth.userid);
+        console.log("StudentPage didMount - this.props.match.workshop_id:", this.props.match.workshop_id);
+        console.log("StudentPage didMount - !this.props.currentLab:", this.props.currentLab);
+        console.log("StudentPage didMount - this.state:", this.state);
         if ((this.props.match.workshop_id) && (!this.props.currentLab)) {
-        this.getLab();
+            console.log("StudentPage didMount: getting the lab", this.props);
+            this.getLab();
+        } else {
+            console.log("StudentPage didMount: NO GONNA GET THE LAB:", this.props);
         }
-
     }
 
     render() {

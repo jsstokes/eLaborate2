@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import LabContext from '../../lab.context';
 import { setCurrentStep, setCurrentLab, deleteCurrentStep, setLabView, setLabHasChanged } from '../../redux/lab/lab.actions';
-
+import { setStudentEmail } from '../../redux/user/user.actions';
 // FontAwesome for buttons 
 import { faChevronLeft,faUserEdit,faChevronRight, faPlus,faTrash, faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
+import { updateStatus } from '../../utils/workshop.utils';
 import {BLANK_STEP} from '../../sample-lab.data';
 
 class ButtonBar extends React.Component {
@@ -24,13 +25,29 @@ class ButtonBar extends React.Component {
     handlePrevious = () => {
         if (this.props.currentStep > 0) {
             this.props.setCurrentStep(this.props.currentStep - 1);
+            updateStatus(  
+                this.props.currentWorkshop._id.$oid,
+                this.props.studentEmail,
+                this.props.currentStep - 1
+            );
+
         }
+    }
+
+    handleOverview = ()  => {
+        this.props.setLabView("Description");
+        updateStatus(  
+            this.props.currentWorkshop._id.$oid,
+            this.props.studentEmail,
+            -1
+        );
+
     }
 
     PreviousButton = (props) => {
         if (this.props.currentStep === 0) {
             return(
-                <Button onClick={() => {this.props.setLabView("Description")}} className={props.className}>
+                <Button onClick={this.handleOverview} className={props.className}>
                     <FontAwesomeIcon icon={faChevronLeft} />&nbsp;Lab Overview
                 </Button>
             );
@@ -52,11 +69,24 @@ class ButtonBar extends React.Component {
         return(null);
     }
 
+    // updateStatus = (step) => {
+    //     console.log("Sending Status update:");
+    //     console.log("   Workshop ID:", this.props.currentWorkshop._id.$oid);
+    //     console.log("   Student ID:", this.props.studentEmail);
+    //     console.log("   Step:", step);
+    // }
+
     handleNext = () => {
         const MAX_STEP = this.props.currentLab.steps.length - 1;
         if (this.props.currentStep < MAX_STEP) {
             this.props.setCurrentStep(this.props.currentStep + 1);
+            updateStatus(  
+                this.props.currentWorkshop._id.$oid,
+                this.props.studentEmail,
+                this.props.currentStep + 1
+            );
         }
+
     }
 
     NextButton = (props) => {
@@ -158,14 +188,22 @@ class ButtonBar extends React.Component {
 }
 ButtonBar.contextType = LabContext;
 
+// ======================
+
+// ==============================
+
+
 const mapStateToProps = (state) => ({
     userid: state.user.userid,
     currentLab: state.lab.currentLab,
     currentStep: state.lab.currentStep,
     labHasChanged: state.lab.labHasChanged,
+    studentEmail: state.user.studentEmail,
+    currentWorkshop: state.workshop.currentWorkshop,
 })
 
 const mapDispatchToProps = dispatch => ({
+    setStudentEmail: email => dispatch(setStudentEmail(email)),
     setCurrentStep: step => dispatch(setCurrentStep(step)),
     setCurrentLab: lab => dispatch(setCurrentLab(lab)),
     deleteCurrentStep: lab  => dispatch(deleteCurrentStep(lab)),

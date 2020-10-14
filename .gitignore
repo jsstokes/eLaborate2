@@ -29,3 +29,4 @@ yarn-debug.log*
 yarn-error.log*
 realm/export-project.sh
 realm/push-to-realm.sh
+testStatus.sh

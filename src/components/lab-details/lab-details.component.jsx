@@ -7,6 +7,9 @@ import {Form, Row, Col} from 'react-bootstrap';
 
 import {setCurrentLab, setLabView, toggleIsEditing, setLabHasChanged} from '../../redux/lab/lab.actions';
 
+import { updateStatus } from '../../utils/workshop.utils';
+
+
 // FontAwesome for buttons
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -112,8 +115,19 @@ class LabDetails extends React.Component {
         );
     }
 
+    // updateStatus = (step) => {
+    //     console.log("Sending Status update:");
+    //     console.log("   Workshop ID:", this.props.currentWorkshop._id.$oid);
+    //     console.log("   Student ID:", this.props.studentEmail);
+    //     console.log("   Step:", step);
+    // }
+
     handleStartButton = () => {
         this.props.setLabView("Steps");
+        updateStatus(
+            this.props.currentWorkshop._id.$oid,
+            this.props.studentEmail,
+            0);
     }
 
 
@@ -174,6 +188,8 @@ const mapStateToProps = (state) => ({
     currentLab: state.lab.currentLab,
     isEditing: state.lab.isEditing,
     labHasChanged: state.lab.labHasChanged,
+    currentWorkshop: state.workshop.currentWorkshop,
+    studentEmail: state.user.studentEmail,
 })
 
 const mapDispatchToProps = dispatch => ({

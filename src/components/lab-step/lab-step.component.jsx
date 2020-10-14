@@ -18,6 +18,11 @@ import {BLANK_STEP} from '../../sample-lab.data';
 import { Col, Row, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 
+// "workshop_id": doc["workshop_id"],
+// "student_id": doc["student_id"],
+// "current_step": doc["step"] ,
+
+
 class LabStep extends React.Component {
 
     constructor(props) {
