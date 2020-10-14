@@ -3,6 +3,7 @@ import NavBar from '../../components/nav-bar/nav-bar.component'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { getWorkshopStatus } from '../../utils/workshop.utils';
 import './monitor-page.styles.css';
 
 const STATUS_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getStatus";
@@ -25,6 +26,17 @@ class MonitorPage extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        console.log("MonitorPage.componentdidMount - about to get status for:", this.props.currentWorkshop._id.$oid);
+        getWorkshopStatus(this.props.currentWorkshop._id.$oid, this.processNewStatus);
+    }
+
+    processNewStatus = (updates) => {
+        console.log("MonitorPage.processNewStatus received updates:", updates);
+        this.setState({
+            status: updates.data
+        });
+    }
 
     getCurrentStatus = () => {
         axios.get(  STATUS_URL, 
