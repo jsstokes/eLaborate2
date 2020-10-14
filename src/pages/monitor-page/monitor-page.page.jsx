@@ -2,13 +2,13 @@ import React from 'react';
 import NavBar from '../../components/nav-bar/nav-bar.component'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import { getWorkshopStatus, getWorkshop } from '../../utils/workshop.utils';
 import { setCurrentWorkshop } from '../../redux/workshop/workshop.actions';
 import { setCurrentLab } from '../../redux/lab/lab.actions';
 import './monitor-page.styles.css';
 
-const STATUS_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getStatus";
+// const STATUS_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getStatus";
 // const TEST_STATUS = [
 //     { "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student1@mongodb.com", "step": 1 },
 //     { "workshop_id": {"$oid": "5f75eae269f456bf3ad5bab8"}  , "student_id": "student2@mongodb.com", "step": 2 },
@@ -58,15 +58,15 @@ class MonitorPage extends React.Component {
         });
     }
 
-    getCurrentStatus = () => {
-        axios.get(  STATUS_URL, 
-                    {
-                        params: {
-                            "workshop_id": this.state.workshop_id,
-                            "student_id":  this.props.studentEmail
-                        }
-                    }
-            )
+    // getCurrentStatus = () => {
+    //     axios.get(  STATUS_URL, 
+    //                 {
+    //                     params: {
+    //                         "workshop_id": this.state.workshop_id,
+    //                         "student_id":  this.props.studentEmail
+    //                     }
+    //                 }
+    //         )
 
         // filterDoc = {
         //      "workshop_id": "0101",
@@ -86,7 +86,7 @@ class MonitorPage extends React.Component {
         //     this.props.setCurrentLab(response.data.lab);
         // })
 
-    }
+    // }
 
     StudentStatus = (props) => {
         //
@@ -147,7 +147,7 @@ class MonitorPage extends React.Component {
                 <div>
                 <NavBar/>
                 <div className="TopLevelDiv">
-                    <h1>No Workshop is selected</h1>
+                    <h1>No Workshop is selected - please wait while it is being retrieved</h1>
                 </div>
                 </div>
             );
