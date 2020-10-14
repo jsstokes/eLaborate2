@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const STATUS_UPDATE_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveStatus";
+export const STATUS_UPDATE_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/saveStatus";
 export const GET_STATUS_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getStatus";
+export const GET_WORKSHOP_URL = "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop";
+
 export     function updateStatus(workshopID, studentID, step) {
     console.log("Sending Status update:");
     console.log("   Workshop ID:", workshopID);
@@ -27,4 +29,15 @@ export function getWorkshopStatus(workshop_id,callback) {
         {"workshop_id": workshop_id}
     ).then(response => {callback(response)});
 
+}
+
+export function getWorkshop(workshop_id,callback) {
+    axios.get(
+        GET_WORKSHOP_URL,
+        {        
+            params: {
+                id: workshop_id 
+            }
+        }    
+    ).then (response => { callback(response.data)});
 }

@@ -40,7 +40,7 @@ class App extends React.Component {
                   )}/>
                   <Route path="/student/:lab_id/:workshop_id?/:student_id?" component={StudentPage} />
                   <Route path="/workshop" component={WorkshopPage} />
-                  <Route path="/monitor" component={MonitorPage} />
+                  <Route path="/monitor/:workshop_id" component={MonitorPage} />
                   <Route path="/login">
                     <LoginPage redirectTarget="/"/>
                   </Route>

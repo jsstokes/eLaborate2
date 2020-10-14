@@ -61,7 +61,7 @@ class WorkshopList extends React.Component {
             response.data.startDate = newDate;
             this.props.setCurrentWorkshop(response.data);
             this.props.setCurrentLab(response.data.lab);
-            this.props.history.push("/monitor");
+            this.props.history.push("/monitor/" + workshopID);
         })
 
     }
