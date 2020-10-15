@@ -91,11 +91,15 @@ class StudentPage extends React.Component {
     }
 
     render() {
-        console.log("Email from parent:", window.parent.email)
-        if (window.parent.email) {
-            console.log("Email from parent:", window.parent.email)
-            this.props.setStudentEmail(window.parent.email);
-        }
+        //--------------------------------------------------------------------
+        //  Started getting iFrame security issues after adding this code
+        //  Let's remove it and see if the issue goes away
+        //--------------------------------------------------------------------
+        // console.log("Email from parent:", window.parent.email)
+        // if (window.parent.email) {
+        //     console.log("Email from parent:", window.parent.email)
+        //     this.props.setStudentEmail(window.parent.email);
+        // }
         if (this.props.studentEmail === "") {
             return(<this.emailForm/>);
         }
