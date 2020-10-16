@@ -20,26 +20,8 @@ class StudentPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("StudentPage.init - props:", props);
-        //-----------------------------------------------------------
-        //  Check Redux values needed as set when empty 
-        //----------------------------------------------------------- 
 
-        // if (!this.props.currentWorkshop) {
-        //     this.props.setCurrentWorkshop(props.match.params.workshop_id)
-        // } else {
-        //     console.log("-- this.props.currentWorkshop:", this.props.currentWorkshop);
-        // }
-        // if (!this.props.studentEmail) {
-        //     this.props.setStudentEmail(props.match.params.student_id)
-        // } else {
-        //     console.log("-- this.props.studentEmail:", this.props.studentEmail);
-        // }
-        // if (!this.props.currentLab) {
-        //     this.props.setCurrentLab(props.match.params.)
-        // } else {
-        //     console.log("-- this.props.currentLab:", this.props.currentLab);
-        // }
+        console.log("StudentPage.init - props:", props);
 
         if (props.match.params.student_id) {
             this.state = {tempuser: props.match.params.student_id};
@@ -94,8 +76,8 @@ class StudentPage extends React.Component {
     }
 
     iFrameMessageBox = () => {
-        // var linkText = `${window.location.href}/${this.props.studentEmail}`;
-        var linkText = `${window.location.href}/student@email.com`;
+        var linkText = `${window.location.href}/${this.props.studentEmail}`;
+        // var linkText = `${window.location.href}/student@email.com`;
         return(
             <div className="modal">
                 <div className="modal-content">
@@ -140,6 +122,17 @@ class StudentPage extends React.Component {
             this.getLab();
         } else {
             console.log("StudentPage didMount: NOT GONNA GET THE LAB:", this.props);
+        }
+
+        window.addEventListener('message', this.handleMessage);
+    }
+    handleMessage = (event) => {
+        console.log("React handleMessage:", event);
+        if (event.data.email) {
+            console.log("====================================");
+            console.log("  Email ID should be:", event.data.email);
+            console.log("====================================");
+            this.props.setStudentEmail(event.data.email);
         }
     }
 
