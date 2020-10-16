@@ -12,10 +12,35 @@ import './student-page.styles.css';
 import LabPage from '../lab-page/lab-page.component';
 import { setCurrentLab } from '../../redux/lab/lab.actions';
 
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 class StudentPage extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("StudentPage.init - props:", props);
+        //-----------------------------------------------------------
+        //  Check Redux values needed as set when empty 
+        //----------------------------------------------------------- 
+
+        // if (!this.props.currentWorkshop) {
+        //     this.props.setCurrentWorkshop(props.match.params.workshop_id)
+        // } else {
+        //     console.log("-- this.props.currentWorkshop:", this.props.currentWorkshop);
+        // }
+        // if (!this.props.studentEmail) {
+        //     this.props.setStudentEmail(props.match.params.student_id)
+        // } else {
+        //     console.log("-- this.props.studentEmail:", this.props.studentEmail);
+        // }
+        // if (!this.props.currentLab) {
+        //     this.props.setCurrentLab(props.match.params.)
+        // } else {
+        //     console.log("-- this.props.currentLab:", this.props.currentLab);
+        // }
+
         if (props.match.params.student_id) {
             this.state = {tempuser: props.match.params.student_id};
         } else {
@@ -26,9 +51,16 @@ class StudentPage extends React.Component {
                 ...this.state,
                 workshop_id: props.match.params.workshop_id
             }
-            
+            this.getWorkshop(props.match.params.workshop_id);
         } else {
             console.log("*** NO WORKSHOP ID FOUND ***");
+        }
+        if (props.match.params.student_id) {
+            console.log("Setting state.student_id to", props.match.params.student_id);
+            this.state = {
+                ...this.state,
+                "student_id": props.match.params.student_id,
+            }
         }
     }
 
@@ -41,20 +73,17 @@ class StudentPage extends React.Component {
         // this.context.setAuthorized(false, this.state.tempuser); 
         this.props.setStudentEmail(this.state.tempuser);
         this.forceUpdate();
-        if (!this.context.currentLab) {
-            this.getLab();
+        if (!this.props.currentLab) {
+            this.getWorkshop(this.props.match.params.workshop_id);
         }
     }
 
-    getLab() {
+    getWorkshop(workshop_id) {
         Axios.get(
-            // Not getting the lab directly any longer
-            // `https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getLab`,
-            // getting the workshop instead
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/elaborate-qxkxj/service/elaborate/incoming_webhook/getWorkshop",
             { 
                 params: {
-                    id: this.props.match.params.workshop_id
+                    id: workshop_id
                 }
             }
         )
@@ -63,6 +92,26 @@ class StudentPage extends React.Component {
             this.props.setCurrentLab(response.data.lab);
         });
     }
+
+    iFrameMessageBox = () => {
+        // var linkText = `${window.location.href}/${this.props.studentEmail}`;
+        var linkText = `${window.location.href}/student@email.com`;
+        return(
+            <div className="modal">
+                <div className="modal-content">
+                    <h2>We will need to open in a new Window (or Tab) in order to make use of the clipboard</h2>
+                    <a  href={linkText} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary LinkButton"
+                        >
+                        <FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab
+                    </a>
+                </div>
+            </div>
+        );
+    }
+
 
     emailForm = () => {
         return(
@@ -83,6 +132,10 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount() {
+        if ((!this.props.studentEmail) && (this.state.student_id)) {
+            console.log("Student ID to Redux.StudentEmail:", this.state.student_id);
+            this.props.setStudentEmail(this.state.student_id);
+        }
         if ((this.props.match.workshop_id) && (!this.props.currentLab)) {
             this.getLab();
         } else {
@@ -91,15 +144,24 @@ class StudentPage extends React.Component {
     }
 
     render() {
-        //--------------------------------------------------------------------
-        //  Started getting iFrame security issues after adding this code
-        //  Let's remove it and see if the issue goes away
-        //--------------------------------------------------------------------
-        // console.log("Email from parent:", window.parent.email)
-        // if (window.parent.email) {
-        //     console.log("Email from parent:", window.parent.email)
-        //     this.props.setStudentEmail(window.parent.email);
-        // }
+        //-------------------------------------------------------------------------------------------
+        //  If inside an iFrame, display link to open in a new window/tab
+        //    - copyToClipBoard will not work inside an iFrame
+        //  Prompt for Student ID (email address) if we didn't have one passed
+        //  
+        //  
+        //  
+        //  
+        //  
+        //  
+        //-------------------------------------------------------------------------------------------
+        //
+        // console.log("StudentPage.render - window.location:",window.location);
+        // console.log("StudentPage.render - window.parent.location:",window.parent.location);
+        // if (window.location !== window.parent.location) {
+        if (window.self !== window.top) {
+            return(<this.iFrameMessageBox/>);
+        }
         if (this.props.studentEmail === "") {
             return(<this.emailForm/>);
         }

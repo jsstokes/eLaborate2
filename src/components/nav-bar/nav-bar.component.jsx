@@ -11,6 +11,7 @@ class MyNavBar extends React.Component {
 
     render() {
         // var disabledValue = false;
+        console.log("NavBar - this.props.userid",this.props.userid);
         if (this.props.userid) {
             return(
                 <Navbar collapseOnSelect expand="lg" bg="NavBG" variant="dark">

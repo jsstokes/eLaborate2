@@ -80,7 +80,7 @@ class LabDetails extends React.Component {
 
 
     EditButton = (props) => {
-        if (this.props.userid) {
+         if (props.userid) {
             return(
                     <Fragment>
                         <button onClick={this.toggleEdit}  className={props.className}>Edit</button>&nbsp;&nbsp;
@@ -96,12 +96,15 @@ class LabDetails extends React.Component {
         // for the copy text function to work properly (due to security restrictions)
         // ----------------------------------------------------------------------------
         if (window.location !== window.parent.location) {
+            var linkText = `${window.location.href}/${this.props.studentEmail}`;
+            console.log("iFrame link is using:", this.props.studentEmail);
+            console.log("iFrame link text:", linkText);
             return(
-                <a  href={`${window.location.href}/${this.props.userid}`} 
+                <a  href={linkText} 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary LinkButton"
-                    ><FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab
+                    ><FontAwesomeIcon icon={faPlay}/>&nbsp;&nbsp;Start the Lab Details
                 </a>
             );
         }

@@ -61,7 +61,7 @@ class ButtonBar extends React.Component {
         );
      }
      EditButton = (props) => {
-        if (this.props.userid) {
+        if (props.userid) {
             return(
                 <Button onClick={props.onClick}  className={props.className}>
                     <FontAwesomeIcon icon={faUserEdit} />&nbsp;Edit
